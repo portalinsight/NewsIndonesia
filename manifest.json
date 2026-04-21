@@ -1,0 +1,18 @@
+{
+  "name": "Insight News Indonesia",
+  "short_name": "InsightNews",
+  "description": "Portal berita terpercaya",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "#e74c3c",
+  "background_color": "#0a0a2a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/851Jq0Xd/image-3.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

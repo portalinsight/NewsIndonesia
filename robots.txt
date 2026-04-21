@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://insightnewsindonesia.netlify.app/sitemap.xml

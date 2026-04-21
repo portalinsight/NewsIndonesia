@@ -1,0 +1,32 @@
+# Wajib untuk semua crawler mesin pencari
+User-agent: *
+Allow: /
+
+# Tunjukkan lokasi sitemap (penting untuk SEO)
+Sitemap: https://portalinsight.github.io/NewsIndonesia/sitemap.xml
+
+# Blokir folder yang tidak perlu diindeks (jika ada)
+Disallow: /images/
+Disallow: /assets/
+Disallow: /css/
+Disallow: /js/
+
+# Blokir file internal
+Disallow: /manifest.json
+Disallow: /sw.js
+
+# Aturan khusus untuk Google (opsional)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Aturan untuk Google Images (agar gambar tetap bisa muncul di pencarian)
+User-agent: Googlebot-Image
+Allow: /images/
+
+# Aturan untuk bot media sosial (supaya gambar thumbnail tetap terbaca)
+User-agent: Facebookbot
+Allow: /images/
+
+User-agent: Twitterbot
+Allow: /images/

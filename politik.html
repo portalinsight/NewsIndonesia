@@ -1,32 +1,69 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta name="google-site-verification" content="2luAykCIhOeC3M6MwyVRGqtHPz0O9sF4uAJ5rd4ZeUA" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- SEO Meta Tags -->
-<meta name="description" content="Insight News Indonesia - Portal berita terpercaya dengan informasi terkini, akurat, dan berimbang. Jurnalisme berkualitas dengan integritas.">
-<link rel="canonical" href="https://insightnewsindonesia.netlify.app/">
-    <meta name="google-site-verification" content="EvvfRrKI9twoJaNOV-gChTP4uVkgrw0wZbPgzz-MKwg">
-  <!-- Open Graph / Social Media Meta Tags -->
-<meta property="og:title" content="Insight News Indonesia - Portal Berita Terpercaya">
-<meta property="og:description" content="Berita terkini, akurat, dan berimbang dari Insight News Indonesia. Jurnalisme berkualitas dengan integritas.">
-<meta property="og:image" content="https://raw.githubusercontent.com/tulusbayuprasetio/Botcompany/main/gambar.jpg">
+  <meta name="google-site-verification" content="EuH9rpLccwZzApfGlW67GCGemXToWE68fcXtF8ZGSvk" />
+  <meta name="google-site-verification" content="HR6mGg2UvjlKZGlGR0CVZSfAJbqv2lOtuYkb8W0bQFQ" />
+
+<link rel="manifest" href="/NewsIndonesia/manifest.json">
+<meta name="theme-color" content="#1e3c72">
+
+
+<!-- Primary Meta Tags -->
+<title>INSIGHT NEWS INDONESIA | Berita Terkini & Wawasan Mendalam</title>
+<meta name="description" content="INSIGHT NEWS INDONESIA – Portal berita terpercaya dengan analisis tajam, update politik, ekonomi, teknologi, dan gaya hidup. Dapatkan wawasan eksklusif hanya di Insight News Indonesia.">
+<meta name="keywords" content="berita indonesia, insight news, berita terkini, insightnewsindonesia, berita politik, ekonomi digital, teknologi, lifestyle">
+<meta name="author" content="INSIGHT NEWS INDONESIA">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="language" content="Indonesian">
+<meta name="revisit-after" content="1 days">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://portalinsight.github.io/NewsIndonesia/">
+
+<!-- Thumbnail untuk Google Search (gambar di sebelah kiri hasil pencarian) -->
+<!-- Ganti path ini sesuai lokasi file image-14.jpg Anda -->
+<meta name="thumbnail" content="https://portalinsight.github.io/NewsIndonesia/images/image-14.jpg">
+
+<!-- Schema.org untuk website dan gambar -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "INSIGHT NEWS INDONESIA",
+  "url": "https://portalinsight.github.io/NewsIndonesia/",
+  "image": "https://portalinsight.github.io/NewsIndonesia/images/image-14.jpg",
+  "description": "INSIGHT NEWS INDONESIA – Berita terpercaya dengan wawasan mendalam untuk masyarakat Indonesia.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "INSIGHT NEWS INDONESIA"
+  }
+}
+</script>
+
+<!-- Open Graph / Social Media Sharing (gambar yang muncul saat tautan dibagikan) -->
+<meta property="og:title" content="INSIGHT NEWS INDONESIA - Berita & Wawasan Terpercaya">
+<meta property="og:description" content="Berita terkini, analisis mendalam, dan wawasan eksklusif dari berbagai sektor. Kunjungi Insight News Indonesia untuk informasi teraktual.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://portalinsight.github.io/NewsIndonesia/">
+<!-- Ganti path ini sesuai lokasi file gambar.jpg Anda -->
+<meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/images/gambar.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://fastidious-lamington-49042a.netlify.app/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Insight News Indonesia">
+<meta property="og:image:alt" content="INSIGHT NEWS INDONESIA - Portal Berita Modern">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="INSIGHT NEWS INDONESIA">
 
-<!-- Twitter Card (opsional, untuk tampilan lebih baik di Twitter) -->
+<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Insight News Indonesia">
-<meta name="twitter:description" content="Berita terkini dan terpercaya.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/tulusbayuprasetio/Botcompany/main/gambar.jpg">
-  <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#e74c3c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="InsightNews">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/851Jq0Xd/image-3.jpg">
+<meta name="twitter:title" content="INSIGHT NEWS INDONESIA - Berita & Wawasan Terpercaya">
+<meta name="twitter:description" content="Berita terkini, analisis mendalam, dan wawasan eksklusif. Insight News Indonesia, sumber berita modern.">
+<meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/images/gambar.jpg">
+<meta name="twitter:image:alt" content="Thumbnail Insight News Indonesia">
+
+<!-- Mobile Viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Breaking News - Insight News Indonesia</title>
@@ -416,5 +453,60 @@
       .catch(err => console.log('Service Worker registration failed', err));
   }
 </script>
+<script>
+    // ========== LOGIC PWA INSTALL PROMPT ==========
+    let deferredPrompt;
+    const installBanner = document.getElementById('installBanner');
+    
+    // Tangkap event beforeinstallprompt (hanya muncul jika PWA memenuhi syarat)
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Tampilkan banner jika belum pernah ditutup
+        if (!localStorage.getItem('installBannerClosed')) {
+            installBanner.style.display = 'flex';
+        }
+    });
+    
+    // Fallback: jika tidak ada event dalam 3 detik (misal sudah terinstall atau browser不支持), tetap tampilkan banner untuk panduan manual
+    setTimeout(() => {
+        if (!deferredPrompt && !localStorage.getItem('installBannerClosed')) {
+            installBanner.style.display = 'flex';
+        }
+    }, 3000);
+    
+    // Tombol tutup banner
+    document.getElementById('closeBannerBtn').addEventListener('click', function() {
+        installBanner.style.display = 'none';
+        localStorage.setItem('installBannerClosed', 'true');
+    });
+    
+    // Tombol install - memicu prompt native jika tersedia
+    document.getElementById('installBtn').addEventListener('click', async function() {
+        if (deferredPrompt) {
+            // Munculkan dialog install native
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`Hasil install: ${outcome}`);
+            deferredPrompt = null;
+            // Sembunyikan banner setelah user memilih
+            installBanner.style.display = 'none';
+            localStorage.setItem('installBannerClosed', 'true');
+        } else {
+            // Fallback manual untuk iOS atau browser tanpa dukungan
+            alert('Untuk menginstall aplikasi:\n• Android: Buka menu browser → "Install app" / "Add to Home Screen"\n• iPhone: Buka Share → "Add to Home Screen"');
+            installBanner.style.display = 'none';
+            localStorage.setItem('installBannerClosed', 'true');
+        }
+    });
+    
+    // ========== REGISTRASI SERVICE WORKER ==========
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/NewsIndonesia/sw.js')
+            .then(reg => console.log('Service Worker berhasil didaftarkan', reg))
+            .catch(err => console.error('Service Worker gagal:', err));
+    }
+</script>
+
 </body>
 </html>

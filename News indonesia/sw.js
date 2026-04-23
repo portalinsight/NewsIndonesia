@@ -1,9 +1,19 @@
+const CACHE_NAME = 'insight-news-v1';
+const urlsToCache = [
+  '/NewsIndonesia/',
+  '/NewsIndonesia/index.html',
+  '/NewsIndonesia/detail.html',
+  '/NewsIndonesia/style.css'
+];
+
 self.addEventListener('install', event => {
-  console.log('Service Worker installed');
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+  );
 });
 
 self.addEventListener('fetch', event => {
-  // Bisa ditambahkan cache strategy nanti, untuk sekarang biarkan fetch normal
-  event.respondWith(fetch(event.request));
+  event.respondWith(
+    caches.match(event.request).then(response => response || fetch(event.request))
+  );
 });

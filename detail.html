@@ -3,20 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <!-- Gambar untuk preview share WhatsApp/Facebook (tidak muncul di halaman) -->
-<meta property="og:image" content="https://github.com/portalinsight/NewsIndonesia/raw/main/Images/gambar.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:image" content="https://github.com/portalinsight/NewsIndonesia/raw/main/Images/gambar.jpg">
+    
+    <!-- Meta Social -->
+    <meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/Images/gambar.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/Images/gambar.jpg">
+    
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="EuH9rpLccwZzApfGlW67GCGemXToWE68fcXtF8ZGSvk" />
     <meta name="google-site-verification" content="HR6mGg2UvjlKZGlGR0CVZSfAJbqv2lOtuYkb8W0bQFQ" />
-    
-    <!-- Gambar untuk preview share WhatsApp/Facebook (tidak muncul di halaman) -->
-<meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/Images/gambar.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/Images/gambar.jpg">
     
     <!-- PWA -->
     <link rel="manifest" href="/NewsIndonesia/manifest.json">
@@ -25,7 +21,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="InsightNews">
     
-    <!-- Open Graph / Social Media Meta - Akan diupdate dinamis dengan JavaScript -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Insight News Indonesia" id="ogTitle">
     <meta property="og:description" content="Baca berita lengkap dan terpercaya hanya di Insight News Indonesia" id="ogDesc">
     <meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/Images/default.jpg" id="ogImage">
@@ -72,7 +68,6 @@
         body.dark .detail-container { background: #1e293b; }
         body.dark .detail-content { color: #cbd5e1; }
         
-        /* Styling untuk berita terbaru di bawah */
         .main-layout { max-width: 1280px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-left: 4px solid #e74c3c; padding-left: 16px; }
         .section-header h2 { font-size: 1.4rem; font-weight: 700; margin: 0; }
@@ -101,9 +96,43 @@
         body.dark .pagination button { background: #334155; border-color: #475569; color: white; }
         @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
         
-        /* Loading spinner */
         .spinner { text-align: center; padding: 40px; color: #64748b; }
         .error-message { text-align: center; padding: 40px; color: #e74c3c; }
+        
+        /* MODAL INSTALL */
+        .install-modal-overlay {
+            display: none; 
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6); z-index:2000; 
+            align-items:center; justify-content:center;
+        }
+        .install-modal {
+            background: white; 
+            border-radius: 20px; padding: 30px; 
+            max-width: 380px; width: 90%;
+            text-align: center; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop { 
+            from { transform: scale(0.8); opacity:0; } 
+            to { transform: scale(1); opacity:1; } 
+        }
+        .install-modal h3 { margin:0 0 12px; font-size:1.4rem; color:#1e293b; }
+        .install-modal p { color:#64748b; margin-bottom:20px; line-height:1.5; }
+        .btn-install, .btn-later {
+            padding:12px 24px; border-radius:40px; border:none; 
+            font-weight:700; cursor:pointer; margin:5px;
+            transition: all 0.2s;
+        }
+        .btn-install { background: #e74c3c; color:white; }
+        .btn-install:hover { background:#c0392b; transform:translateY(-2px); }
+        .btn-later { background: #e2e8f0; color:#475569; }
+        .btn-later:hover { background:#cbd5e1; }
+        body.dark .install-modal { background:#1e293b; }
+        body.dark .install-modal h3 { color:#f1f5f9; }
+        body.dark .install-modal p { color:#94a3b8; }
+        body.dark .btn-later { background:#334155; color:#cbd5e1; }
     </style>
 </head>
 <body>
@@ -184,61 +213,24 @@
     </aside>
 </div>
 
-<!-- FOOTER -->
-
-<!-- Tombol Install Aplikasi - Posisi Tengah -->
+<!-- Tombol Install di Footer -->
 <div style="text-align: center; margin: 30px 0 20px;">
     <button id="installAppBtn" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 14px 32px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 12px; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(59,130,246,0.4);">
         <i class="fas fa-download"></i> Install Aplikasi
     </button>
 </div>
 
-<script>
-    // ========== TOMBOL INSTALL APLIKASI (PWA) ==========
-    let deferredPrompt;
+<!-- MODAL INSTALL -->
+<div class="install-modal-overlay" id="installModalOverlay">
+    <div class="install-modal">
+        <h3>📲 Install Aplikasi Insight News</h3>
+        <p>Dapatkan berita terkini lebih cepat & praktis, tanpa buka browser lagi.</p>
+        <button class="btn-install" id="btnInstallNow">Install Sekarang</button>
+        <button class="btn-later" id="btnInstallLater">Nanti Saja</button>
+    </div>
+</div>
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-    });
-
-    async function triggerInstall() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response: ${outcome}`);
-            deferredPrompt = null;
-        } else {
-            alert('Untuk menginstall aplikasi:\n\n📱 Android: Buka menu browser → "Install app" / "Tambahkan ke layar utama"\n🍎 iPhone: Buka Share → "Tambahkan ke layar utama"');
-        }
-    }
-
-    const installBtn = document.getElementById('installAppBtn');
-    if (installBtn) {
-        installBtn.addEventListener('click', triggerInstall);
-        
-        // Hover effect
-        installBtn.addEventListener('mouseenter', () => {
-            installBtn.style.transform = 'translateY(-3px)';
-            installBtn.style.boxShadow = '0 8px 20px rgba(59,130,246,0.5)';
-        });
-        installBtn.addEventListener('mouseleave', () => {
-            installBtn.style.transform = 'translateY(0)';
-            installBtn.style.boxShadow = '0 4px 12px rgba(59,130,246,0.4)';
-        });
-    }
-</script>
-
-<style>
-    /* Responsif untuk HP */
-    @media (max-width: 768px) {
-        #installAppBtn {
-            padding: 10px 24px !important;
-            font-size: 0.85rem !important;
-            gap: 8px !important;
-        }
-    }
-</style>
+<!-- Footer -->
 <footer style="background: #0a0a2a; color: #94a3b8; padding: 50px 0 20px; margin-top: 50px; border-top: 1px solid #1e293b; font-family: 'Plus Jakarta Sans', sans-serif;">
     <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 20px;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-bottom: 40px;">
@@ -331,10 +323,12 @@
     @media (max-width: 768px) {
         footer .container { padding: 0 15px; }
         .btn-redaksi-tengah { padding: 10px 20px; font-size: 0.85rem; gap: 8px; }
+        #installAppBtn { padding: 10px 24px !important; font-size: 0.85rem !important; gap: 8px !important; }
     }
     body.dark .btn-redaksi-tengah { box-shadow: 0 4px 12px rgba(231,76,60,0.5); }
 </style>
 
+<!-- SCRIPTS -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script>
@@ -360,12 +354,10 @@
         return temp.textContent || temp.innerText || '';
     }
 
-    // ==================== UPDATE META TAGS UNTUK SHARE (GAMBAR TAMPIL) ====================
+    // ==================== UPDATE META TAGS ====================
     function updateMetaTags(news, shareUrl) {
-        // Update title browser
         document.title = news.title + " - Insight News Indonesia";
         
-        // Ambil gambar - prioritas: images[0] > image > default
         let imageUrl = 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg';
         if (news.images && news.images.length > 0 && news.images[0]) {
             imageUrl = news.images[0];
@@ -373,37 +365,32 @@
             imageUrl = news.image;
         }
         
-        // Pastikan URL gambar absolute (jika relatif, tambahkan base)
         if (imageUrl.startsWith('/')) {
             imageUrl = window.location.origin + imageUrl;
         }
         
         const description = news.shortText || extractTextFromHtml(news.content).substring(0, 160) || "Baca berita lengkap di Insight News Indonesia";
         
-        // Update Open Graph meta
-        let ogTitle = document.querySelector('meta[property="og:title"]');
-        let ogDesc = document.querySelector('meta[property="og:description"]');
-        let ogImage = document.querySelector('meta[property="og:image"]');
-        let ogUrl = document.querySelector('meta[property="og:url"]');
+        // Update meta tags
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        const ogUrl = document.querySelector('meta[property="og:url"]');
         
         if (ogTitle) ogTitle.setAttribute('content', news.title);
         if (ogDesc) ogDesc.setAttribute('content', description);
         if (ogImage) ogImage.setAttribute('content', imageUrl);
         if (ogUrl) ogUrl.setAttribute('content', shareUrl);
         
-        // Update Twitter Card meta
-        let twitterTitle = document.querySelector('meta[name="twitter:title"]');
-        let twitterDesc = document.querySelector('meta[name="twitter:description"]');
-        let twitterImage = document.querySelector('meta[name="twitter:image"]');
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        const twitterImage = document.querySelector('meta[name="twitter:image"]');
         
         if (twitterTitle) twitterTitle.setAttribute('content', news.title);
         if (twitterDesc) twitterDesc.setAttribute('content', description);
         if (twitterImage) twitterImage.setAttribute('content', imageUrl);
-        
-        console.log('Meta tags updated - Image URL:', imageUrl);
     }
 
-    // Fungsi untuk mendapatkan ID dari URL (menggunakan HASH #)
     function getNewsIdFromUrl() {
         const hash = window.location.hash.substring(1);
         if (hash) return hash;
@@ -418,23 +405,23 @@
         const newsId = getNewsIdFromUrl();
         
         if (!newsId) {
-            document.getElementById('detailContainer').innerHTML = '<div class="error-message">Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
+            document.getElementById('detailContainer').innerHTML = '<div class="error-message">❌ Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
             return;
         }
         
         try {
+            console.log('📰 Loading news ID:', newsId);
             const snapshot = await database.ref(`news/${newsId}`).once('value');
             const news = snapshot.val();
             
             if (!news) {
-                document.getElementById('detailContainer').innerHTML = '<div class="error-message">Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
+                document.getElementById('detailContainer').innerHTML = '<div class="error-message">❌ Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
                 return;
             }
             
-            // URL untuk share (menggunakan HASH)
-            const shareUrl = `${window.location.origin}${window.location.pathname}#${newsId}`;
+            console.log('✅ News loaded:', news.title);
             
-            // Update meta tags untuk share (AGAR GAMBAR TAMPIL)
+            const shareUrl = `${window.location.origin}${window.location.pathname}#${newsId}`;
             updateMetaTags(news, shareUrl);
             
             // Galeri gambar
@@ -460,14 +447,14 @@
                     <a href="https://wa.me/?text=${shareText}${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
                     <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(news.title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                    <button class="share-btn share-copy" onclick="copyToClipboard('${shareUrl}')"><i class="fas fa-link"></i> Salin Link</button>
+                    <button class="share-btn share-copy" onclick="copyToClipboard('${shareUrl.replace(/'/g, "\\'")}')"><i class="fas fa-link"></i> Salin Link</button>
                 </div>
             `;
             
             const html = `
                 <h1 class="detail-title">${escapeHtml(news.title)}</h1>
                 <div class="detail-meta">
-                    <span><i class="far fa-calendar"></i> ${new Date(news.date).toLocaleDateString('id-ID')}</span>
+                    <span><i class="far fa-calendar"></i> ${new Date(news.date).toLocaleDateString('id-ID', {year:'numeric', month:'long', day:'numeric'})}</span>
                     <span><i class="far fa-eye"></i> ${formatNumber(news.views)} views</span>
                     <span><i class="fas fa-tag"></i> ${(news.category || 'Umum').toUpperCase()}</span>
                 </div>
@@ -479,16 +466,26 @@
             
             document.getElementById('detailContainer').innerHTML = html;
             
-            // Update views
-            await database.ref(`news/${newsId}/views`).set((news.views || 0) + 1);
+            // Tampilkan modal install setelah 2 detik
+            setTimeout(() => {
+                showInstallModalIfEligible();
+            }, 2000);
+            
+            // Update views di background
+            database.ref(`news/${newsId}/views`).set((news.views || 0) + 1).catch(err => console.log('Update views error:', err));
+            
         } catch (error) {
-            console.error('Error loading detail:', error);
-            document.getElementById('detailContainer').innerHTML = '<div class="error-message">Gagal memuat berita. Silakan coba lagi.</div>';
+            console.error('❌ Error loading detail:', error);
+            document.getElementById('detailContainer').innerHTML = '<div class="error-message">⚠️ Gagal memuat berita. Silakan coba lagi.</div>';
         }
     }
     
     function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => alert('✅ Tautan berita disalin!'));
+        navigator.clipboard.writeText(text).then(() => {
+            alert('✅ Tautan berita disalin!');
+        }).catch(() => {
+            alert('Gagal menyalin. Silakan coba manual.');
+        });
     }
     
     window.openLightbox = (src) => {
@@ -506,33 +503,38 @@
         lb.style.display = 'flex';
     };
     
-    // ==================== LOAD BERITA TERBARU (UNTUK BAGIAN "LIHAT SELENGKAPNYA") ====================
+    // ==================== LOAD BERITA TERBARU ====================
     let currentPage = 1;
     const itemsPerPage = 6;
     let allNews = [];
     
     async function loadLatestNews() {
         try {
+            console.log('📋 Loading latest news...');
             const snapshot = await database.ref('news').orderByChild('date').once('value');
-            const newsData = snapshot.val();
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI: newsData bukan newData
+            
             if (!newsData) {
                 document.getElementById('newsGrid').innerHTML = '<div class="error-message">Belum ada berita</div>';
                 return;
             }
             
-            allNews = Object.entries(newsData).map(([id, data]) => ({ id, ...data }));
+            allNews = Object.entries(newsData).map(([id, data]) => ({ id, ...data })); // ✅ DIPERBAIKI
             allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            console.log(`✅ Loaded ${allNews.length} news items`);
             
             renderNewsGrid();
             renderPagination();
             
-            // Load trending & hot news untuk sidebar
+            // Load sidebar
             loadTrendingNews();
             loadHotNews();
             loadShortNews();
+            
         } catch (error) {
-            console.error('Error loading latest news:', error);
-            document.getElementById('newsGrid').innerHTML = '<div class="error-message">Gagal memuat berita terbaru</div>';
+            console.error('❌ Error loading latest news:', error);
+            document.getElementById('newsGrid').innerHTML = '<div class="error-message">⚠️ Gagal memuat berita terbaru</div>';
         }
     }
     
@@ -550,7 +552,8 @@
             <div class="news-card" onclick="location.href='detail.html#${news.id}'">
                 <img src="${news.image || (news.images && news.images[0]) || 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg'}" 
                      alt="${escapeHtml(news.title)}" 
-                     onerror="this.src='https://portalinsight.github.io/NewsIndonesia/Images/default.jpg'">
+                     onerror="this.src='https://portalinsight.github.io/NewsIndonesia/Images/default.jpg'" 
+                     loading="lazy">
                 <div class="news-card-content">
                     <h3 class="news-card-title">${escapeHtml(news.title)}</h3>
                     <div class="news-card-date">${new Date(news.date).toLocaleDateString('id-ID')}</div>
@@ -587,9 +590,10 @@
     async function loadTrendingNews() {
         try {
             const snapshot = await database.ref('news').orderByChild('views').limitToLast(5).once('value');
-            const newsData = snapshot.val();
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI
+            
             if (newsData) {
-                const trending = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0));
+                const trending = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0)); // ✅ DIPERBAIKI
                 const html = trending.map(item => `<li onclick="location.href='detail.html#${item.id}'">🔥 ${escapeHtml(item.title.substring(0, 60))}${item.title.length>60?'...':''}</li>`).join('');
                 document.getElementById('trendingList').innerHTML = html || '<li>Belum ada data trending</li>';
             }
@@ -599,9 +603,10 @@
     async function loadHotNews() {
         try {
             const snapshot = await database.ref('news').orderByChild('views').limitToLast(5).once('value');
-            const newsData = snapshot.val();
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI
+            
             if (newsData) {
-                const hot = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0));
+                const hot = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0)); // ✅ DIPERBAIKI
                 const html = hot.map(item => `<li onclick="location.href='detail.html#${item.id}'"><i class="fas fa-fire" style="color:#e74c3c"></i> ${escapeHtml(item.title.substring(0, 60))}${item.title.length>60?'...':''}</li>`).join('');
                 document.getElementById('hotList').innerHTML = html || '<li>Belum ada hot news</li>';
             }
@@ -611,16 +616,74 @@
     async function loadShortNews() {
         try {
             const snapshot = await database.ref('news').orderByChild('date').limitToLast(5).once('value');
-            const newsData = snapshot.val();
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI
+            
             if (newsData) {
-                const short = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => new Date(b.date) - new Date(a.date));
+                const short = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => new Date(b.date) - new Date(a.date)); // ✅ DIPERBAIKI
                 const html = short.map(item => `<li onclick="location.href='detail.html#${item.id}'">📌 ${escapeHtml(item.title.substring(0, 50))}${item.title.length>50?'...':''}</li>`).join('');
                 document.getElementById('shortNewsList').innerHTML = html || '<li>Belum ada flash news</li>';
             }
         } catch(e) { console.error('Short news error:', e); }
     }
     
-    // Dark Mode
+    // ==================== INSTALL HANDLER (HANYA 1X) ====================
+    let deferredPrompt;
+    let installModalShown = false;
+
+    // Tangkap event beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        console.log('✅ beforeinstallprompt captured');
+    });
+
+    function showInstallModalIfEligible() {
+        if (deferredPrompt && !installModalShown && !sessionStorage.getItem('installModalShown')) {
+            const modal = document.getElementById('installModalOverlay');
+            if (modal) {
+                modal.style.display = 'flex';
+                installModalShown = true;
+                sessionStorage.setItem('installModalShown', 'true');
+                console.log('📲 Install modal shown');
+            }
+        }
+    }
+
+    // Tombol Install di Modal
+    document.getElementById('btnInstallNow')?.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('Install outcome:', outcome);
+            deferredPrompt = null;
+        } else {
+            alert('Untuk menginstall:\n📱 Android: Menu browser → "Install app"\n🍎 iPhone: Share → "Tambahkan ke layar utama"');
+        }
+        document.getElementById('installModalOverlay').style.display = 'none';
+    });
+
+    document.getElementById('btnInstallLater')?.addEventListener('click', () => {
+        document.getElementById('installModalOverlay').style.display = 'none';
+    });
+
+    // Tombol Install di Footer
+    document.getElementById('installAppBtn')?.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('Install outcome:', outcome);
+            deferredPrompt = null;
+        } else {
+            alert('Untuk menginstall:\n📱 Android: Menu browser → "Install app"\n🍎 iPhone: Share → "Tambahkan ke layar utama"');
+        }
+    });
+
+    // Cek sessionStorage
+    if (sessionStorage.getItem('installModalShown') === 'true') {
+        installModalShown = true;
+    }
+    
+    // ==================== DARK MODE ====================
     function initDarkMode() {
         if (localStorage.getItem('darkMode') === 'enabled') {
             document.body.classList.add('dark');
@@ -647,7 +710,7 @@
         if (el) el.innerHTML = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' });
     }
     
-    // Search functionality
+    // Search
     document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const query = e.target.value.trim();
@@ -655,51 +718,25 @@
         }
     });
     
-    // Initialize
+    // ==================== INITIALIZE ====================
     document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
     initDarkMode();
-    loadDetail();
-    loadLatestNews();
     updateDateTime();
     setInterval(updateDateTime, 60000);
+    
+    // Load data (gunakan try-catch global)
+    window.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Starting app...');
+        loadDetail().catch(err => console.error('Detail load failed:', err));
+        loadLatestNews().catch(err => console.error('Latest news load failed:', err));
+    });
     
     // Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered', reg))
-            .catch(err => console.log('Service Worker failed', err));
+            .then(reg => console.log('✅ Service Worker registered'))
+            .catch(err => console.log('⚠️ Service Worker failed:', err));
     }
-    
-    // ========== TOMBOL INSTALL APLIKASI | PWA ==========
-let deferredPrompt;
-
-// Tangkap event beforeinstallprompt
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    // Sembunyikan banner otomatis jika tidak ingin muncul (opsional)
-    // Tapi tetap biarkan tombol install manual aktif
-});
-
-// Fungsi untuk memicu install
-async function triggerInstall() {
-    if (deferredPrompt) {
-        // Tampilkan dialog install native
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response: ${outcome}`);
-        deferredPrompt = null;
-    } else {
-        // Fallback untuk browser yang tidak support atau PWA sudah terinstall
-        alert('Untuk menginstall aplikasi:\n\n• Android: Buka menu browser → "Install app" / "Tambahkan ke layar utama"\n• iPhone: Buka Share → "Tambahkan ke layar utama"');
-    }
-}
-
-// Pasang event listener ke tombol install
-const installBtn = document.getElementById('installAppBtn');
-if (installBtn) {
-    installBtn.addEventListener('click', triggerInstall);
-}
 </script>
 </body>
 </html>

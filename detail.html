@@ -15,14 +15,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="InsightNews">
     
-    <!-- Open Graph / Social Media Meta (akan diupdate dinamis dengan JavaScript) -->
+    <!-- Open Graph / Social Media Meta - Akan diupdate dinamis dengan JavaScript -->
     <meta property="og:title" content="Insight News Indonesia" id="ogTitle">
     <meta property="og:description" content="Baca berita lengkap dan terpercaya hanya di Insight News Indonesia" id="ogDesc">
     <meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/Images/default.jpg" id="ogImage">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="" id="ogUrl">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Insight News Indonesia">
+    <meta property="og:locale" content="id_ID">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Insight News Indonesia" id="twitterTitle">
+    <meta name="twitter:description" content="Baca berita lengkap dan terpercaya di Insight News Indonesia" id="twitterDesc">
+    <meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/Images/default.jpg" id="twitterImage">
     
     <title>Detail Berita - Insight News Indonesia</title>
     
@@ -32,16 +38,17 @@
     
     <style>
         .lightbox { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center; }
-        .lightbox img { max-width:90%; max-height:90%; }
-        .lightbox-close { position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer; }
+        .lightbox img { max-width:90%; max-height:90%; border-radius:8px; }
+        .lightbox-close { position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer; font-weight:bold; }
         .share-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
-        .share-btn { padding: 8px 16px; border-radius: 40px; color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+        .share-btn { padding: 8px 16px; border-radius: 40px; color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; cursor: pointer; border: none; }
+        .share-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
         .share-wa { background: #25D366; }
         .share-fb { background: #1877f2; }
         .share-twitter { background: #1da1f2; }
-        .share-copy { background: #64748b; border: none; cursor: pointer; }
+        .share-copy { background: #64748b; }
         .detail-container { max-width: 800px; margin: 40px auto; background: white; border-radius: 24px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        .detail-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 16px; }
+        .detail-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 16px; line-height: 1.3; }
         .detail-meta { display: flex; gap: 20px; color: #64748b; font-size: 0.85rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
         .detail-content { font-size: 1rem; line-height: 1.8; color: #334155; }
         .detail-content p { margin-bottom: 1.2em; }
@@ -49,10 +56,44 @@
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 25px 0; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; }
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
-        .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 12px; cursor: pointer; }
+        .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 12px; cursor: pointer; transition: transform 0.2s; }
+        .gallery img:hover { transform: scale(1.02); }
         @media (max-width: 768px) { .detail-container { padding: 20px; margin: 20px; } .detail-title { font-size: 1.4rem; } }
         body.dark .detail-container { background: #1e293b; }
         body.dark .detail-content { color: #cbd5e1; }
+        
+        /* Styling untuk berita terbaru di bawah */
+        .main-layout { max-width: 1280px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-left: 4px solid #e74c3c; padding-left: 16px; }
+        .section-header h2 { font-size: 1.4rem; font-weight: 700; margin: 0; }
+        .section-header a { color: #e74c3c; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px; }
+        .news-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s; cursor: pointer; }
+        .news-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .news-card img { width: 100%; height: 180px; object-fit: cover; }
+        .news-card-content { padding: 16px; }
+        .news-card-title { font-size: 1rem; font-weight: 700; margin: 0 0 8px 0; line-height: 1.4; color: #1e293b; }
+        .news-card-date { font-size: 0.7rem; color: #94a3b8; }
+        body.dark .news-card { background: #1e293b; }
+        body.dark .news-card-title { color: #f1f5f9; }
+        .sidebar-widget { background: white; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        body.dark .sidebar-widget { background: #1e293b; }
+        .widget-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #e74c3c; display: inline-block; }
+        .trending-list, .hot-list { list-style: none; padding: 0; margin: 0; }
+        .trending-list li, .hot-list li { padding: 12px 0; border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: color 0.2s; }
+        .trending-list li:hover, .hot-list li:hover { color: #e74c3c; }
+        .trending-list li:last-child, .hot-list li:last-child { border-bottom: none; }
+        .news-counter { font-size: 0.8rem; color: #64748b; margin: 16px 0; }
+        .pagination { display: flex; gap: 8px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+        .pagination button { padding: 8px 16px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .pagination button.active { background: #e74c3c; color: white; border-color: #e74c3c; }
+        .pagination button:hover:not(.active) { background: #f1f5f9; }
+        body.dark .pagination button { background: #334155; border-color: #475569; color: white; }
+        @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
+        
+        /* Loading spinner */
+        .spinner { text-align: center; padding: 40px; color: #64748b; }
+        .error-message { text-align: center; padding: 40px; color: #e74c3c; }
     </style>
 </head>
 <body>
@@ -94,50 +135,44 @@
 
 <main>
     <div class="detail-container" id="detailContainer">
-        <div style="text-align: center; padding: 60px;"><i class="fas fa-spinner fa-pulse"></i> Memuat berita...</div>
+        <div class="spinner"><i class="fas fa-spinner fa-pulse"></i> Memuat berita...</div>
     </div>
 </main>
-<!-- tambahan -->
 
-
- <div class="main-layout">
-        <div>
-            <div class="section-header">
-                <h2>Berita Terbaru</h2>
-                <a href="#">Lihat Semua →</a>
-            </div>
-            <div class="news-grid" id="newsGrid"></div>
-            <div id="newsCounter" class="news-counter"></div>
-            <div id="pagination" class="pagination"></div>
+<!-- Section Berita Terbaru dan Sidebar -->
+<div class="main-layout">
+    <div>
+        <div class="section-header">
+            <h2>Berita Terbaru</h2>
+            <a href="index.html">Lihat Semua →</a>
         </div>
-        <aside>
-            <div class="sidebar-widget">
-                <h3 class="widget-title"><i class="fas fa-chart-line"></i> Trending</h3>
-                <ul class="trending-list" id="trendingList"></ul>
-            </div>
-            <div class="sidebar-widget">
-                <h3 class="widget-title"><i class="fas fa-fire"></i> Hot News</h3>
-                <ul class="hot-list" id="hotList"></ul>
-            </div>
-            <div class="sidebar-widget">
-                <h3 class="widget-title"><i class="fas fa-clock"></i> Flash News</h3>
-                <ul class="trending-list" id="shortNewsList"></ul>
-            </div>
-        </aside>
+        <div class="news-grid" id="newsGrid">
+            <div class="spinner"><i class="fas fa-spinner fa-pulse"></i> Memuat berita terbaru...</div>
+        </div>
+        <div id="newsCounter" class="news-counter"></div>
+        <div id="pagination" class="pagination"></div>
     </div>
-</main>
-
-
-
-<!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
-
-
-
-
-<!-- ========== FOOTER PROFESIONAL - TOMBOL TIM REDAKSI MERAH ========== -->
-
-
-
+    <aside>
+        <div class="sidebar-widget">
+            <h3 class="widget-title"><i class="fas fa-chart-line"></i> Trending</h3>
+            <ul class="trending-list" id="trendingList">
+                <li><i class="fas fa-spinner fa-pulse"></i> Memuat...</li>
+            </ul>
+        </div>
+        <div class="sidebar-widget">
+            <h3 class="widget-title"><i class="fas fa-fire"></i> Hot News</h3>
+            <ul class="hot-list" id="hotList">
+                <li><i class="fas fa-spinner fa-pulse"></i> Memuat...</li>
+            </ul>
+        </div>
+        <div class="sidebar-widget">
+            <h3 class="widget-title"><i class="fas fa-clock"></i> Flash News</h3>
+            <ul class="trending-list" id="shortNewsList">
+                <li><i class="fas fa-spinner fa-pulse"></i> Memuat...</li>
+            </ul>
+        </div>
+    </aside>
+</div>
 
 <!-- FOOTER -->
 <footer style="background: #0a0a2a; color: #94a3b8; padding: 50px 0 20px; margin-top: 50px; border-top: 1px solid #1e293b; font-family: 'Plus Jakarta Sans', sans-serif;">
@@ -239,6 +274,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script>
+    // ==================== KONFIGURASI FIREBASE ====================
     const firebaseConfig = {
         apiKey: "AIzaSyDC8hsDbX3qb9XLY7H2ChdXK6AxRPXD2q0",
         authDomain: "dataku-40827.firebaseapp.com",
@@ -253,7 +289,6 @@
     function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
     function formatNumber(n) { if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'K'; return n?.toString()||'0'; }
     
-    // Extract text from HTML content (untuk meta description)
     function extractTextFromHtml(html) {
         if (!html) return '';
         const temp = document.createElement('div');
@@ -261,10 +296,25 @@
         return temp.textContent || temp.innerText || '';
     }
 
-    // Update meta tags untuk Open Graph (agar muncul gambar saat share)
+    // ==================== UPDATE META TAGS UNTUK SHARE (GAMBAR TAMPIL) ====================
     function updateMetaTags(news, shareUrl) {
         // Update title browser
         document.title = news.title + " - Insight News Indonesia";
+        
+        // Ambil gambar - prioritas: images[0] > image > default
+        let imageUrl = 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg';
+        if (news.images && news.images.length > 0 && news.images[0]) {
+            imageUrl = news.images[0];
+        } else if (news.image && news.image.trim() !== '') {
+            imageUrl = news.image;
+        }
+        
+        // Pastikan URL gambar absolute (jika relatif, tambahkan base)
+        if (imageUrl.startsWith('/')) {
+            imageUrl = window.location.origin + imageUrl;
+        }
+        
+        const description = news.shortText || extractTextFromHtml(news.content).substring(0, 160) || "Baca berita lengkap di Insight News Indonesia";
         
         // Update Open Graph meta
         let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -272,96 +322,105 @@
         let ogImage = document.querySelector('meta[property="og:image"]');
         let ogUrl = document.querySelector('meta[property="og:url"]');
         
-        const description = news.shortText || extractTextFromHtml(news.content).substring(0, 160) || "Baca berita lengkap di Insight News Indonesia";
-        const imageUrl = news.image || (news.images && news.images[0]) || 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg';
-        
         if (ogTitle) ogTitle.setAttribute('content', news.title);
         if (ogDesc) ogDesc.setAttribute('content', description);
         if (ogImage) ogImage.setAttribute('content', imageUrl);
         if (ogUrl) ogUrl.setAttribute('content', shareUrl);
+        
+        // Update Twitter Card meta
+        let twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        let twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        let twitterImage = document.querySelector('meta[name="twitter:image"]');
+        
+        if (twitterTitle) twitterTitle.setAttribute('content', news.title);
+        if (twitterDesc) twitterDesc.setAttribute('content', description);
+        if (twitterImage) twitterImage.setAttribute('content', imageUrl);
+        
+        console.log('Meta tags updated - Image URL:', imageUrl);
     }
 
-    // Fungsi untuk mendapatkan ID dari URL (menggunakan HASH #, bukan query string)
+    // Fungsi untuk mendapatkan ID dari URL (menggunakan HASH #)
     function getNewsIdFromUrl() {
-        // Cek hash dulu (format: detail.html#berita123)
         const hash = window.location.hash.substring(1);
         if (hash) return hash;
-        
-        // Fallback: cek query string (jika masih ada yang pakai)
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         if (id) return id;
-        
         return null;
     }
 
-    // Load detail berita
+    // ==================== LOAD DETAIL BERITA ====================
     async function loadDetail() {
         const newsId = getNewsIdFromUrl();
         
         if (!newsId) {
-            document.getElementById('detailContainer').innerHTML = '<div style="text-align:center;padding:60px">Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
+            document.getElementById('detailContainer').innerHTML = '<div class="error-message">Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
             return;
         }
         
-        const snapshot = await database.ref(`news/${newsId}`).once('value');
-        const news = snapshot.val();
-        
-        if (!news) {
-            document.getElementById('detailContainer').innerHTML = '<div style="text-align:center;padding:60px">Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
-            return;
+        try {
+            const snapshot = await database.ref(`news/${newsId}`).once('value');
+            const news = snapshot.val();
+            
+            if (!news) {
+                document.getElementById('detailContainer').innerHTML = '<div class="error-message">Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
+                return;
+            }
+            
+            // URL untuk share (menggunakan HASH)
+            const shareUrl = `${window.location.origin}${window.location.pathname}#${newsId}`;
+            
+            // Update meta tags untuk share (AGAR GAMBAR TAMPIL)
+            updateMetaTags(news, shareUrl);
+            
+            // Galeri gambar
+            let gallery = '';
+            if (news.images && news.images.length) {
+                gallery = `<div class="gallery">${news.images.map(img => `<img src="${img}" onclick="openLightbox('${img}')" loading="lazy">`).join('')}</div>`;
+            } else if (news.image) {
+                gallery = `<div class="gallery"><img src="${news.image}" onclick="openLightbox('${news.image}')" loading="lazy"></div>`;
+            }
+            
+            // Video
+            let videos = '';
+            if (news.videos && news.videos.length) {
+                videos = `<div class="video-list">${news.videos.map(v => `<div class="video-container"><iframe src="${v}" frameborder="0" allowfullscreen></iframe></div>`).join('')}</div>`;
+            } else if (news.videoUrl) {
+                videos = `<div class="video-container"><iframe src="${news.videoUrl}" frameborder="0" allowfullscreen></iframe></div>`;
+            }
+            
+            // Tombol share
+            const shareText = encodeURIComponent(`📰 ${news.title}\n\n`);
+            const shareButtons = `
+                <div class="share-buttons">
+                    <a href="https://wa.me/?text=${shareText}${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(news.title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <button class="share-btn share-copy" onclick="copyToClipboard('${shareUrl}')"><i class="fas fa-link"></i> Salin Link</button>
+                </div>
+            `;
+            
+            const html = `
+                <h1 class="detail-title">${escapeHtml(news.title)}</h1>
+                <div class="detail-meta">
+                    <span><i class="far fa-calendar"></i> ${new Date(news.date).toLocaleDateString('id-ID')}</span>
+                    <span><i class="far fa-eye"></i> ${formatNumber(news.views)} views</span>
+                    <span><i class="fas fa-tag"></i> ${(news.category || 'Umum').toUpperCase()}</span>
+                </div>
+                ${shareButtons}
+                ${gallery}
+                ${videos}
+                <div class="detail-content">${news.content || '<p>Konten tidak tersedia</p>'}</div>
+            `;
+            
+            document.getElementById('detailContainer').innerHTML = html;
+            
+            // Update views
+            await database.ref(`news/${newsId}/views`).set((news.views || 0) + 1);
+        } catch (error) {
+            console.error('Error loading detail:', error);
+            document.getElementById('detailContainer').innerHTML = '<div class="error-message">Gagal memuat berita. Silakan coba lagi.</div>';
         }
-        
-        // URL untuk share (menggunakan HASH agar tidak 404)
-        const shareUrl = `${window.location.origin}${window.location.pathname}#${newsId}`;
-        
-        // Update meta tags untuk share
-        updateMetaTags(news, shareUrl);
-        
-        // Galeri gambar
-        let gallery = '';
-        if (news.images && news.images.length) {
-            gallery = `<div class="gallery">${news.images.map(img => `<img src="${img}" onclick="openLightbox('${img}')">`).join('')}</div>`;
-        } else if (news.image) {
-            gallery = `<div class="gallery"><img src="${news.image}" onclick="openLightbox('${news.image}')"></div>`;
-        }
-        
-        // Video
-        let videos = '';
-        if (news.videos && news.videos.length) {
-            videos = `<div class="video-list">${news.videos.map(v => `<div class="video-container"><iframe src="${v}" frameborder="0" allowfullscreen></iframe></div>`).join('')}</div>`;
-        } else if (news.videoUrl) {
-            videos = `<div class="video-container"><iframe src="${news.videoUrl}" frameborder="0" allowfullscreen></iframe></div>`;
-        }
-        
-        // Tombol share dengan URL hash
-        const shareText = encodeURIComponent(`📰 ${news.title}\n\n`);
-        const shareButtons = `
-            <div class="share-buttons">
-                <a href="https://wa.me/?text=${shareText}${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(news.title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                <button class="share-btn share-copy" onclick="copyToClipboard('${shareUrl}')"><i class="fas fa-link"></i> Salin Link</button>
-            </div>
-        `;
-        
-        const html = `
-            <h1 class="detail-title">${escapeHtml(news.title)}</h1>
-            <div class="detail-meta">
-                <span><i class="far fa-calendar"></i> ${new Date(news.date).toLocaleDateString('id-ID')}</span>
-                <span><i class="far fa-eye"></i> ${formatNumber(news.views)} views</span>
-                <span><i class="fas fa-tag"></i> ${news.category.toUpperCase()}</span>
-            </div>
-            ${shareButtons}
-            ${gallery}
-            ${videos}
-            <div class="detail-content">${news.content || '<p>Konten tidak tersedia</p>'}</div>
-        `;
-        
-        document.getElementById('detailContainer').innerHTML = html;
-        
-        // Update views
-        await database.ref(`news/${newsId}/views`).set((news.views || 0) + 1);
     }
     
     function copyToClipboard(text) {
@@ -383,11 +442,121 @@
         lb.style.display = 'flex';
     };
     
-    function updateDateTime() {
-        const el = document.getElementById('datetime');
-        if (el) el.innerHTML = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' });
+    // ==================== LOAD BERITA TERBARU (UNTUK BAGIAN "LIHAT SELENGKAPNYA") ====================
+    let currentPage = 1;
+    const itemsPerPage = 6;
+    let allNews = [];
+    
+    async function loadLatestNews() {
+        try {
+            const snapshot = await database.ref('news').orderByChild('date').once('value');
+            const newsData = snapshot.val();
+            if (!newsData) {
+                document.getElementById('newsGrid').innerHTML = '<div class="error-message">Belum ada berita</div>';
+                return;
+            }
+            
+            allNews = Object.entries(newsData).map(([id, data]) => ({ id, ...data }));
+            allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            renderNewsGrid();
+            renderPagination();
+            
+            // Load trending & hot news untuk sidebar
+            loadTrendingNews();
+            loadHotNews();
+            loadShortNews();
+        } catch (error) {
+            console.error('Error loading latest news:', error);
+            document.getElementById('newsGrid').innerHTML = '<div class="error-message">Gagal memuat berita terbaru</div>';
+        }
     }
     
+    function renderNewsGrid() {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageNews = allNews.slice(start, end);
+        
+        if (pageNews.length === 0) {
+            document.getElementById('newsGrid').innerHTML = '<div class="error-message">Tidak ada berita</div>';
+            return;
+        }
+        
+        const gridHtml = pageNews.map(news => `
+            <div class="news-card" onclick="location.href='detail.html#${news.id}'">
+                <img src="${news.image || (news.images && news.images[0]) || 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg'}" 
+                     alt="${escapeHtml(news.title)}" 
+                     onerror="this.src='https://portalinsight.github.io/NewsIndonesia/Images/default.jpg'">
+                <div class="news-card-content">
+                    <h3 class="news-card-title">${escapeHtml(news.title)}</h3>
+                    <div class="news-card-date">${new Date(news.date).toLocaleDateString('id-ID')}</div>
+                </div>
+            </div>
+        `).join('');
+        
+        document.getElementById('newsGrid').innerHTML = gridHtml;
+        document.getElementById('newsCounter').innerHTML = `Menampilkan ${start+1}-${Math.min(end, allNews.length)} dari ${allNews.length} berita`;
+    }
+    
+    function renderPagination() {
+        const totalPages = Math.ceil(allNews.length / itemsPerPage);
+        if (totalPages <= 1) {
+            document.getElementById('pagination').innerHTML = '';
+            return;
+        }
+        
+        let paginationHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+            paginationHtml += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+        }
+        document.getElementById('pagination').innerHTML = paginationHtml;
+    }
+    
+    window.goToPage = (page) => {
+        currentPage = page;
+        renderNewsGrid();
+        renderPagination();
+        window.scrollTo({ top: 600, behavior: 'smooth' });
+    };
+    
+    // Sidebar functions
+    async function loadTrendingNews() {
+        try {
+            const snapshot = await database.ref('news').orderByChild('views').limitToLast(5).once('value');
+            const newsData = snapshot.val();
+            if (newsData) {
+                const trending = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0));
+                const html = trending.map(item => `<li onclick="location.href='detail.html#${item.id}'">🔥 ${escapeHtml(item.title.substring(0, 60))}${item.title.length>60?'...':''}</li>`).join('');
+                document.getElementById('trendingList').innerHTML = html || '<li>Belum ada data trending</li>';
+            }
+        } catch(e) { console.error('Trending error:', e); }
+    }
+    
+    async function loadHotNews() {
+        try {
+            const snapshot = await database.ref('news').orderByChild('views').limitToLast(5).once('value');
+            const newsData = snapshot.val();
+            if (newsData) {
+                const hot = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0));
+                const html = hot.map(item => `<li onclick="location.href='detail.html#${item.id}'"><i class="fas fa-fire" style="color:#e74c3c"></i> ${escapeHtml(item.title.substring(0, 60))}${item.title.length>60?'...':''}</li>`).join('');
+                document.getElementById('hotList').innerHTML = html || '<li>Belum ada hot news</li>';
+            }
+        } catch(e) { console.error('Hot news error:', e); }
+    }
+    
+    async function loadShortNews() {
+        try {
+            const snapshot = await database.ref('news').orderByChild('date').limitToLast(5).once('value');
+            const newsData = snapshot.val();
+            if (newsData) {
+                const short = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => new Date(b.date) - new Date(a.date));
+                const html = short.map(item => `<li onclick="location.href='detail.html#${item.id}'">📌 ${escapeHtml(item.title.substring(0, 50))}${item.title.length>50?'...':''}</li>`).join('');
+                document.getElementById('shortNewsList').innerHTML = html || '<li>Belum ada flash news</li>';
+            }
+        } catch(e) { console.error('Short news error:', e); }
+    }
+    
+    // Dark Mode
     function initDarkMode() {
         if (localStorage.getItem('darkMode') === 'enabled') {
             document.body.classList.add('dark');
@@ -409,11 +578,24 @@
         }
     }
     
+    function updateDateTime() {
+        const el = document.getElementById('datetime');
+        if (el) el.innerHTML = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' });
+    }
+    
+    // Search functionality
+    document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const query = e.target.value.trim();
+            if (query) window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+        }
+    });
+    
+    // Initialize
     document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
     initDarkMode();
-    
-    // Jalankan loadDetail
     loadDetail();
+    loadLatestNews();
     updateDateTime();
     setInterval(updateDateTime, 60000);
     
@@ -424,8 +606,5 @@
             .catch(err => console.log('Service Worker failed', err));
     }
 </script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-<script src="script.js"></script>
 </body>
 </html>

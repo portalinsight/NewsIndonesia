@@ -141,7 +141,59 @@
     <!-- FOOTER (salin dari index.html) -->
     
     
+<!-- Tombol Install Aplikasi - Posisi Tengah -->
+<div style="text-align: center; margin: 30px 0 20px;">
+    <button id="installAppBtn" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 14px 32px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 12px; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(59,130,246,0.4);">
+        <i class="fas fa-download"></i> Install Aplikasi
+    </button>
+</div>
 
+<script>
+    // ========== TOMBOL INSTALL APLIKASI (PWA) ==========
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+    });
+
+    async function triggerInstall() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response: ${outcome}`);
+            deferredPrompt = null;
+        } else {
+            alert('Untuk menginstall aplikasi:\n\n📱 Android: Buka menu browser → "Install app" / "Tambahkan ke layar utama"\n🍎 iPhone: Buka Share → "Tambahkan ke layar utama"');
+        }
+    }
+
+    const installBtn = document.getElementById('installAppBtn');
+    if (installBtn) {
+        installBtn.addEventListener('click', triggerInstall);
+        
+        // Hover effect
+        installBtn.addEventListener('mouseenter', () => {
+            installBtn.style.transform = 'translateY(-3px)';
+            installBtn.style.boxShadow = '0 8px 20px rgba(59,130,246,0.5)';
+        });
+        installBtn.addEventListener('mouseleave', () => {
+            installBtn.style.transform = 'translateY(0)';
+            installBtn.style.boxShadow = '0 4px 12px rgba(59,130,246,0.4)';
+        });
+    }
+</script>
+
+<style>
+    /* Responsif untuk HP */
+    @media (max-width: 768px) {
+        #installAppBtn {
+            padding: 10px 24px !important;
+            font-size: 0.85rem !important;
+            gap: 8px !important;
+        }
+    }
+</style>
 
 
 
@@ -506,6 +558,39 @@
             .then(reg => console.log('Service Worker berhasil didaftarkan', reg))
             .catch(err => console.error('Service Worker gagal:', err));
     }
+    
+    
+    
+    // ========== TOMBOL INSTALL APLIKASI | PWA ==========
+let deferredPrompt;
+
+// Tangkap event beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Sembunyikan banner otomatis jika tidak ingin muncul (opsional)
+    // Tapi tetap biarkan tombol install manual aktif
+});
+
+// Fungsi untuk memicu install
+async function triggerInstall() {
+    if (deferredPrompt) {
+        // Tampilkan dialog install native
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response: ${outcome}`);
+        deferredPrompt = null;
+    } else {
+        // Fallback untuk browser yang tidak support atau PWA sudah terinstall
+        alert('Untuk menginstall aplikasi:\n\n• Android: Buka menu browser → "Install app" / "Tambahkan ke layar utama"\n• iPhone: Buka Share → "Tambahkan ke layar utama"');
+    }
+}
+
+// Pasang event listener ke tombol install
+const installBtn = document.getElementById('installAppBtn');
+if (installBtn) {
+    installBtn.addEventListener('click', triggerInstall);
+}
 </script>
 
 </body>

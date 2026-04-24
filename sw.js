@@ -1,9 +1,43 @@
+const CACHE_NAME = 'insight-news-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/breaking.html',
+  '/trending.html',
+  '/hot.html',
+  '/politik.html',
+  '/daerah.html',
+  '/ekonomi.html',
+  '/detail.html',
+  '/style.css',
+  '/script.js',
+  '/manifest.json'
+];
+
 self.addEventListener('install', event => {
-  console.log('Service Worker installed');
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
 });
 
 self.addEventListener('fetch', event => {
-  // Bisa ditambahkan cache strategy nanti, untuk sekarang biarkan fetch normal
-  event.respondWith(fetch(event.request));
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) {
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
 });

@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="InsightNews">
-<link rel="apple-touch-icon" href="https://i.postmg.cc/851Jq0Xd/image-3.jpg">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/851Jq0Xd/image-3.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Breaking News - Insight News Indonesia</title>
@@ -20,7 +20,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src=" gambar.jpg  " alt="Insight News Indonesia" class="logo-img" onerror="this.src='https://placehold.co/50x50/e74c3c/white?text=IN'">
+                    <img src="gambar.jpg" alt="Insight News Indonesia" class="logo-img" onerror="this.src='https://placehold.co/50x50/e74c3c/white?text=IN'">
                     <div class="logo-text">
                         <h1><a href="index.html">Insight News Indonesia</a></h1>
                         <p>Jurnalisme Berkualitas • Dengan Integritas</p>
@@ -40,11 +40,11 @@
             <ul class="nav-menu">
                 <li><a href="index.html">Beranda</a></li>
                 <li><a href="breaking.html" >Breaking</a></li>
-                <li><a href="trending.html"class="active">Trending</a></li>
+                <li><a href="trending.html">Trending</a></li>
                 <li><a href="hot.html">Hot News</a></li>
                 <li><a href="politik.html">Politik</a></li>
                 <li><a href="daerah.html">Daerah</a></li>
-                <li><a href="ekonomi.html">Ekonomi</a></li>
+                <li><a href="ekonomi.html"class="active">Ekonomi</a></li>
             </ul>
             <div class="search-box">
                 <i class="fas fa-search"></i>
@@ -78,12 +78,10 @@
     </main>
 
     <!-- FOOTER -->
-    <
     
     
     
-    
-    <!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
+<!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
 
 <!-- Tombol Install Aplikasi - Posisi Tengah -->
 <div style="text-align: center; margin: 30px 0 20px;">
@@ -287,6 +285,9 @@
 
 
 
+    
+    
+    
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script>
@@ -305,7 +306,7 @@
         let allNews = [];
         let currentPage = 1;
         const itemsPerPage = 9;
-        const TARGET_CATEGORY = 'trending'; // <-- HANYA breaking news
+        const TARGET_CATEGORY = 'ekonomi'; // <-- HANYA breaking news
 
         // Helper functions
         function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }

@@ -2,9 +2,10 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Tim Redaksi - Insight News Indonesia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Insight News – Susunan Redaksi Profesional</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -12,363 +13,393 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #f5f7fb;
-            color: #1a1a2e;
+            font-family: 'Inter', sans-serif;
+            background: #f4f7fc;
+            color: #1e2a3e;
             line-height: 1.5;
+            scroll-behavior: smooth;
         }
+
+        /* container utama */
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 2rem 1.5rem;
         }
-        /* Header */
-        .top-header {
-            background: linear-gradient(135deg, #0a0a2a 0%, #16213e 100%);
-            color: white;
-            padding: 20px 0;
-            border-bottom: 3px solid #e74c3c;
+
+        /* Header / brand */
+        .header-brand {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1.5rem;
         }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        .logo h1 {
-            font-size: 1.8rem;
+
+        .header-brand h1 {
+            font-size: 2.2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #fff, #f39c12);
-            -webkit-background-clip: text;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #0b2b3b, #1c5d7a);
             background-clip: text;
+            -webkit-background-clip: text;
             color: transparent;
         }
-        .logo p {
-            font-size: 0.7rem;
-            color: #94a3b8;
-        }
-        .back-home {
-            background: rgba(255,255,255,0.1);
-            padding: 8px 20px;
-            border-radius: 40px;
-            text-decoration: none;
-            color: white;
+
+        .header-brand .tagline {
+            color: #2c5f7a;
             font-weight: 500;
-            transition: 0.2s;
+            margin-top: 0.5rem;
+            font-size: 1rem;
         }
-        .back-home:hover {
-            background: rgba(255,255,255,0.2);
+
+        .brand-motto {
+            display: inline-block;
+            background: #eef2f5;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.8rem;
         }
-        /* Judul Halaman */
-        .page-title {
-            text-align: center;
-            margin: 40px 0 30px;
-        }
-        .page-title h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #e74c3c;
-            margin-bottom: 8px;
-        }
-        .page-title p {
-            color: #64748b;
-        }
-        /* Grid Susunan Redaksi */
+
+        /* layout kartu */
         .redaksi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
         }
-        .redaksi-card {
+
+        .card {
             background: white;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #e2e8f0;
+            border-radius: 28px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+            border: 1px solid #eef2f8;
         }
-        .redaksi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+
+        .card:hover {
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
         }
+
         .card-header {
+            background: #0f3b4c;
+            padding: 1rem 1.8rem;
+            border-bottom: 3px solid #f5b042;
+        }
+
+        .card-header h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h2 i {
+            font-size: 1.6rem;
+            color: #f5b042;
+        }
+
+        .card-body {
+            padding: 1.4rem 1.8rem;
+        }
+
+        /* daftar list / nama */
+        .list-names {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.5rem;
+            list-style: none;
+        }
+
+        .list-names li {
+            font-weight: 500;
+            background: #f8fafc;
+            padding: 0.25rem 0;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            color: #1a3b4b;
+        }
+
+        .list-names li i {
+            color: #f5b042;
+            font-size: 0.9rem;
+            width: 1.4rem;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 0.5rem 1rem;
+        }
+
+        .single-name {
+            font-size: 1rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #e2edf2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-nib {
+            background: #f0f6fa;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1f6e8c;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .detail-text {
+            font-weight: 500;
+            color: #0f3b4c;
+        }
+
+        .sub-text {
+            font-size: 0.85rem;
+            color: #5b7a8c;
+            margin-top: 4px;
+        }
+
+        .alamat-box {
+            background: #eef3f7;
+            border-radius: 24px;
+            padding: 1rem 1.5rem;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .contact-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e74c3c;
-            padding-bottom: 12px;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
         }
-        .card-header i {
-            font-size: 1.8rem;
-            color: #e74c3c;
-        }
-        .card-header h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #0f172a;
-        }
-        .card-body {
-            list-style: none;
-        }
-        .card-body li {
-            padding: 8px 0;
-            border-bottom: 1px dashed #e2e8f0;
-            font-weight: 500;
-            color: #334155;
-        }
-        .card-body li:last-child {
-            border-bottom: none;
-        }
-        .card-body .sub {
-            font-size: 0.85rem;
-            color: #64748b;
-            font-weight: normal;
-        }
-        /* Bagian Alamat & Kontak */
-        .contact-section {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            margin-bottom: 50px;
-            border: 1px solid #e2e8f0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        .contact-item {
-            text-align: center;
-        }
+
         .contact-item i {
-            font-size: 2rem;
-            color: #e74c3c;
-            margin-bottom: 12px;
+            font-size: 1.3rem;
+            color: #f5b042;
+            width: 28px;
         }
-        .contact-item h4 {
-            font-weight: 700;
-            margin-bottom: 8px;
+
+        a {
+            color: #1f6e8c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
         }
-        .contact-item p {
-            color: #475569;
+
+        a:hover {
+            color: #e67e22;
+            text-decoration: underline;
         }
-        /* Footer */
-        footer {
-            background: #0a0a2a;
-            color: #94a3b8;
+
+        hr {
+            margin: 0.5rem 0 1rem;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #cbdde6, transparent);
+        }
+
+        .footer-note {
             text-align: center;
-            padding: 30px 0;
-            margin-top: 40px;
-            border-top: 1px solid #1e293b;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #cbdde6;
+            font-size: 0.8rem;
+            color: #4b6f82;
         }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .redaksi-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 1.2rem;
             }
-            .page-title h2 {
-                font-size: 1.5rem;
+            .card-header h2 {
+                font-size: 1.2rem;
             }
-            .contact-section {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .card-body {
+                padding: 1rem;
+            }
+            .list-names li {
+                font-size: 0.9rem;
+                width: 100%;
+            }
+            .alamat-box {
+                flex-direction: column;
+            }
+            .contact-item {
+                margin-bottom: 6px;
+            }
+            .header-brand h1 {
+                font-size: 1.8rem;
             }
         }
-        /* Dark mode (opsional, menyesuaikan dengan portal jika ada) */
-        body.dark {
-            background: #121826;
-            color: #e2e8f0;
+
+        /* highlight penanggung jawab */
+        .penanggung-detail {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.5rem 1rem;
         }
-        body.dark .redaksi-card,
-        body.dark .contact-section {
-            background: #1e293b;
-            border-color: #334155;
+
+        .btn-website {
+            background: #0f3b4c10;
+            border-radius: 40px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.8rem;
         }
-        body.dark .card-header h3 {
-            color: white;
-        }
-        body.dark .card-body li {
-            color: #cbd5e1;
-            border-bottom-color: #334155;
-        }
-        body.dark .contact-item p {
-            color: #94a3b8;
+
+        .dewan-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.2rem;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER (mirip portal utama) -->
-    <div class="top-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1><i class="fas fa-newspaper"></i> Insight News Indonesia</h1>
-                    <p>Jurnalisme Berkualitas • Dengan Integritas</p>
+<div class="container">
+    <div class="header-brand">
+        <h1>📰 Insight News</h1>
+        <div class="tagline">Jurnal Independen • Terpercaya • Aktual</div>
+        <div class="brand-motto"><i class="fas fa-globe"></i> Media digital & aspirasi publik</div>
+    </div>
+
+    <div class="redaksi-grid">
+        <!-- Penanggung Jawab & Pemimpin Perusahaan -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-building"></i> Penanggung Jawab</h2>
+            </div>
+            <div class="card-body">
+                <div class="penanggung-detail">
+                    <span class="detail-text"><i class="fas fa-briefcase"></i> Pemimpin Perusahaan:</span>
+                    <strong>PT HSR HASAN SEJAHTERA</strong>
+                    <span class="badge-nib"><i class="fas fa-qrcode"></i> NIB: 1509250072721</span>
                 </div>
-                <a href="Index.html" class="back-home"><i class="fas fa-home"></i> Kembali ke Beranda</a>
+                <div class="sub-text" style="margin-top: 8px;"><i class="fas fa-user-tie"></i> [ SOBRI HIDAYAT, S.H.M.H. ]</div>
+            </div>
+        </div>
+
+        <!-- Pemimpin Redaksi & Wakil -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-newspaper"></i> Dewan Redaksi</h2>
+            </div>
+            <div class="card-body">
+                <div class="two-columns">
+                    <div><i class="fas fa-star-of-life"></i> <strong>Pemimpin Redaksi</strong><br> [ SADAM LAMPUNG, S.O.S. ]</div>
+                    <div><i class="fas fa-user-friends"></i> <strong>Wakil Pemimpin Redaksi</strong><br> [ KOMANG SUARNI ]</div>
+                    <div><i class="fas fa-chalkboard-user"></i> <strong>Redaktur Pelaksana</strong><br> [ CATUR FIRMANSYAH ]</div>
+                    <div><i class="fas fa-pen-fancy"></i> <strong>Redaktur (Editor)</strong><br> [ RIDUWANSYAH ]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Koordinator Wilayah & Liputan -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-map-marked-alt"></i> Koordinator Wilayah & Liputan</h2>
+            </div>
+            <div class="card-body">
+                <div class="single-name"><i class="fas fa-users"></i> [ MOEL YANTO, TN. & TIM KUSUS ]</div>
+                <div class="sub-text"><i class="fas fa-microphone-alt"></i> Tim lintas daerah & investigasi khusus</div>
+            </div>
+        </div>
+
+        <!-- Reporter / Jurnalis -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-microphone"></i> Reporter & Jurnalis</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-names two-columns">
+                    <li><i class="fas fa-user-check"></i> SEPRI YANTO</li>
+                    <li><i class="fas fa-user-check"></i> DONI SETIAWAN</li>
+                    <li><i class="fas fa-user-check"></i> HENDRI</li>
+                    <li><i class="fas fa-user-check"></i> I WAYAN BAGIA</li>
+                    <li><i class="fas fa-user-check"></i> SUDANE</li>
+                    <li><i class="fas fa-user-check"></i> AGUS SALMAN</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fotografer / Videografer & Multimedia -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-camera"></i> Visual & Multimedia</h2>
+            </div>
+            <div class="card-body">
+                <div class="single-name"><i class="fas fa-camera-retro"></i> <strong>Fotografer / Videografer</strong> : [ MEI DIAN SAPUTRI ]</div>
+                <div class="single-name"><i class="fas fa-video"></i> <strong>Editor Multimedia</strong> : [ DIANA JAILANI ]</div>
+            </div>
+        </div>
+
+        <!-- IT & Web Developer + Sosial Media Specialist -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-laptop-code"></i> Teknologi & Media Digital</h2>
+            </div>
+            <div class="card-body">
+                <div class="single-name"><i class="fab fa-dev"></i> <strong>IT & Web Developer</strong> : [ TULUS BAGUS PRASETIYO ]</div>
+                <div class="single-name"><i class="fas fa-hashtag"></i> <strong>Sosial Media Specialist</strong> : [ KEYSHA ABISTI ARGIANSYAH ]</div>
+            </div>
+        </div>
+
+        <!-- DEWAN Penasehat Hukum -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-gavel"></i> Dewan Penasehat Hukum</h2>
+            </div>
+            <div class="card-body">
+                <div class="dewan-list" style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <span><i class="fas fa-balance-scale"></i> [ EDI DWI NUGROHO, SH.MH.CLD. ]</span>
+                    <span><i class="fas fa-balance-scale"></i> [ NURDIANSAH, S.H. ]</span>
+                    <span><i class="fas fa-balance-scale"></i> [ ENDI TRI WIBOWO, S.H. ]</span>
+                    <span><i class="fas fa-balance-scale"></i> [ BOY F. A. S, S.H. ]</span>
+                    <span><i class="fas fa-balance-scale"></i> [ PUJI ASTUTI, S.H. ]</span>
+                    <span><i class="fas fa-balance-scale"></i> [ RIMBUN SINURAT, S.H. ]</span>
+                    <span><i class="fas fa-building"></i> <strong>LAW FIRM BE & PARTNERS</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alamat & kontak -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-address-card"></i> Sekretariat & Kontak Resmi</h2>
+            </div>
+            <div class="card-body">
+                <div class="alamat-box">
+                    <div class="contact-item"><i class="fas fa-location-dot"></i> <span>🏢 Bandar Jaya, Lampung Tengah</span></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:portalinsight335@gmail.com">portalinsight335@gmail.com</a></div>
+                    <div class="contact-item"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/6285176920398" target="_blank">+62 851-7692-0398 (WhatsApp)</a></div>
+                    <div class="contact-item"><i class="fas fa-globe"></i> <span>🌐 www."insight news".com <span style="font-size:0.75rem; background:#eef2f5; padding:2px 8px; border-radius:20px;">portal dalam pengembangan</span></span></div>
+                </div>
+                <div class="sub-text" style="margin-top: 12px;"><i class="fas fa-clock"></i> Redaksi siaga 24 jam • Pengaduan masyarakat & kerja sama pers</div>
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="page-title">
-            <h2><i class="fas fa-users"></i> SUSUNAN REDAKSI</h2>
-            <p>Dewan redaksi yang berpengalaman dan berkomitmen tinggi menyajikan berita terverifikasi</p>
-        </div>
-
-        <!-- GRID SUSUNAN REDAKSI -->
-        <div class="redaksi-grid">
-            <!-- Penanggung Jawab -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-building"></i>
-                    <h3>Penanggung Jawab</h3>
-                </div>
-                <ul class="card-body">
-                    <li>PT HSR HASAN SEJAHTERA</li>
-                    <li>NIB: 1509250072721 <br><span class="sub">[NURDIANSAH, S.H.]</span></li>
-                </ul>
-            </div>
-
-            <!-- Pemimpin Redaksi -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-user-tie"></i>
-                    <h3>Pimpinan Redaksi</h3>
-                </div>
-                <ul class="card-body">
-                    <li>NURDIANSAH, S.H.</li>
-                    <li class="sub">Pemimpin Redaksi</li>
-                </ul>
-            </div>
-
-            <!-- Wakil Pemimpin Redaksi -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-user-edit"></i>
-                    <h3>Wakil Pemimpin Redaksi</h3>
-                </div>
-                <ul class="card-body">
-                    <li>KOMANG SUARNI</li>
-                </ul>
-            </div>
-
-            <!-- Redaktur Pelaksana & Editor -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-pen-fancy"></i>
-                    <h3>Redaktur</h3>
-                </div>
-                <ul class="card-body">
-                    <li><strong>Redaktur Pelaksana:</strong> Tim</li>
-                    <li><strong>Redaktur (Editor):</strong> Tim</li>
-                    <li><strong>Koordinator Liputan:</strong> Tim Khusus</li>
-                </ul>
-            </div>
-
-            <!-- Reporter / Jurnalis -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-microphone-alt"></i>
-                    <h3>Reporter & Jurnalis</h3>
-                </div>
-                <ul class="card-body">
-                    <li>SEPRI YANTO</li>
-                    <li>CATUR FIRMANSYAH</li>
-                    <li>RIDUWANSYAH</li>
-                                  <li>SADAM LAMPUNG</li>
-                                                      <li>MULYANTO</li>
-                                                                          <li>S.O.S</li>
-              
-              
-              
-                </ul>
-            </div>
-
-            <!-- Multimedia -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-camera"></i>
-                    <h3>Multimedia</h3>
-                </div>
-                <ul class="card-body">
-                    <li><strong>Fotografer/Videografer:</strong> MEIDIANSAPUTRI</li>
-                    <li><strong>Editor Multimedia:</strong> DIANA JAILANI</li>
-                </ul>
-            </div>
-
-            <!-- IT & Web Developer -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Teknologi</h3>
-                </div>
-                <ul class="card-body">
-                    <li><strong>IT & Web Developer:</strong> TULUS BAYU PRASETIO</li>
-                    <li><strong>Social Media Specialist:</strong> KEYSHA ABISTI ARGIANSYAH</li>
-                </ul>
-            </div>
-
-            <!-- Penasehat Hukum -->
-            <div class="redaksi-card">
-                <div class="card-header">
-                    <i class="fas fa-gavel"></i>
-                    <h3>Penasehat Hukum</h3>
-                </div>
-                <ul class="card-body">
-                    <li>EDI DWI NUGROHO, SH.MH.CLD.</li>
-                    <li>ENDI TRI WIBOWO, S.H.</li>
-                    <li>BOY F. A. S, S.H.</li>
-                    <li>PUJI ASTUTI, S.H.</li>
-                    <li>RIMBUN SINURAT, S.H.</li>
-                    <li>LAW FIRM BE & PARTNERS</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- ALAMAT & KONTAK -->
-        <div class="contact-section">
-            <div class="contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <h4>Alamat Redaksi</h4>
-                <p>Bandar Jaya, Lampung Tengah</p>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <h4>Email</h4>
-                <p>hoyathea@email.com</p>
-            </div>
-            <div class="contact-item">
-                <i class="fab fa-whatsapp"></i>
-                <h4>WhatsApp</h4>
-                <p>+62 851-7692-0398</p>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-globe"></i>
-                <h4>Website</h4>
-                <p>Insight News Indonesia</p>
-            </div>
-        </div>
+    <div class="footer-note">
+        <i class="fas fa-certificate"></i> PT HSR HASAN SEJAHTERA (NIB:1509250072721) — Insight News, Media yang berintegritas.<br>
+        © 2025 | Seluruh susunan redaksi bertanggung jawab berdasarkan kode etik jurnalistik.
     </div>
-
-    <!-- FOOTER SEDERHANA -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Insight News Indonesia | PT HSR HASAN SEJAHTERA | NIB: 1509250072721</p>
-            <p style="margin-top: 8px;">Jurnalisme Berkualitas Dengan Integritas</p>
-        </div>
-    </footer>
-
-    <!-- Optional: Dark mode toggle jika ingin sinkron dengan portal utama -->
-    <script>
-        // Deteksi dark mode dari localStorage (jika portal utama menggunakan dark mode)
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark');
-        }
-        // Sederhana: tidak perlu toggle di halaman ini, cukup ikuti pengaturan yang sudah ada
-    </script>
+</div>
 </body>
 </html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Insight CMS | Dashboard Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0a0c10;
+            color: #eef2ff;
+            overflow-x: hidden;
+        }
+
+        /* ========== LOGIN ========== */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1e2f 100%);
+            padding: 20px;
+        }
+        .login-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.5);
+        }
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 24px;
+            color: white;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.2);
+        }
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(95deg, #e74c3c, #f97316);
+            border: none;
+            padding: 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(231,76,60,0.4);
+        }
+        .error-msg {
+            color: #f87171;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.85rem;
+        }
+
+        /* ========== DASHBOARD LAYOUT ========== */
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        /* SIDEBAR */
+        .sidebar {
+            width: 280px;
+            background: #111827;
+            border-right: 1px solid #1f2937;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 40;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+            padding: 28px 24px;
+            border-bottom: 1px solid #1f2937;
+        }
+        .sidebar-header h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e74c3c, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .sidebar-header p {
+            font-size: 0.7rem;
+            color: #6b7280;
+            margin-top: 6px;
+        }
+        .nav-menu {
+            flex: 1;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+        .nav-item i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+        .nav-item:hover {
+            background: #1f2937;
+            color: white;
+        }
+        .nav-item.active {
+            background: linear-gradient(95deg, #e74c3c, #f97316);
+            color: white;
+            box-shadow: 0 4px 12px rgba(231,76,60,0.3);
+        }
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid #1f2937;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #4b5563;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 28px 32px;
+            background: #0f172a;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logout-btn {
+            background: #1f2937;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .logout-btn:hover {
+            background: #374151;
+        }
+
+        /* CARD STYLE */
+        .card {
+            background: #1e293b;
+            border-radius: 28px;
+            padding: 28px;
+            margin-bottom: 32px;
+            border: 1px solid #334155;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f97316;
+            display: inline-block;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: #1e293b;
+            border-radius: 24px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #334155;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #f97316;
+        }
+        .stat-card i {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        /* FORM */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            color: white;
+            font-family: inherit;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .media-list {
+            margin-top: 10px;
+        }
+        .media-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .remove-btn {
+            background: #dc2626;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .add-btn {
+            background: #3b82f6;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            margin-top: 8px;
+            width: auto;
+        }
+        .btn-primary {
+            background: linear-gradient(95deg, #e74c3c, #f97316);
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+        .btn-secondary {
+            background: #4b5563;
+        }
+        .preview-img {
+            max-width: 100px;
+            max-height: 60px;
+            margin-top: 8px;
+            border-radius: 12px;
+            display: none;
+        }
+        .preview-video iframe {
+            width: 100%;
+            max-height: 150px;
+            border-radius: 16px;
+            margin-top: 8px;
+        }
+        /* TABLE */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        th {
+            color: #9ca3af;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: #2d3a4e;
+        }
+        .edit-btn, .delete-btn {
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .edit-btn { background: #3b82f6; color: white; }
+        .delete-btn { background: #dc2626; color: white; margin-left: 8px; }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 550px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+    // ======================= FIREBASE CONFIG =======================
+    const firebaseConfig = {
+        apiKey: "AIzaSyDC8hsDbX3qb9XLY7H2ChdXK6AxRPXD2q0",
+        authDomain: "dataku-40827.firebaseapp.com",
+        databaseURL: "https://dataku-40827-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "dataku-40827",
+        storageBucket: "dataku-40827.firebasestorage.app"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    let currentUser = null;
+    let allNews = [];
+    let currentEditId = null;
+    let imagesArray = [];
+    let videosArray = [];
+    let currentNav = 'dashboard';
+
+    // ======================= AUTO CONVERTERS =======================
+    function convertGitHubToRaw(url) {
+        if (!url) return url;
+        let u = url.trim();
+        if (u.includes('raw.githubusercontent.com')) return u;
+        const match = u.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
+        if (match) {
+            const [, user, repo, branch, path] = match;
+            let decoded = path;
+            try { decoded = decodeURIComponent(path); } catch(e) {}
+            return `https://raw.githubusercontent.com/${user}/${repo}/${branch}/${decoded}`;
+        }
+        return u;
+    }
+
+    function convertYouTubeToEmbed(url) {
+        if (!url) return url;
+        let u = url.trim();
+        if (u.includes('/embed/')) return u;
+        let vid = null;
+        let m = u.match(/(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+        if (m) vid = m[1];
+        if (!vid) m = u.match(/(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/);
+        if (m) vid = m[1];
+        if (!vid) m = u.match(/(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/);
+        if (m) vid = m[1];
+        return vid ? `https://www.youtube.com/embed/${vid}` : u;
+    }
+
+    // ======================= RENDER LOGIN / DASHBOARD =======================
+    function render() {
+        const root = document.getElementById('app');
+        if (currentUser) {
+            root.innerHTML = renderDashboard();
+            attachDashboardEvents();
+            loadNewsAndView();
+        } else {
+            root.innerHTML = renderLogin();
+            document.getElementById('loginBtn')?.addEventListener('click', doLogin);
+        }
+    }
+
+    function renderLogin() {
+        return `
+        <div class="login-container">
+            <div class="login-card">
+                <h2><i class="fas fa-crown"></i> Insight CMS</h2>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="admin@insightnews.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <div id="loginError" class="error-msg"></div>
+            </div>
+        </div>`;
+    }
+
+    function renderDashboard() {
+        return `
+        <div class="dashboard-wrapper">
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h2>Insight CMS</h2>
+                    <p>Content Management System</p>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-item" data-nav="dashboard"><i class="fas fa-chart-line"></i> Dashboard</div>
+                    <div class="nav-item" data-nav="add"><i class="fas fa-plus-circle"></i> Tambah Berita</div>
+                    <div class="nav-item" data-nav="list"><i class="fas fa-list"></i> Daftar Berita</div>
+                </div>
+                <div class="sidebar-footer">
+                    <i class="fas fa-shield-alt"></i> Secured by Firebase
+                </div>
+            </aside>
+            <main class="main-content">
+                <div class="top-bar">
+                    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                    <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+                <div id="dynamicContent"></div>
+            </main>
+        </div>`;
+    }
+
+    async function loadNewsAndView() {
+        await loadNews();
+        navigateTo(currentNav);
+    }
+
+    async function loadNews() {
+        const snap = await db.ref('news').once('value');
+        const data = snap.val();
+        if (data) {
+            allNews = Object.keys(data).map(k => ({ id: k, ...data[k] }));
+            allNews.sort((a,b) => new Date(b.date) - new Date(a.date));
+        } else {
+            allNews = [];
+        }
+    }
+
+    function navigateTo(page) {
+        currentNav = page;
+        const contentDiv = document.getElementById('dynamicContent');
+        const title = document.getElementById('pageTitle');
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('data-nav') === page) item.classList.add('active');
+        });
+        if (page === 'dashboard') {
+            title.innerText = 'Dashboard';
+            renderDashboardContent(contentDiv);
+        } else if (page === 'add') {
+            title.innerText = currentEditId ? 'Edit Berita' : 'Tambah Berita';
+            renderFormContent(contentDiv);
+        } else if (page === 'list') {
+            title.innerText = 'Daftar Berita';
+            renderListContent(contentDiv);
+        }
+    }
+
+    function renderDashboardContent(container) {
+        const total = allNews.length;
+        const breaking = allNews.filter(n => n.category === 'breaking').length;
+        const trending = allNews.filter(n => n.category === 'trending').length;
+        const hot = allNews.filter(n => n.category === 'hot').length;
+        container.innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-newspaper" style="color:#e74c3c"></i><h3>${total}</h3><p>Total Berita</p></div>
+                <div class="stat-card"><i class="fas fa-bolt" style="color:#f59e0b"></i><h3>${breaking}</h3><p>Breaking News</p></div>
+                <div class="stat-card"><i class="fas fa-chart-line" style="color:#10b981"></i><h3>${trending}</h3><p>Trending</p></div>
+                <div class="stat-card"><i class="fas fa-fire" style="color:#ea580c"></i><h3>${hot}</h3><p>Hot News</p></div>
+            </div>
+            <div class="card">
+                <div class="card-title"><i class="fas fa-robot"></i> Fitur Otomatis</div>
+                <ul style="margin-left: 20px; line-height: 1.8; color: #cbd5e1;">
+                    <li>🔗 <strong>GitHub</strong> : tempel URL blob → otomatis jadi raw gambar</li>
+                    <li>🎬 <strong>YouTube</strong> : tempel link (youtu.be, watch?v=, shorts) → otomatis jadi embed</li>
+                    <li>🖼️ Preview gambar & video muncul saat mengetik</li>
+                    <li>📸 Multi gambar & multi video (galeri)</li>
+                </ul>
+            </div>
+        `;
+    }
+
+    function renderFormContent(container) {
+        const isEdit = !!currentEditId;
+        const news = isEdit ? allNews.find(n => n.id === currentEditId) : null;
+        if (isEdit && news) {
+            imagesArray = news.images ? [...news.images] : [];
+            videosArray = news.videos ? [...news.videos] : [];
+        } else {
+            imagesArray = [];
+            videosArray = [];
+        }
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">${isEdit ? 'Edit Berita' : 'Buat Berita Baru'}</div>
+                <form id="cmsForm">
+                    <input type="hidden" id="editId" value="${currentEditId || ''}">
+                    <div class="form-group"><label>Judul *</label><input type="text" id="title" value="${escapeHtml(news?.title || '')}" required></div>
+                    <div class="form-group"><label>Kategori</label><select id="category">${['breaking','trending','hot','politik','daerah','ekonomi'].map(c => `<option value="${c}" ${news?.category === c ? 'selected' : ''}>${c.toUpperCase()}</option>`).join('')}</select></div>
+                    <div class="form-group"><label>URL Gambar (auto convert GitHub)</label><input type="text" id="image" value="${escapeHtml(news?.image || '')}"><img id="imagePreview" class="preview-img"></div>
+                    <div class="form-group"><label>URL Video (auto convert YouTube)</label><input type="text" id="videoUrl" value="${escapeHtml(news?.videoUrl || '')}"><div id="videoPreview" class="preview-video"></div></div>
+                    <div class="form-group"><label>Short Text (opsional)</label><input type="text" id="shortText" value="${escapeHtml(news?.shortText || '')}"></div>
+                    <div class="checkbox-group"><input type="checkbox" id="isShort" ${news?.isShort ? 'checked' : ''}> <label>Jadikan Short News</label></div>
+                    <div class="form-group"><label>Konten (HTML) *</label><textarea id="content" rows="6">${escapeHtml(news?.content || '')}</textarea></div>
+                    <div class="form-group"><label>Views</label><input type="number" id="views" value="${news?.views || 0}"></div>
+                    <div class="form-group"><label>📸 Galeri Gambar</label><div id="imagesContainer" class="media-list"></div><button type="button" id="addImageBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah Gambar</button></div>
+                    <div class="form-group"><label>🎥 Galeri Video</label><div id="videosContainer" class="media-list"></div><button type="button" id="addVideoBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah Video</button></div>
+                    <div><button type="submit" class="btn-primary"><i class="fas fa-save"></i> Simpan</button><button type="button" id="cancelForm" class="btn-secondary">Batal</button></div>
+                </form>
+            </div>
+        `;
+        renderDynamicMediaInputs();
+        attachFormEvents();
+        attachPreviewAutoConvert();
+    }
+
+    function renderDynamicMediaInputs() {
+        const imgContainer = document.getElementById('imagesContainer');
+        const vidContainer = document.getElementById('videosContainer');
+        if (imgContainer) {
+            imgContainer.innerHTML = '';
+            imagesArray.forEach((url, idx) => {
+                const div = document.createElement('div');
+                div.className = 'media-item';
+                div.innerHTML = `<input type="text" value="${escapeHtml(url)}" data-idx="${idx}" class="imgUrlField" style="flex:1"><button class="remove-btn" data-idx="${idx}" data-type="img">Hapus</button>`;
+                imgContainer.appendChild(div);
+            });
+            document.querySelectorAll('.imgUrlField').forEach(inp => inp.addEventListener('change', (e) => { let i = parseInt(e.target.dataset.idx); imagesArray[i] = e.target.value; renderDynamicMediaInputs(); applyAutoConvertPreview(); }));
+            document.querySelectorAll('.remove-btn[data-type="img"]').forEach(btn => btn.addEventListener('click', (e) => { let i = parseInt(btn.dataset.idx); imagesArray.splice(i,1); renderDynamicMediaInputs(); applyAutoConvertPreview(); }));
+        }
+        if (vidContainer) {
+            vidContainer.innerHTML = '';
+            videosArray.forEach((url, idx) => {
+                const div = document.createElement('div');
+                div.className = 'media-item';
+                div.innerHTML = `<input type="text" value="${escapeHtml(url)}" data-idx="${idx}" class="vidUrlField" style="flex:1"><button class="remove-btn" data-idx="${idx}" data-type="vid">Hapus</button>`;
+                vidContainer.appendChild(div);
+            });
+            document.querySelectorAll('.vidUrlField').forEach(inp => inp.addEventListener('change', (e) => { let i = parseInt(e.target.dataset.idx); videosArray[i] = e.target.value; renderDynamicMediaInputs(); applyAutoConvertPreview(); }));
+            document.querySelectorAll('.remove-btn[data-type="vid"]').forEach(btn => btn.addEventListener('click', (e) => { let i = parseInt(btn.dataset.idx); videosArray.splice(i,1); renderDynamicMediaInputs(); applyAutoConvertPreview(); }));
+        }
+    }
+
+    function applyAutoConvertPreview() {
+        const imgField = document.getElementById('image');
+        const vidField = document.getElementById('videoUrl');
+        if (imgField) imgField.value = convertGitHubToRaw(imgField.value);
+        if (vidField) vidField.value = convertYouTubeToEmbed(vidField.value);
+        const imgPrev = document.getElementById('imagePreview');
+        if (imgField && imgField.value && imgPrev) {
+            imgPrev.src = imgField.value;
+            imgPrev.style.display = 'block';
+        } else if (imgPrev) imgPrev.style.display = 'none';
+        const vidPrevDiv = document.getElementById('videoPreview');
+        if (vidField && vidField.value && vidField.value.includes('youtube.com/embed/') && vidPrevDiv) {
+            vidPrevDiv.innerHTML = `<iframe src="${vidField.value}" frameborder="0" allowfullscreen></iframe>`;
+            vidPrevDiv.style.display = 'block';
+        } else if (vidPrevDiv) { vidPrevDiv.innerHTML = ''; vidPrevDiv.style.display = 'none'; }
+    }
+
+    function attachPreviewAutoConvert() {
+        const imgInp = document.getElementById('image');
+        const vidInp = document.getElementById('videoUrl');
+        if (imgInp) imgInp.addEventListener('input', applyAutoConvertPreview);
+        if (vidInp) vidInp.addEventListener('input', applyAutoConvertPreview);
+        applyAutoConvertPreview();
+    }
+
+    async function handleSave(e) {
+        e.preventDefault();
+        const id = document.getElementById('editId').value;
+        const newsData = {
+            title: document.getElementById('title').value.trim(),
+            category: document.getElementById('category').value,
+            image: convertGitHubToRaw(document.getElementById('image').value),
+            videoUrl: convertYouTubeToEmbed(document.getElementById('videoUrl').value),
+            shortText: document.getElementById('shortText').value,
+            isShort: document.getElementById('isShort').checked,
+            content: document.getElementById('content').value,
+            views: parseInt(document.getElementById('views').value) || 0,
+            date: new Date().toISOString(),
+            images: imagesArray.map(convertGitHubToRaw),
+            videos: videosArray.map(convertYouTubeToEmbed)
+        };
+        if (!newsData.title || !newsData.content) {
+            alert('Judul dan konten wajib diisi!');
+            return;
+        }
+        if (id) {
+            await db.ref(`news/${id}`).update(newsData);
+        } else {
+            await db.ref('news').push().set(newsData);
+        }
+        await loadNews();
+        currentEditId = null;
+        navigateTo('list');
+    }
+
+    function attachFormEvents() {
+        const form = document.getElementById('cmsForm');
+        if (form) form.addEventListener('submit', handleSave);
+        document.getElementById('cancelForm')?.addEventListener('click', () => { currentEditId = null; navigateTo('list'); });
+        document.getElementById('addImageBtn')?.addEventListener('click', () => { imagesArray.push(''); renderDynamicMediaInputs(); });
+        document.getElementById('addVideoBtn')?.addEventListener('click', () => { videosArray.push(''); renderDynamicMediaInputs(); });
+    }
+
+    function renderListContent(container) {
+        if (!allNews.length) {
+            container.innerHTML = `<div class="card"><div class="card-title">Daftar Berita</div><p>Belum ada berita. Silakan tambah berita.</p></div>`;
+            return;
+        }
+        let rows = '';
+        for (let news of allNews) {
+            rows += `
+                <tr>
+                    <td>${news.image ? `<img src="${news.image}" style="width:45px; height:40px; object-fit:cover; border-radius:8px;">` : '-'}</td>
+                    <td style="max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(news.title)}</td>
+                    <td><span style="background:${getCatColor(news.category)}; padding:4px 12px; border-radius:30px; font-size:0.7rem;">${news.category.toUpperCase()}</span></td>
+                    <td>${news.isShort ? '<i class="fas fa-check-circle" style="color:#10b981"></i>' : '-'}</td>
+                    <td>${formatNumber(news.views)}</td>
+                    <td><button class="edit-btn" data-id="${news.id}">Edit</button><button class="delete-btn" data-id="${news.id}">Hapus</button></td>
+                </tr>
+            `;
+        }
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">📋 Semua Berita</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr><th>Gambar</th><th>Judul</th><th>Kategori</th><th>Short</th><th>Views</th><th>Aksi</th></tr></thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+        document.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', () => { currentEditId = btn.dataset.id; navigateTo('add'); }));
+        document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', async () => { if(confirm('Yakin hapus berita ini?')) { await db.ref(`news/${btn.dataset.id}`).remove(); await loadNews(); navigateTo('list'); } }));
+    }
+
+    function getCatColor(cat) {
+        const colors = { breaking:'#dc2626', trending:'#f59e0b', hot:'#ea580c', politik:'#3b82f6', daerah:'#10b981', ekonomi:'#8b5cf6' };
+        return colors[cat] || '#6b7280';
+    }
+    function formatNumber(n) { if (n>=1e6) return (n/1e6).toFixed(1)+'M'; if (n>=1e3) return (n/1e3).toFixed(1)+'K'; return n?.toString()||'0'; }
+    function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+
+    function attachDashboardEvents() {
+        document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.add('open'));
+        document.getElementById('sidebar')?.addEventListener('click', (e) => { if (e.target === document.getElementById('sidebar') && window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); });
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                navigateTo(item.getAttribute('data-nav'));
+                if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open');
+            });
+        });
+        document.getElementById('logoutBtn')?.addEventListener('click', () => auth.signOut());
+    }
+
+    function doLogin() {
+        const email = document.getElementById('loginEmail').value;
+        const pass = document.getElementById('loginPassword').value;
+        auth.signInWithEmailAndPassword(email, pass).catch(err => document.getElementById('loginError').innerText = err.message);
+    }
+
+    auth.onAuthStateChanged(user => { currentUser = user; render(); });
+</script>
+</body>
+</html>

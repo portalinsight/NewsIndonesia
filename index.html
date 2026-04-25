@@ -504,6 +504,12 @@ if (installBtn) {
     installBtn.addEventListener('click', triggerInstall);
 }
 </script>
-
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/NewsIndonesia/sw.js', { scope: '/NewsIndonesia/' })
+      .then(reg => console.log('✅ SW registered with scope:', reg.scope))
+      .catch(err => console.log('❌ SW error:', err));
+  }
+</script>
 </body>
 </html>

@@ -1,30 +1,36 @@
-const CACHE_NAME = 'insight-news-v1';
+const CACHE_NAME = 'insight-news-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/breaking.html',
-  '/trending.html',
-  '/hot.html',
-  '/politik.html',
-  '/daerah.html',
-  '/ekonomi.html',
-  '/detail.html',
-  '/style.css',
-  '/script.js',
-  '/manifest.json'
+  '/NewsIndonesia/',
+  '/NewsIndonesia/index.html',
+  '/NewsIndonesia/style.css',
+  '/NewsIndonesia/script.js',
+  '/NewsIndonesia/manifest.json',
+  '/NewsIndonesia/breaking.html',
+  '/NewsIndonesia/trending.html',
+  '/NewsIndonesia/hot.html',
+  '/NewsIndonesia/politik.html',
+  '/NewsIndonesia/daerah.html',
+  '/NewsIndonesia/ekonomi.html',
+  '/NewsIndonesia/detail.html'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    caches.match(event.request).then(response => {
+      if (response) return response;
+      return fetch(event.request).catch(() => {
+        // Jika gagal, arahkan ke halaman beranda
+        return caches.match('/NewsIndonesia/index.html');
+      });
+    })
   );
 });
 

@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="gambar.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Breaking News - Insight News Indonesia</title>
+    <title>Politik - Insight News Indonesia</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -39,10 +39,10 @@
         <div class="nav-wrapper">
             <ul class="nav-menu">
                 <li><a href="index.html">Beranda</a></li>
-                <li><a href="breaking.html" >Breaking</a></li>
+                <li><a href="breaking.html">Breaking</a></li>
                 <li><a href="trending.html">Trending</a></li>
                 <li><a href="hot.html">Hot News</a></li>
-                <li><a href="politik.html"class="active">Politik</a></li>
+                <li><a href="politik.html" class="active">Politik</a></li>
                 <li><a href="daerah.html">Daerah</a></li>
                 <li><a href="ekonomi.html">Ekonomi</a></li>
             </ul>
@@ -58,7 +58,7 @@
         <div class="main-layout">
             <div>
                 <div class="section-header">
-                    <h2>Breaking News</h2>
+                    <h2>Berita Politik</h2>
                 </div>
                 <div class="news-grid" id="newsGrid"></div>
                 <div id="newsCounter" class="news-counter"></div>
@@ -79,13 +79,7 @@
 
     <!-- FOOTER -->
    
-   
-   
-   
-   
-   <!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
-
-<!-- Tombol Install Aplikasi - Posisi Tengah -->
+   <!-- Tombol Install Aplikasi - Posisi Tengah -->
 <div style="text-align: center; margin: 30px 0 20px;">
     <button id="installAppBtn" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 14px 32px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 12px; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(59,130,246,0.4);">
         <i class="fas fa-download"></i> Install Aplikasi
@@ -139,8 +133,7 @@
     }
 </style>
 
-
-<!-- ========== FOOTER PROFESIONAL - TOMBOL TIM REDSI MERAH ========== -->
+<!-- ========== FOOTER PROFESIONAL ========== -->
 <footer style="background: #0a0a2a; color: #94a3b8; padding: 50px 0 20px; margin-top: 50px; border-top: 1px solid #1e293b; font-family: 'Plus Jakarta Sans', sans-serif;">
     <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 20px;">
         
@@ -202,7 +195,7 @@
             </div>
         </div>
 
-        <!-- TOMBOL TIM REKSI DI TENGAH - WARNA MERAH, TEKS PUTIH -->
+        <!-- TOMBOL TIM REDAKSI DI TENGAH - WARNA MERAH -->
         <div style="text-align: center; margin: 30px 0 20px;">
             <a href="redaksi.html" target="_blank" class="btn-redaksi-tengah">
                 <i class="fas fa-users"></i> Tim Redaksi Insight News
@@ -210,53 +203,52 @@
             </a>
         </div>
 
+        <!-- Tombol Login Admin ke CMS -->
+        <div style="text-align: center; margin: 20px 0 15px;">
+            <a href="cms.html" class="btn-login-admin">
+                <i class="fas fa-lock"></i> Login Admin
+            </a>
+        </div>
 
-<!-- Tombol Login Admin ke CMS -->
-<div style="text-align: center; margin: 20px 0 15px;">
-    <a href="cms.html" class="btn-login-admin">
-        <i class="fas fa-lock"></i> Login Admin
-    </a>
-</div>
+        <style>
+            .btn-login-admin {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                background: #fbbf24;
+                color: white;
+                font-weight: 700;
+                font-size: 1rem;
+                padding: 12px 28px;
+                border-radius: 50px;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                border: 1px solid rgba(255,255,255,0.3);
+                cursor: pointer;
+            }
 
-<style>
-    .btn-login-admin {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: #fbbf24; /* kuning */
-        color: white; /* teks putih */
-        font-weight: 700;
-        font-size: 1rem;
-        padding: 12px 28px;
-        border-radius: 50px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        border: 1px solid rgba(255,255,255,0.3);
-        cursor: pointer;
-    }
+            .btn-login-admin:hover {
+                background: #eab308;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(251,191,36,0.3);
+                color: white;
+            }
 
-    .btn-login-admin:hover {
-        background: #eab308; /* kuning lebih gelap saat hover */
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(251,191,36,0.3);
-        color: white;
-    }
+            .btn-login-admin i {
+                font-size: 1rem;
+            }
 
-    .btn-login-admin i {
-        font-size: 1rem;
-    }
-
-    /* Responsif untuk HP */
-    @media (max-width: 768px) {
-        .btn-login-admin {
-            padding: 10px 22px;
-            font-size: 0.85rem;
-            gap: 8px;
-        }
-    }
-</style>
+            @media (max-width: 768px) {
+                .btn-login-admin {
+                    padding: 10px 22px;
+                    font-size: 0.85rem;
+                    gap: 8px;
+                }
+            }
+        </style>
+        
         <!-- BARIS TAUTAN HUKUM & COPYRIGHT -->
         <div style="border-top: 1px solid #1e293b; padding-top: 25px; text-align: center;">
             <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 15px;">
@@ -272,7 +264,6 @@
 </footer>
 
 <style>
-    /* Gaya footer */
     footer a {
         color: #94a3b8 !important;
         text-decoration: none !important;
@@ -286,7 +277,6 @@
         background: #e74c3c !important;
         transform: translateY(-3px);
     }
-    /* Tombol Tim Redaksi - MERAH dengan teks PUTIH */
     .btn-redaksi-tengah {
         display: inline-flex;
         align-items: center;
@@ -310,7 +300,6 @@
         background: linear-gradient(135deg, #c0392b, #a93226);
         color: white !important;
     }
-    /* Responsif */
     @media (max-width: 768px) {
         footer .container {
             padding: 0 15px;
@@ -321,18 +310,10 @@
             gap: 8px;
         }
     }
-    /* Dark mode support */
     body.dark .btn-redaksi-tengah {
         box-shadow: 0 4px 12px rgba(231,76,60,0.5);
     }
 </style>
-
-
-
-
-
-
-
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -352,7 +333,7 @@
         let allNews = [];
         let currentPage = 1;
         const itemsPerPage = 9;
-        const TARGET_CATEGORY = 'politik'; // <-- HANYA breaking news
+        const TARGET_CATEGORY = 'politik'; // <-- INI YANG DIPERBAIKI! Menampilkan berita politik
 
         // Helper functions
         function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
@@ -372,19 +353,19 @@
             }
         }
 
-        // Render berita dengan filter kategori
+        // Render berita dengan filter kategori POLITIK
         function renderNewsGrid(page = 1) {
             const container = document.getElementById('newsGrid');
             if (!container) return;
 
-            // Filter hanya berita dengan category = TARGET_CATEGORY
+            // Filter hanya berita dengan category = TARGET_CATEGORY (politik)
             let filtered = allNews.filter(news => news.category === TARGET_CATEGORY && !news.isShort);
             const totalPages = Math.ceil(filtered.length / itemsPerPage);
             const start = (page - 1) * itemsPerPage;
             const paginated = filtered.slice(start, start + itemsPerPage);
 
             if (paginated.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:60px;">Tidak ada berita dalam kategori ini.</div>';
+                container.innerHTML = '<div style="text-align:center; padding:60px;">Tidak ada berita dalam kategori Politik.</div>';
                 document.getElementById('pagination').innerHTML = '';
                 return;
             }
@@ -477,6 +458,21 @@
         document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
         initDarkMode();
 
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter') {
+                        const query = searchInput.value.toLowerCase();
+                        if (query) {
+                            window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+                        }
+                    }
+                });
+            }
+        }
+
         // Inisialisasi halaman
         async function initPage() {
             await loadNews();
@@ -484,6 +480,7 @@
             renderSidebar();
             updateDateTime();
             setInterval(updateDateTime, 60000);
+            setupSearch();
         }
 
         if (document.readyState === 'loading') {
@@ -495,11 +492,11 @@
         window.goToPage = goToPage;
     </script>
     <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('Service Worker registered', reg))
-      .catch(err => console.log('Service Worker registration failed', err));
-  }
-</script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registered', reg))
+                .catch(err => console.log('Service Worker registration failed', err));
+        }
+    </script>
 </body>
 </html>

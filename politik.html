@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e74c3c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="InsightNews">
+<link rel="apple-touch-icon" href="gambar.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Breaking News - Insight News Indonesia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="top-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="gambar.jpg" alt="Insight News Indonesia" class="logo-img" onerror="this.src='https://placehold.co/50x50/e74c3c/white?text=IN'">
+                    <div class="logo-text">
+                        <h1><a href="index.html">Insight News Indonesia</a></h1>
+                        <p>Jurnalisme Berkualitas • Dengan Integritas</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="datetime" id="datetime"></div>
+                    <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGASI -->
+    <div class="main-nav">
+        <div class="nav-wrapper">
+            <ul class="nav-menu">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="breaking.html" >Breaking</a></li>
+                <li><a href="trending.html">Trending</a></li>
+                <li><a href="hot.html">Hot News</a></li>
+                <li><a href="politik.html"class="active">Politik</a></li>
+                <li><a href="daerah.html">Daerah</a></li>
+                <li><a href="ekonomi.html">Ekonomi</a></li>
+            </ul>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Cari berita...">
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <div class="main-layout">
+            <div>
+                <div class="section-header">
+                    <h2>Breaking News</h2>
+                </div>
+                <div class="news-grid" id="newsGrid"></div>
+                <div id="newsCounter" class="news-counter"></div>
+                <div id="pagination" class="pagination"></div>
+            </div>
+            <aside>
+                <div class="sidebar-widget">
+                    <h3 class="widget-title"><i class="fas fa-chart-line"></i> Trending</h3>
+                    <ul class="trending-list" id="trendingList"></ul>
+                </div>
+                <div class="sidebar-widget">
+                    <h3 class="widget-title"><i class="fas fa-fire"></i> Hot News</h3>
+                    <ul class="hot-list" id="hotList"></ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+   
+   
+   
+   
+   
+   <!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
+
+<!-- Tombol Install Aplikasi - Posisi Tengah -->
+<div style="text-align: center; margin: 30px 0 20px;">
+    <button id="installAppBtn" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 14px 32px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 12px; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(59,130,246,0.4);">
+        <i class="fas fa-download"></i> Install Aplikasi
+    </button>
+</div>
+
+<script>
+    // ========== TOMBOL INSTALL APLIKASI (PWA) ==========
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+    });
+
+    async function triggerInstall() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response: ${outcome}`);
+            deferredPrompt = null;
+        } else {
+            alert('Untuk menginstall aplikasi:\n\n📱 Android: Buka menu browser → "Install app" / "Tambahkan ke layar utama"\n🍎 iPhone: Buka Share → "Tambahkan ke layar utama"');
+        }
+    }
+
+    const installBtn = document.getElementById('installAppBtn');
+    if (installBtn) {
+        installBtn.addEventListener('click', triggerInstall);
+        
+        // Hover effect
+        installBtn.addEventListener('mouseenter', () => {
+            installBtn.style.transform = 'translateY(-3px)';
+            installBtn.style.boxShadow = '0 8px 20px rgba(59,130,246,0.5)';
+        });
+        installBtn.addEventListener('mouseleave', () => {
+            installBtn.style.transform = 'translateY(0)';
+            installBtn.style.boxShadow = '0 4px 12px rgba(59,130,246,0.4)';
+        });
+    }
+</script>
+
+<style>
+    /* Responsif untuk HP */
+    @media (max-width: 768px) {
+        #installAppBtn {
+            padding: 10px 24px !important;
+            font-size: 0.85rem !important;
+            gap: 8px !important;
+        }
+    }
+</style>
+
+
+<!-- ========== FOOTER PROFESIONAL - TOMBOL TIM REDSI MERAH ========== -->
+<footer style="background: #0a0a2a; color: #94a3b8; padding: 50px 0 20px; margin-top: 50px; border-top: 1px solid #1e293b; font-family: 'Plus Jakarta Sans', sans-serif;">
+    <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 20px;">
+        
+        <!-- GRID 4 KOLOM -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-bottom: 40px;">
+            
+            <!-- Kolom 1: Tentang -->
+            <div>
+                <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Tentang Kami</h3>
+                <p style="line-height: 1.6;">Insight News Indonesia – portal berita terpercaya, menyajikan informasi terkini, akurat, dan berimbang. Jurnalisme berkualitas dengan integritas.</p>
+                <div class="social-icons" style="display: flex; gap: 15px; margin-top: 20px;">
+                    <a href="#" style="background: #1e293b; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s;"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" style="background: #1e293b; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s;"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="background: #1e293b; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="background: #1e293b; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s;"><i class="fab fa-youtube"></i></a>
+                    <a href="#" style="background: #1e293b; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s;"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <!-- Kolom 2: Menu Cepat -->
+            <div>
+                <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Menu Cepat</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 12px;"><a href="index.html" style="color: #94a3b8; text-decoration: none;">Beranda</a></li>
+                    <li style="margin-bottom: 12px;"><a href="breaking.html" style="color: #94a3b8; text-decoration: none;">Breaking News</a></li>
+                    <li style="margin-bottom: 12px;"><a href="trending.html" style="color: #94a3b8; text-decoration: none;">Trending</a></li>
+                    <li style="margin-bottom: 12px;"><a href="hot.html" style="color: #94a3b8; text-decoration: none;">Hot News</a></li>
+                    <li style="margin-bottom: 12px;"><a href="politik.html" style="color: #94a3b8; text-decoration: none;">Politik</a></li>
+                    <li style="margin-bottom: 12px;"><a href="daerah.html" style="color: #94a3b8; text-decoration: none;">Daerah</a></li>
+                    <li style="margin-bottom: 12px;"><a href="ekonomi.html" style="color: #94a3b8; text-decoration: none;">Ekonomi</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 3: Kontak -->
+            <div>
+                <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Kontak Kami</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="display: flex; gap: 12px; margin-bottom: 15px;"><i class="fas fa-map-marker-alt" style="color: #e74c3c;"></i> <span>Bandar Jaya, Lampung Tengah</span></li>
+                    <li style="display: flex; gap: 12px; margin-bottom: 15px;"><i class="fas fa-phone" style="color: #10b981;"></i> <span>+62 851-7692-0398</span></li>
+                    <li style="display: flex; gap: 12px; margin-bottom: 15px;"><i class="fas fa-envelope" style="color: #f59e0b;"></i> <span>redaksi@insightnews.com</span></li>
+                    <li style="display: flex; gap: 12px; margin-bottom: 15px;"><i class="fas fa-clock" style="color: #3b82f6;"></i> <span>Senin - Sabtu, 08:00 - 20:00 WIB</span></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 4: Peta Lokasi -->
+            <div>
+                <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Lokasi Redaksi</h3>
+                <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.832304822122!2d105.269425!3d-2.587447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6b2b2b2b2b2b2b%3A0x2b2b2b2b2b2b2b2b!2sBandar%20Jaya%2C%20Lampung%20Tengah!5e0!3m2!1sid!2sid!4v1700000000000" 
+                        width="100%" 
+                        height="180" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <p style="font-size: 0.7rem; margin-top: 8px; text-align: center;"><i class="fas fa-location-dot"></i> Kantor Redaksi Bandar Jaya</p>
+            </div>
+        </div>
+
+        <!-- TOMBOL TIM REKSI DI TENGAH - WARNA MERAH, TEKS PUTIH -->
+        <div style="text-align: center; margin: 30px 0 20px;">
+            <a href="redaksi.html" target="_blank" class="btn-redaksi-tengah">
+                <i class="fas fa-users"></i> Tim Redaksi Insight News
+                <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+            </a>
+        </div>
+
+
+<!-- Tombol Login Admin ke CMS -->
+<div style="text-align: center; margin: 20px 0 15px;">
+    <a href="cms.html" class="btn-login-admin">
+        <i class="fas fa-lock"></i> Login Admin
+    </a>
+</div>
+
+<style>
+    .btn-login-admin {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #fbbf24; /* kuning */
+        color: white; /* teks putih */
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.3);
+        cursor: pointer;
+    }
+
+    .btn-login-admin:hover {
+        background: #eab308; /* kuning lebih gelap saat hover */
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(251,191,36,0.3);
+        color: white;
+    }
+
+    .btn-login-admin i {
+        font-size: 1rem;
+    }
+
+    /* Responsif untuk HP */
+    @media (max-width: 768px) {
+        .btn-login-admin {
+            padding: 10px 22px;
+            font-size: 0.85rem;
+            gap: 8px;
+        }
+    }
+</style>
+        <!-- BARIS TAUTAN HUKUM & COPYRIGHT -->
+        <div style="border-top: 1px solid #1e293b; padding-top: 25px; text-align: center;">
+            <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 15px;">
+                <a href="#" style="color: #64748b; text-decoration: none; font-size: 0.8rem;">Kebijakan Privasi</a>
+                <a href="#" style="color: #64748b; text-decoration: none; font-size: 0.8rem;">Syarat & Ketentuan</a>
+                <a href="#" style="color: #64748b; text-decoration: none; font-size: 0.8rem;">Disclaimer</a>
+                <a href="#" style="color: #64748b; text-decoration: none; font-size: 0.8rem;">Kode Etik Jurnalistik</a>
+            </div>
+            <p style="font-size: 0.75rem;">&copy; 2025 Insight News Indonesia | PT HSR HASAN SEJAHTERA | NIB: 1509250072721</p>
+            <p style="font-size: 0.7rem; margin-top: 8px;">Jurnalisme Berkualitas Dengan Integritas</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* Gaya footer */
+    footer a {
+        color: #94a3b8 !important;
+        text-decoration: none !important;
+        transition: all 0.2s ease;
+    }
+    footer a:hover {
+        color: white !important;
+        transform: translateX(3px);
+    }
+    .social-icons a:hover {
+        background: #e74c3c !important;
+        transform: translateY(-3px);
+    }
+    /* Tombol Tim Redaksi - MERAH dengan teks PUTIH */
+    .btn-redaksi-tengah {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white !important;
+        padding: 14px 32px;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(231,76,60,0.4);
+        border: none;
+        cursor: pointer;
+    }
+    .btn-redaksi-tengah:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(231,76,60,0.5);
+        background: linear-gradient(135deg, #c0392b, #a93226);
+        color: white !important;
+    }
+    /* Responsif */
+    @media (max-width: 768px) {
+        footer .container {
+            padding: 0 15px;
+        }
+        .btn-redaksi-tengah {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            gap: 8px;
+        }
+    }
+    /* Dark mode support */
+    body.dark .btn-redaksi-tengah {
+        box-shadow: 0 4px 12px rgba(231,76,60,0.5);
+    }
+</style>
+
+
+
+
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script>
+        // Konfigurasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDC8hsDbX3qb9XLY7H2ChdXK6AxRPXD2q0",
+            authDomain: "dataku-40827.firebaseapp.com",
+            databaseURL: "https://dataku-40827-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "dataku-40827",
+            storageBucket: "dataku-40827.firebasestorage.app"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Variabel global
+        let allNews = [];
+        let currentPage = 1;
+        const itemsPerPage = 9;
+        const TARGET_CATEGORY = 'politik'; // <-- HANYA breaking news
+
+        // Helper functions
+        function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+        function formatDate(d) { if (!d) return 'Baru saja'; const diff = Math.floor((new Date() - new Date(d))/(1000*3600)); if(diff<1) return 'Baru saja'; if(diff<24) return `${diff} jam lalu`; return new Date(d).toLocaleDateString('id-ID'); }
+        function formatNumber(n) { if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'K'; return n?.toString()||'0'; }
+        function getCategoryLabel(cat) { const labels={breaking:'BREAKING',trending:'TRENDING',hot:'HOT',politik:'POLITIK',daerah:'DAERAH',ekonomi:'EKONOMI'}; return labels[cat]||cat.toUpperCase(); }
+
+        // Load data dari Firebase
+        async function loadNews() {
+            const snapshot = await database.ref('news').once('value');
+            const data = snapshot.val();
+            if (data) {
+                allNews = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+                allNews.sort((a,b) => new Date(b.date) - new Date(a.date));
+            } else {
+                allNews = [];
+            }
+        }
+
+        // Render berita dengan filter kategori
+        function renderNewsGrid(page = 1) {
+            const container = document.getElementById('newsGrid');
+            if (!container) return;
+
+            // Filter hanya berita dengan category = TARGET_CATEGORY
+            let filtered = allNews.filter(news => news.category === TARGET_CATEGORY && !news.isShort);
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const start = (page - 1) * itemsPerPage;
+            const paginated = filtered.slice(start, start + itemsPerPage);
+
+            if (paginated.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:60px;">Tidak ada berita dalam kategori ini.</div>';
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = paginated.map(news => `
+                <div class="news-card" onclick="location.href='detail.html?id=${news.id}'">
+                    <img src="${news.image || 'https://picsum.photos/400/250'}" onerror="this.src='https://picsum.photos/400/250'">
+                    <div class="card-content">
+                        <span class="category category-${news.category}">${getCategoryLabel(news.category)}</span>
+                        <div class="title">${escapeHtml(news.title)}</div>
+                        <div class="date"><span><i class="far fa-clock"></i> ${formatDate(news.date)}</span><span><i class="far fa-eye"></i> ${formatNumber(news.views)}</span></div>
+                    </div>
+                </div>
+            `).join('');
+
+            const counter = document.getElementById('newsCounter');
+            if (counter) {
+                counter.innerHTML = `<div class="news-counter">Menampilkan ${start+1} - ${Math.min(start+itemsPerPage, filtered.length)} dari ${filtered.length} berita</div>`;
+            }
+            renderPagination(totalPages, page);
+        }
+
+        function renderPagination(totalPages, currentPage) {
+            const container = document.getElementById('pagination');
+            if (!container) return;
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+            let html = `<div class="pagination-item ${currentPage === 1 ? 'disabled' : ''}" onclick="goToPage(${currentPage-1})">Sebelumnya</div>`;
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage-2 && i <= currentPage+2)) {
+                    html += `<div class="pagination-item ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</div>`;
+                } else if (i === currentPage-3 || i === currentPage+3) {
+                    html += `<span class="pagination-dots">...</span>`;
+                }
+            }
+            html += `<div class="pagination-item ${currentPage === totalPages ? 'disabled' : ''}" onclick="goToPage(${currentPage+1})">Berikutnya</div>`;
+            container.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderNewsGrid(page);
+            document.getElementById('newsGrid')?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Sidebar (trending & hot)
+        async function renderSidebar() {
+            const trending = [...allNews.filter(n => !n.isShort)].sort((a,b) => b.views - a.views).slice(0,5);
+            const hot = allNews.filter(n => n.category === 'hot' && !n.isShort).slice(0,5);
+            const trendingList = document.getElementById('trendingList');
+            const hotList = document.getElementById('hotList');
+            if (trendingList) {
+                trendingList.innerHTML = trending.map((n,i) => `<li onclick="location.href='detail.html?id=${n.id}'"><div class="trending-number">${i+1}</div><div>${escapeHtml(n.title)}</div></li>`).join('');
+            }
+            if (hotList) {
+                hotList.innerHTML = hot.map(n => `<li onclick="location.href='detail.html?id=${n.id}'"><div class="trending-number"><i class="fas fa-fire"></i></div><div>${escapeHtml(n.title)}</div></li>`).join('');
+            }
+        }
+
+        // DateTime
+        function updateDateTime() {
+            const el = document.getElementById('datetime');
+            if (el) {
+                el.innerHTML = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            }
+        }
+
+        // Dark mode
+        function initDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark');
+                const icon = document.querySelector('#darkModeToggle i');
+                if (icon) icon.className = 'fas fa-sun';
+            }
+        }
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            const icon = document.querySelector('#darkModeToggle i');
+            if (isDark) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+        document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
+        initDarkMode();
+
+        // Inisialisasi halaman
+        async function initPage() {
+            await loadNews();
+            renderNewsGrid(1);
+            renderSidebar();
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPage);
+        } else {
+            initPage();
+        }
+
+        window.goToPage = goToPage;
+    </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('Service Worker registered', reg))
+      .catch(err => console.log('Service Worker registration failed', err));
+  }
+</script>
+</body>
+</html>

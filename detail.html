@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Open Graph - Dinamis -->
+<meta property="og:title" content="Insight News Indonesia" id="ogTitle">
+<meta property="og:description" content="Baca berita lengkap dan terpercaya hanya di Insight News Indonesia" id="ogDesc">
+<meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/Images/default.jpg" id="ogImage">
+<meta property="og:url" content="" id="ogUrl">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Insight News Indonesia">
+<meta property="og:locale" content="id_ID">
 
+<meta name="twitter:title" content="Insight News Indonesia" id="twitterTitle">
+<meta name="twitter:description" content="Baca berita lengkap dan terpercaya di Insight News Indonesia" id="twitterDesc">
+<meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/Images/default.jpg" id="twitterImage">
 <!-- Meta Social - PASTIKAN URL GAMBAR LENGKAP -->
 <meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/gambar.jpg">
 <meta property="og:image:width" content="1200">
@@ -789,6 +800,25 @@
             .then(reg => console.log('✅ Service Worker registered'))
             .catch(err => console.log('⚠️ Service Worker failed:', err));
     }
+</script>
+<script>
+// Ambil parameter dari URL atau data berita
+const urlParams = new URLSearchParams(window.location.search);
+const judulBerita = urlParams.get('judul') || "Judul Berita Default";
+const deskripsiBerita = urlParams.get('desc') || "Deskripsi berita lengkap disini...";
+const gambarBerita = urlParams.get('gambar') || "https://portalinsight.github.io/NewsIndonesia/Images/default.jpg";
+
+// Update meta tags
+document.getElementById('ogTitle').setAttribute('content', judulBerita);
+document.getElementById('ogDesc').setAttribute('content', deskripsiBerita);
+document.getElementById('ogImage').setAttribute('content', gambarBerita);
+document.getElementById('twitterTitle').setAttribute('content', judulBerita);
+document.getElementById('twitterDesc').setAttribute('content', deskripsiBerita);
+document.getElementById('twitterImage').setAttribute('content', gambarBerita);
+document.getElementById('ogUrl').setAttribute('content', window.location.href);
+
+// Update title browser
+document.title = judulBerita + " - Insight News Indonesia";
 </script>
 </body>
 </html>

@@ -42,9 +42,9 @@
                 <li><a href="breaking.html" >Breaking</a></li>
                 <li><a href="trending.html">Trending</a></li>
                 <li><a href="hot.html">Hot News</a></li>
-                <li><a href="politik.html"class="active">Politik</a></li>
+                <li><a href="politik.html">Politik</a></li>
                 <li><a href="daerah.html">Daerah</a></li>
-                <li><a href="ekonomi.html">Ekonomi</a></li>
+                <li><a href="ekonomi.html"class="active">Ekonomi</a></li>
             </ul>
             <div class="search-box">
                 <i class="fas fa-search"></i>
@@ -78,12 +78,10 @@
     </main>
 
     <!-- FOOTER -->
-   
-   
-   
-   
-   
-   <!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
+    
+    
+    
+<!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
 
 <!-- Tombol Install Aplikasi - Posisi Tengah -->
 <div style="text-align: center; margin: 30px 0 20px;">
@@ -287,6 +285,9 @@
 
 
 
+    
+    
+    
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script>
@@ -305,7 +306,7 @@
         let allNews = [];
         let currentPage = 1;
         const itemsPerPage = 9;
-        const TARGET_CATEGORY = 'politik'; // <-- HANYA breaking news
+        const TARGET_CATEGORY = 'ekonomi'; // <-- HANYA breaking news
 
         // Helper functions
         function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }

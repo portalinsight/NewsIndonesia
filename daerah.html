@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#e74c3c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="InsightNews">
-<link rel="apple-touch-icon" href="gambar.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Breaking News - Insight News Indonesia</title>
@@ -19,7 +13,12 @@
     <div class="top-header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">
+ <link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e74c3c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="InsightNews">
+<link rel="apple-touch-icon" href="gambar.jpg">               <div class="logo">
                     <img src="gambar.jpg" alt="Insight News Indonesia" class="logo-img" onerror="this.src='https://placehold.co/50x50/e74c3c/white?text=IN'">
                     <div class="logo-text">
                         <h1><a href="index.html">Insight News Indonesia</a></h1>
@@ -39,11 +38,11 @@
         <div class="nav-wrapper">
             <ul class="nav-menu">
                 <li><a href="index.html">Beranda</a></li>
-                <li><a href="breaking.html" >Breaking</a></li>
+                <li><a href="breaking.html" class="active">Breaking</a></li>
                 <li><a href="trending.html">Trending</a></li>
                 <li><a href="hot.html">Hot News</a></li>
-                <li><a href="politik.html"class="active">Politik</a></li>
-                <li><a href="daerah.html">Daerah</a></li>
+                <li><a href="politik.html">Politik</a></li>
+                <li><a href="daerah.html"class="active">Daerah</a></li>
                 <li><a href="ekonomi.html">Ekonomi</a></li>
             </ul>
             <div class="search-box">
@@ -77,13 +76,9 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
-   
-   
-   
-   
-   
-   <!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
+
+
+<!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
 
 <!-- Tombol Install Aplikasi - Posisi Tengah -->
 <div style="text-align: center; margin: 30px 0 20px;">
@@ -287,6 +282,12 @@
 
 
 
+
+
+
+
+
+
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script>
@@ -305,7 +306,7 @@
         let allNews = [];
         let currentPage = 1;
         const itemsPerPage = 9;
-        const TARGET_CATEGORY = 'politik'; // <-- HANYA breaking news
+        const TARGET_CATEGORY = 'daerah'; // <-- HANYA breaking news
 
         // Helper functions
         function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }

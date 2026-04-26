@@ -206,7 +206,52 @@
                 <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
             </a>
         </div>
+<!-- Tombol Login Admin ke CMS -->
+<div style="text-align: center; margin: 20px 0 15px;">
+    <a href="cms.html" class="btn-login-admin">
+        <i class="fas fa-lock"></i> Login Admin
+    </a>
+</div>
 
+<style>
+    .btn-login-admin {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #fbbf24; /* kuning */
+        color: white; /* teks putih */
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.3);
+        cursor: pointer;
+    }
+
+    .btn-login-admin:hover {
+        background: #eab308; /* kuning lebih gelap saat hover */
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(251,191,36,0.3);
+        color: white;
+    }
+
+    .btn-login-admin i {
+        font-size: 1rem;
+    }
+
+    /* Responsif untuk HP */
+    @media (max-width: 768px) {
+        .btn-login-admin {
+            padding: 10px 22px;
+            font-size: 0.85rem;
+            gap: 8px;
+        }
+    }
+</style>
         <!-- BARIS TAUTAN HUKUM & COPYRIGHT -->
         <div style="border-top: 1px solid #1e293b; padding-top: 25px; text-align: center;">
             <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 15px;">

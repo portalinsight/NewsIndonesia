@@ -132,7 +132,7 @@ body {
     100% { transform: translateX(-100%); }
 }
 
-/* ========== NAVIGASI (tidak melebar di HP) ========== */
+/* ========== NAVIGASI ========== */
 .main-nav {
     background: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -157,11 +157,6 @@ body {
     gap: 4px;
     padding: 12px 0;
     scrollbar-width: thin;
-    -webkit-overflow-scrolling: touch;
-}
-
-.nav-menu::-webkit-scrollbar {
-    height: 3px;
 }
 
 .nav-menu li a {
@@ -171,7 +166,7 @@ body {
     font-weight: 600;
     font-size: 0.85rem;
     border-radius: 40px;
-    transition: all 0.2s;
+    transition: 0.2s;
     white-space: nowrap;
 }
 
@@ -191,7 +186,6 @@ body {
     background: #f1f5f9;
     padding: 6px 15px;
     border-radius: 40px;
-    flex-shrink: 0;
 }
 
 .search-box input {
@@ -203,7 +197,7 @@ body {
     font-size: 0.85rem;
 }
 
-/* ========== HORIZONTAL SCROLL (BERITA BISA DIGESER) ========== */
+/* ========== HORIZONTAL SCROLL (BERANDA) ========== */
 .horizontal-section {
     margin: 30px 0;
 }
@@ -229,11 +223,6 @@ body {
     padding: 8px 4px 16px 4px;
     scrollbar-width: thin;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-}
-
-.horizontal-scroll::-webkit-scrollbar {
-    height: 5px;
 }
 
 .h-scroll-card {
@@ -281,7 +270,7 @@ body {
     overflow: hidden;
 }
 
-/* ========== HERO SECTION ========== */
+/* ========== HERO ========== */
 .hero-section {
     margin: 30px 0;
 }
@@ -412,11 +401,11 @@ body {
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.4;
+    margin-bottom: 6px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: 6px;
 }
 
 .news-card .date {
@@ -501,6 +490,11 @@ body {
     background: #e74c3c;
     border-color: #e74c3c;
     color: white;
+}
+
+.pagination-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .news-counter {
@@ -606,10 +600,9 @@ body {
 .share-wa { background: #25D366; }
 .share-fb { background: #1877f2; }
 .share-twitter { background: #1da1f2; }
-.share-telegram { background: #26A5E4; }
 .share-copy { background: #64748b; border: none; cursor: pointer; }
 
-/* ========== FOOTER ========== */
+/* ========== FOOTER (tidak biru) ========== */
 footer {
     background: #0a0a2a;
     color: #94a3b8;
@@ -630,6 +623,11 @@ footer {
     margin-bottom: 15px;
 }
 
+.footer-about p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
 .social-icons {
     display: flex;
     gap: 12px;
@@ -646,6 +644,29 @@ footer {
     justify-content: center;
     color: white;
     transition: 0.2s;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    background: #e74c3c;
+    transform: translateY(-3px);
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: white;
 }
 
 .copyright {
@@ -655,7 +676,7 @@ footer {
     font-size: 0.75rem;
 }
 
-/* ========== RESPONSIVE (HP) ========== */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
     .news-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -675,7 +696,6 @@ footer {
     }
     .nav-menu {
         width: 100%;
-        padding-bottom: 8px;
     }
     .search-box {
         width: 100%;
@@ -705,18 +725,18 @@ footer {
     .h-scroll-card {
         flex: 0 0 240px;
     }
+    .pagination-item {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+        padding: 0 8px;
+    }
     .detail-container {
         padding: 20px;
         margin: 20px;
     }
     .detail-title {
         font-size: 1.4rem;
-    }
-    .pagination-item {
-        min-width: 32px;
-        height: 32px;
-        font-size: 0.75rem;
-        padding: 0 8px;
     }
 }
 
@@ -725,29 +745,52 @@ body.dark {
     background: #121826;
     color: #e2e8f0;
 }
+
 body.dark .main-nav,
+body.dark .h-scroll-card,
 body.dark .news-card,
 body.dark .sidebar-widget,
 body.dark .hero-side-item,
 body.dark .pagination-item,
-body.dark .detail-container,
-body.dark .h-scroll-card {
+body.dark .detail-container {
     background: #1e293b;
     color: #e2e8f0;
 }
+
 body.dark .nav-menu li a {
     color: #cbd5e1;
 }
+
 body.dark .search-box {
     background: #0f172a;
     border: 1px solid #334155;
 }
+
 body.dark .search-box input {
     color: white;
 }
+
 body.dark .detail-content {
     color: #cbd5e1;
 }
+
 body.dark footer {
     background: #0f172a;
+}
+
+
+/* Hilangkan warna biru pada semua link dan teks yang tidak diinginkan */
+a, a:visited, a:hover, a:active {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+/* Pastikan judul berita tidak berwarna biru */
+.news-card .title,
+.hero-title,
+.h-scroll-card .title,
+.detail-title,
+.sidebar-widget li,
+.footer-links a {
+    color: inherit;
 }

@@ -1,610 +1,87 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Insight CMS | Professional dengan Editor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Reset & gaya sama seperti sebelumnya, ditambah gaya editor */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0a0c10; color: #eef2ff; overflow-x: hidden; }
-        .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f172a 0%, #1e1e2f 100%); padding: 20px; }
-        .login-card { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(14px); border-radius: 32px; padding: 40px; width: 100%; max-width: 420px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 50px -12px black; }
-        .login-card h2 { text-align: center; margin-bottom: 28px; font-weight: 800; background: linear-gradient(135deg, #f97316, #e74c3c); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .input-group { margin-bottom: 20px; position: relative; }
-        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #cbd5e1; }
-        .input-group input { width: 100%; padding: 14px 45px 14px 18px; background: #0f172a; border: 1px solid #334155; border-radius: 30px; color: white; font-size: 0.9rem; transition: 0.2s; }
-        .input-group input:focus { outline: none; border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.2); }
-        .toggle-pwd { position: absolute; right: 18px; bottom: 14px; cursor: pointer; color: #9ca3af; font-size: 1.1rem; }
-        .login-btn { width: 100%; background: linear-gradient(95deg, #e74c3c, #f97316); border: none; padding: 14px; border-radius: 40px; font-weight: 700; color: white; cursor: pointer; transition: 0.2s; font-size: 1rem; margin-top: 10px; }
-        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(231,76,60,0.4); }
-        .forgot-btn { background: none; border: none; color: #f97316; cursor: pointer; margin-top: 12px; font-size: 0.85rem; text-align: center; width: 100%; }
-        .error-msg { color: #f87171; text-align: center; margin-top: 16px; font-size: 0.85rem; }
-        .success-msg { color: #10b981; text-align: center; margin-top: 16px; font-size: 0.85rem; }
-        .dashboard-wrapper { display: flex; min-height: 100vh; }
-        .sidebar { width: 280px; background: #111827; border-right: 1px solid #1f2937; position: fixed; top: 0; bottom: 0; left: 0; z-index: 40; transition: transform 0.3s ease; display: flex; flex-direction: column; }
-        .sidebar-header { padding: 28px 24px; border-bottom: 1px solid #1f2937; }
-        .sidebar-header h2 { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #e74c3c, #f97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .sidebar-header p { font-size: 0.7rem; color: #6b7280; margin-top: 6px; }
-        .nav-menu { flex: 1; padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; }
-        .nav-item { display: flex; align-items: center; gap: 14px; padding: 12px 20px; border-radius: 16px; cursor: pointer; transition: all 0.2s; color: #9ca3af; font-weight: 500; }
-        .nav-item i { width: 24px; font-size: 1.2rem; }
-        .nav-item:hover { background: #1f2937; color: white; }
-        .nav-item.active { background: linear-gradient(95deg, #e74c3c, #f97316); color: white; box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
-        .sidebar-footer { padding: 20px; border-top: 1px solid #1f2937; font-size: 0.7rem; text-align: center; color: #4b5563; }
-        .main-content { flex: 1; margin-left: 280px; padding: 28px 32px; background: #0f172a; min-height: 100vh; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
-        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
-        .page-title { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #f97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .btn-group { display: flex; gap: 12px; }
-        .home-btn, .logout-btn { background: #1f2937; border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .home-btn:hover, .logout-btn:hover { background: #374151; }
-        .card { background: #1e293b; border-radius: 28px; padding: 28px; margin-bottom: 32px; border: 1px solid #334155; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-        .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 24px; border-left: 4px solid #f97316; padding-left: 16px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 32px; }
-        .stat-card { background: #1e293b; border-radius: 28px; padding: 24px; text-align: center; border: 1px solid #2d3a4e; transition: 0.2s; }
-        .stat-card:hover { border-color: #f97316; transform: translateY(-3px); }
-        .stat-card i { font-size: 2rem; margin-bottom: 12px; }
-        .stat-card h3 { font-size: 2rem; font-weight: 800; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #cbd5e1; }
-        input, select { width: 100%; padding: 12px 16px; background: #0f172a; border: 1px solid #334155; border-radius: 20px; color: white; font-family: inherit; }
-        .file-upload-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-        .btn-cloud { background: #2c3e66; border: none; padding: 8px 18px; border-radius: 40px; color: white; cursor: pointer; font-size: 0.8rem; }
-        .checkbox-group { display: flex; align-items: center; gap: 12px; }
-        .media-list { margin-top: 12px; }
-        .media-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; flex-wrap: wrap; }
-        .remove-btn { background: #dc2626; border: none; color: white; padding: 6px 14px; border-radius: 30px; cursor: pointer; }
-        .add-btn { background: #3b82f6; border: none; padding: 8px 18px; border-radius: 30px; color: white; cursor: pointer; margin-top: 8px; }
-        .btn-primary { background: linear-gradient(95deg, #e74c3c, #f97316); border: none; padding: 10px 28px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-right: 12px; color: white; }
-        .btn-secondary { background: #4b5563; border: none; padding: 10px 28px; border-radius: 40px; color: white; cursor: pointer; }
-        .preview-img { max-width: 100px; max-height: 60px; margin-top: 8px; border-radius: 12px; display: none; }
-        .preview-video iframe { max-width: 100%; max-height: 150px; border-radius: 16px; margin-top: 8px; }
-        .search-box { margin-bottom: 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        .search-box input { flex: 1; min-width: 200px; background: #0f172a; border: 1px solid #334155; border-radius: 20px; padding: 10px; color: white; }
-        .news-list { display: flex; flex-direction: column; gap: 16px; }
-        .news-card-horizontal { background: #1e293b; border-radius: 20px; border: 1px solid #334155; overflow: hidden; transition: 0.2s; display: flex; flex-direction: row; align-items: center; gap: 16px; padding: 16px; }
-        .news-card-horizontal:hover { border-color: #f97316; transform: translateX(4px); }
-        .news-img-small { width: 100px; height: 80px; object-fit: cover; border-radius: 14px; background: #0f172a; flex-shrink: 0; }
-        .news-content { flex: 1; min-width: 0; }
-        .news-title-small { font-weight: 700; font-size: 1rem; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .news-preview-small { color: #94a3b8; font-size: 0.75rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .news-meta-small { display: flex; gap: 12px; margin-top: 8px; font-size: 0.7rem; color: #6b7280; flex-wrap: wrap; }
-        .news-actions-small { display: flex; gap: 8px; }
-        .edit-sm, .delete-sm { padding: 4px 12px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
-        .edit-sm { background: #3b82f6; color: white; }
-        .delete-sm { background: #dc2626; color: white; }
-        @media (max-width: 700px) {
-            .news-card-horizontal { flex-direction: column; align-items: flex-start; }
-            .news-img-small { width: 100%; height: 160px; }
-            .news-title-small { white-space: normal; }
-        }
-        @media (max-width: 900px) {
-            .sidebar { transform: translateX(-100%); position: fixed; z-index: 50; }
-            .sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 20px; }
-            .menu-toggle { display: block; }
-        }
-        @media (max-width: 550px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .card { padding: 20px; }
-        }
-        .toast { position: fixed; bottom: 20px; right: 20px; background: #10b981; color: white; padding: 12px 24px; border-radius: 40px; z-index: 100; opacity: 0; transition: 0.3s; }
-        /* Quill editor custom */
-        .ql-container { min-height: 250px; font-size: 14px; background: #0f172a; color: #e2e8f0; }
-        .ql-toolbar { background: #1e293b; border-color: #334155; }
-        .ql-editor { min-height: 250px; }
-        .ql-editor p { margin-bottom: 1em; }
-        .ql-editor.ql-blank::before { color: #64748b; }
-    </style>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insight CMS - Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#0f172a;color:#e2e8f0;padding:20px;}
+.login-container{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a,#1e1e2f);}
+.login-card{background:rgba(30,41,59,0.85);backdrop-filter:blur(14px);border-radius:32px;padding:40px;width:100%;max-width:420px;}
+.login-card h2{text-align:center;margin-bottom:28px;background:linear-gradient(135deg,#f97316,#e74c3c);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.input-group{margin-bottom:20px;position:relative;}
+.input-group input{width:100%;padding:14px 18px;background:#0f172a;border:1px solid #334155;border-radius:30px;color:white;font-size:0.9rem;}
+.toggle-pwd{position:absolute;right:18px;bottom:14px;cursor:pointer;color:#9ca3af;}
+.login-btn{width:100%;background:linear-gradient(95deg,#e74c3c,#f97316);border:none;padding:14px;border-radius:40px;font-weight:700;color:white;cursor:pointer;}
+.error-msg{color:#f87171;text-align:center;margin-top:16px;}
+.dashboard{max-width:1400px;margin:0 auto;}
+.card{background:#1e293b;border-radius:28px;padding:24px;margin-bottom:24px;border:1px solid #334155;}
+.card-title{font-size:1.3rem;font-weight:700;margin-bottom:20px;border-left:4px solid #f97316;padding-left:16px;}
+.form-group{margin-bottom:20px;}
+label{display:block;margin-bottom:8px;font-weight:600;}
+input,select,textarea{width:100%;padding:12px 16px;background:#0f172a;border:1px solid #334155;border-radius:20px;color:white;}
+.file-upload-group{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;}
+.btn-cloud{background:#2c3e66;border:none;padding:8px 18px;border-radius:40px;color:white;cursor:pointer;}
+.add-btn{background:#3b82f6;border:none;padding:8px 18px;border-radius:30px;color:white;cursor:pointer;margin-top:8px;}
+.btn-primary{background:linear-gradient(95deg,#e74c3c,#f97316);border:none;padding:10px 28px;border-radius:40px;font-weight:700;cursor:pointer;margin-right:12px;color:white;}
+.btn-secondary{background:#4b5563;border:none;padding:10px 28px;border-radius:40px;color:white;cursor:pointer;}
+.media-item{display:flex;gap:10px;margin-bottom:10px;align-items:center;flex-wrap:wrap;}
+.remove-btn{background:#dc2626;border:none;padding:6px 14px;border-radius:30px;color:white;cursor:pointer;}
+.news-list{display:flex;flex-direction:column;gap:16px;}
+.news-item{background:#0f172a;border-radius:20px;padding:16px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+.news-item img{width:80px;height:60px;object-fit:cover;border-radius:12px;}
+.news-info{flex:1;}
+.news-actions{display:flex;gap:8px;}
+.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:16px;}
+.logout-btn{background:#1f2937;border:none;padding:8px 20px;border-radius:40px;color:white;cursor:pointer;}
+.preview-img{max-width:100px;max-height:60px;margin-top:8px;border-radius:12px;display:none;}
+@media (max-width:768px){.news-item{flex-direction:column;align-items:flex-start;}}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 </head>
-<body>
-<div id="app"></div>
-<div id="toast" class="toast"></div>
-
+<body id="app"></body>
 <script>
-    // ======================= FIREBASE CONFIG =======================
-    const firebaseConfig = {
-        apiKey: "AIzaSyDC8hsDbX3qb9XLY7H2ChdXK6AxRPXD2q0",
-        authDomain: "dataku-40827.firebaseapp.com",
-        databaseURL: "https://dataku-40827-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "dataku-40827",
-        storageBucket: "dataku-40827.firebasestorage.app"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
-
-    // ======================= CLOUDINARY =======================
-    const CLOUD_NAME = "dg8fcmrss";
-    const UPLOAD_PRESET = "Insigh";
-    const CLOUDINARY_API_KEY = "238935634886758";
-    const CLOUDINARY_API_SECRET = "GyQHlM1gvN85zQEMzzZLas0oZ8o";
-
-    async function uploadToCloudinary(file) {
-        const fd = new FormData();
-        fd.append('file', file);
-        fd.append('upload_preset', UPLOAD_PRESET);
-        try {
-            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: fd });
-            const data = await res.json();
-            return data.secure_url || null;
-        } catch (err) { showToast("Upload gagal: " + err.message, true); return null; }
-    }
-
-    async function deleteFromCloudinary(publicId) {
-        const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image/upload/${publicId}`;
-        const authStr = btoa(`${CLOUDINARY_API_KEY}:${CLOUDINARY_API_SECRET}`);
-        try {
-            const res = await fetch(url, { method: 'DELETE', headers: { 'Authorization': `Basic ${authStr}` } });
-            return res.ok;
-        } catch(e) { return false; }
-    }
-
-    function extractPublicId(url) {
-        if (!url || !url.includes('cloudinary.com')) return null;
-        let m = url.match(/\/upload\/(?:v\d+\/)?(.+?)\.(jpg|jpeg|png|gif|webp)/i);
-        if (!m) m = url.match(/\/upload\/(?:v\d+\/)?(.+?)(\?|$)/);
-        return m ? m[1] : null;
-    }
-
-    async function deleteMultipleImages(urls) {
-        for (let url of urls) {
-            const pid = extractPublicId(url);
-            if (pid) await deleteFromCloudinary(pid);
-        }
-    }
-
-    function showToast(msg, isErr = false) {
-        const toast = document.getElementById('toast');
-        toast.innerText = msg;
-        toast.style.backgroundColor = isErr ? '#dc2626' : '#10b981';
-        toast.style.opacity = '1';
-        setTimeout(() => toast.style.opacity = '0', 3000);
-    }
-
-    // ======================= CONVERTERS =======================
-    function convertGitHubToRaw(url) {
-        if (!url) return url;
-        let u = url.trim();
-        if (u.includes('raw.githubusercontent.com')) return u;
-        const match = u.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
-        if (match) {
-            const [, user, repo, branch, path] = match;
-            let decoded = path;
-            try { decoded = decodeURIComponent(path); } catch(e) {}
-            return `https://raw.githubusercontent.com/${user}/${repo}/${branch}/${decoded}`;
-        }
-        return u;
-    }
-
-    function convertYouTubeToEmbed(url) {
-        if (!url) return url;
-        let u = url.trim();
-        if (u.includes('/embed/')) return u;
-        let vid = null;
-        let m = u.match(/(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-        if (m) vid = m[1];
-        if (!vid) m = u.match(/(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/);
-        if (m) vid = m[1];
-        if (!vid) m = u.match(/(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/);
-        if (m) vid = m[1];
-        return vid ? `https://www.youtube.com/embed/${vid}` : u;
-    }
-
-    // ======================= STATE & TIMEOUT =======================
-    let currentUser = null;
-    let allNews = [];
-    let currentEditId = null;
-    let imagesArray = [];
-    let videosArray = [];
-    let currentNav = 'home';
-    let searchTerm = '';
-    let quillEditor = null;
-    let idleTimer = null;
-    const IDLE_TIMEOUT = 30 * 60 * 1000;
-
-    function resetIdleTimer() {
-        if (idleTimer) clearTimeout(idleTimer);
-        idleTimer = setTimeout(() => { if (currentUser) { showToast("Auto logout karena 30 menit tidak aktif"); auth.signOut(); } }, IDLE_TIMEOUT);
-    }
-    function attachActivity() {
-        ['mousedown','keydown','scroll','touchstart'].forEach(ev => window.addEventListener(ev, resetIdleTimer));
-        resetIdleTimer();
-    }
-
-    // ======================= RENDER =======================
-    function render() {
-        const root = document.getElementById('app');
-        if (currentUser) {
-            root.innerHTML = renderDashboard();
-            attachDashboardEvents();
-            loadNewsAndView();
-            attachActivity();
-        } else {
-            root.innerHTML = renderLogin();
-            document.getElementById('loginBtn')?.addEventListener('click', doLogin);
-            document.getElementById('forgotBtn')?.addEventListener('click', resetPassword);
-            const toggleIcon = document.getElementById('togglePassword');
-            if (toggleIcon) {
-                toggleIcon.addEventListener('click', () => {
-                    const pwdField = document.getElementById('loginPassword');
-                    const type = pwdField.type === 'password' ? 'text' : 'password';
-                    pwdField.type = type;
-                    toggleIcon.classList.toggle('fa-eye');
-                    toggleIcon.classList.toggle('fa-eye-slash');
-                });
-            }
-        }
-    }
-
-    function renderLogin() {
-        return `
-        <div class="login-container">
-            <div class="login-card">
-                <h2><i class="fas fa-crown"></i> Insight CMS</h2>
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" placeholder="portalinsight335@gmail.com">
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••">
-                    <i class="fas fa-eye toggle-pwd" id="togglePassword"></i>
-                </div>
-                <button class="login-btn" id="loginBtn">Login</button>
-                <button class="forgot-btn" id="forgotBtn"><i class="fas fa-key"></i> Lupa password?</button>
-                <div id="loginError" class="error-msg"></div>
-                <div id="loginSuccess" class="success-msg"></div>
-            </div>
-        </div>`;
-    }
-
-    function renderDashboard() {
-        return `
-        <div class="dashboard-wrapper">
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <h2>Insight CMS</h2>
-                    <p>Auto-logout 30 menit</p>
-                </div>
-                <div class="nav-menu">
-                    <div class="nav-item" data-nav="home"><i class="fas fa-home"></i> Home</div>
-                    <div class="nav-item" data-nav="add"><i class="fas fa-plus-circle"></i> Tambah Berita</div>
-                    <div class="nav-item" data-nav="list"><i class="fas fa-list"></i> Daftar Berita</div>
-                </div>
-                <div class="sidebar-footer">
-                    <i class="fas fa-cloud-upload-alt"></i> Cloudinary + Quill Editor
-                </div>
-            </aside>
-            <main class="main-content">
-                <div class="top-bar">
-                    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-                    <h1 class="page-title" id="pageTitle">Home</h1>
-                    <div class="btn-group">
-                        <button class="home-btn" id="homeBtn"><i class="fas fa-home"></i> Beranda</button>
-                        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                    </div>
-                </div>
-                <div id="dynamicContent"></div>
-            </main>
-        </div>`;
-    }
-
-    async function loadNewsAndView() { await loadNews(); navigateTo(currentNav); }
-    async function loadNews() {
-        const snap = await db.ref('news').once('value');
-        const data = snap.val();
-        allNews = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
-        allNews.sort((a,b) => new Date(b.date) - new Date(a.date));
-    }
-
-    function navigateTo(page) {
-        currentNav = page;
-        const contentDiv = document.getElementById('dynamicContent');
-        const title = document.getElementById('pageTitle');
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('data-nav') === page) item.classList.add('active');
-        });
-        if (page === 'home') { title.innerText = 'Dashboard'; renderDashboardContent(contentDiv); }
-        else if (page === 'add') { title.innerText = currentEditId ? 'Edit Berita' : 'Tambah Berita'; renderFormContent(contentDiv); }
-        else if (page === 'list') { title.innerText = 'Daftar Berita'; renderListContent(contentDiv); }
-    }
-
-    function renderDashboardContent(container) {
-        const total = allNews.length;
-        const breaking = allNews.filter(n => n.category === 'breaking').length;
-        const trending = allNews.filter(n => n.category === 'trending').length;
-        const hot = allNews.filter(n => n.category === 'hot').length;
-        container.innerHTML = `
-            <div class="stats-grid">
-                <div class="stat-card"><i class="fas fa-newspaper"></i><h3>${total}</h3><p>Total Berita</p></div>
-                <div class="stat-card"><i class="fas fa-bolt"></i><h3>${breaking}</h3><p>Breaking</p></div>
-                <div class="stat-card"><i class="fas fa-chart-line"></i><h3>${trending}</h3><p>Trending</p></div>
-                <div class="stat-card"><i class="fas fa-fire"></i><h3>${hot}</h3><p>Hot</p></div>
-            </div>
-            <div class="card"><div class="card-title">Fitur Pro</div><ul><li>📝 Rich Text Editor (paragraf, bold, list)</li><li>☁️ Upload/hapus Cloudinary</li><li>🔍 Pencarian berita</li><li>📱 Tampilan card horizontal</li></ul></div>
-        `;
-    }
-
-    // ========== FORM DENGAN QUILL EDITOR ==========
-    function renderFormContent(container) {
-        const isEdit = !!currentEditId;
-        const news = isEdit ? allNews.find(n => n.id === currentEditId) : null;
-        if (isEdit && news) {
-            imagesArray = news.images ? [...news.images] : [];
-            videosArray = news.videos ? [...news.videos] : [];
-        } else {
-            imagesArray = [];
-            videosArray = [];
-        }
-        container.innerHTML = `
-            <div class="card">
-                <div class="card-title">${isEdit ? 'Edit Berita' : 'Buat Berita Baru'}</div>
-                <form id="cmsForm">
-                    <input type="hidden" id="editId" value="${currentEditId || ''}">
-                    <div class="form-group"><label>Judul *</label><input type="text" id="title" value="${escapeHtml(news?.title || '')}" required></div>
-                    <div class="form-group"><label>Kategori</label><select id="category">${['breaking','trending','hot','politik','daerah','ekonomi'].map(c => `<option value="${c}" ${news?.category === c ? 'selected' : ''}>${c.toUpperCase()}</option>`).join('')}</select></div>
-                    <div class="form-group"><label>Gambar Utama</label><div class="file-upload-group"><input type="text" id="image" value="${escapeHtml(news?.image || '')}" style="flex:1"><button type="button" id="uploadThumbBtn" class="btn-cloud"><i class="fas fa-cloud-upload-alt"></i> Upload</button></div><img id="imagePreview" class="preview-img"></div>
-                    <div class="form-group"><label>Video YouTube</label><input type="text" id="videoUrl" value="${escapeHtml(news?.videoUrl || '')}"><div id="videoPreview" class="preview-video"></div></div>
-                    <div class="form-group"><label>Short Text</label><input type="text" id="shortText" value="${escapeHtml(news?.shortText || '')}"></div>
-                    <div class="checkbox-group"><input type="checkbox" id="isShort" ${news?.isShort ? 'checked' : ''}> <label>Short News</label></div>
-                    <div class="form-group"><label>Konten (Rich Text) *</label><div id="editor" style="height: 300px;"></div></div>
-                    <div class="form-group"><label>Views</label><input type="number" id="views" value="${news?.views || 0}"></div>
-                    <div class="form-group"><label>📸 Galeri Gambar</label><button type="button" id="uploadGalleryBtn" class="add-btn" style="background:#2c3e66"><i class="fas fa-cloud-upload-alt"></i> Upload + Tambah Galeri</button><div id="imagesContainer" class="media-list"></div><button type="button" id="addImageBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah URL Galeri</button></div>
-                    <div class="form-group"><label>🎥 Galeri Video</label><div id="videosContainer" class="media-list"></div><button type="button" id="addVideoBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah Video</button></div>
-                    <div><button type="submit" class="btn-primary">Simpan</button><button type="button" id="cancelForm" class="btn-secondary">Batal</button></div>
-                </form>
-            </div>
-        `;
-        // Inisialisasi Quill setelah div editor ada
-        if (quillEditor) quillEditor = null;
-        quillEditor = new Quill('#editor', {
-            theme: 'snow',
-            placeholder: 'Tulis konten berita di sini... Tekan Enter untuk paragraf baru.',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, false] }],
-                    ['bold', 'italic', 'underline'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['link', 'clean']
-                ]
-            }
-        });
-        if (news && news.content) {
-            quillEditor.root.innerHTML = news.content;
-        } else {
-            quillEditor.root.innerHTML = '';
-        }
-        renderDynamicInputs();
-        attachFormEvents();
-        attachPreview();
-        attachCloudinaryHandlers();
-    }
-
-    function renderDynamicInputs() {
-        const imgContainer = document.getElementById('imagesContainer');
-        const vidContainer = document.getElementById('videosContainer');
-        if(imgContainer){
-            imgContainer.innerHTML = '';
-            imagesArray.forEach((url, idx) => {
-                const div = document.createElement('div'); div.className = 'media-item';
-                div.innerHTML = `<input type="text" value="${escapeHtml(url)}" data-idx="${idx}" class="imgUrlField" style="flex:1"><button class="remove-btn" data-idx="${idx}" data-type="img">Hapus</button>`;
-                imgContainer.appendChild(div);
-            });
-            document.querySelectorAll('.imgUrlField').forEach(inp => inp.addEventListener('change', (e) => { let i = parseInt(e.target.dataset.idx); imagesArray[i] = e.target.value; renderDynamicInputs(); applyPreview(); }));
-            document.querySelectorAll('.remove-btn[data-type="img"]').forEach(btn => btn.addEventListener('click', (e) => { let i = parseInt(btn.dataset.idx); imagesArray.splice(i,1); renderDynamicInputs(); }));
-        }
-        if(vidContainer){
-            vidContainer.innerHTML = '';
-            videosArray.forEach((url, idx) => {
-                const div = document.createElement('div'); div.className = 'media-item';
-                div.innerHTML = `<input type="text" value="${escapeHtml(url)}" data-idx="${idx}" class="vidUrlField" style="flex:1"><button class="remove-btn" data-idx="${idx}" data-type="vid">Hapus</button>`;
-                vidContainer.appendChild(div);
-            });
-            document.querySelectorAll('.vidUrlField').forEach(inp => inp.addEventListener('change', (e) => { let i = parseInt(e.target.dataset.idx); videosArray[i] = e.target.value; renderDynamicInputs(); }));
-            document.querySelectorAll('.remove-btn[data-type="vid"]').forEach(btn => btn.addEventListener('click', (e) => { let i = parseInt(btn.dataset.idx); videosArray.splice(i,1); renderDynamicInputs(); }));
-        }
-    }
-
-    function applyPreview() {
-        const imgField = document.getElementById('image');
-        if(imgField) imgField.value = convertGitHubToRaw(imgField.value);
-        const vidField = document.getElementById('videoUrl');
-        if(vidField) vidField.value = convertYouTubeToEmbed(vidField.value);
-        const imgPrev = document.getElementById('imagePreview');
-        if(imgField && imgField.value) { imgPrev.src = imgField.value; imgPrev.style.display = 'block'; } else if(imgPrev) imgPrev.style.display = 'none';
-        const vidDiv = document.getElementById('videoPreview');
-        if(vidField && vidField.value.includes('youtube.com/embed/')) vidDiv.innerHTML = `<iframe src="${vidField.value}" frameborder="0" allowfullscreen></iframe>`;
-        else if(vidDiv) vidDiv.innerHTML = '';
-    }
-    function attachPreview() {
-        const img = document.getElementById('image'); if(img) img.addEventListener('input', applyPreview);
-        const vid = document.getElementById('videoUrl'); if(vid) vid.addEventListener('input', applyPreview);
-        applyPreview();
-    }
-
-    async function handleSave(e) {
-        e.preventDefault();
-        const id = document.getElementById('editId').value;
-        const contentHTML = quillEditor ? quillEditor.root.innerHTML : '';
-        if (!contentHTML || contentHTML === '<p><br></p>') {
-            alert('Konten berita tidak boleh kosong!');
-            return;
-        }
-        const newsData = {
-            title: document.getElementById('title').value.trim(),
-            category: document.getElementById('category').value,
-            image: convertGitHubToRaw(document.getElementById('image').value),
-            videoUrl: convertYouTubeToEmbed(document.getElementById('videoUrl').value),
-            shortText: document.getElementById('shortText').value,
-            isShort: document.getElementById('isShort').checked,
-            content: contentHTML,
-            views: parseInt(document.getElementById('views').value) || 0,
-            date: new Date().toISOString(),
-            images: imagesArray.map(convertGitHubToRaw),
-            videos: videosArray.map(convertYouTubeToEmbed)
-        };
-        if(!newsData.title) { alert('Judul wajib diisi!'); return; }
-        if(id) await db.ref(`news/${id}`).update(newsData);
-        else await db.ref('news').push().set(newsData);
-        await loadNews();
-        currentEditId = null;
-        navigateTo('list');
-        showToast("Berita tersimpan dengan format HTML!");
-    }
-
-    function attachFormEvents() {
-        document.getElementById('cmsForm')?.addEventListener('submit', handleSave);
-        document.getElementById('cancelForm')?.addEventListener('click', () => { currentEditId = null; navigateTo('list'); });
-        document.getElementById('addImageBtn')?.addEventListener('click', () => { imagesArray.push(''); renderDynamicInputs(); });
-        document.getElementById('addVideoBtn')?.addEventListener('click', () => { videosArray.push(''); renderDynamicInputs(); });
-    }
-
-    function attachCloudinaryHandlers() {
-        document.getElementById('uploadThumbBtn')?.addEventListener('click', () => {
-            const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
-            inp.onchange = async (e) => { const file = e.target.files[0]; if(file){ const url = await uploadToCloudinary(file); if(url){ document.getElementById('image').value = url; applyPreview(); } } };
-            inp.click();
-        });
-        document.getElementById('uploadGalleryBtn')?.addEventListener('click', () => {
-            const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = true;
-            inp.onchange = async (e) => { const files = Array.from(e.target.files); for(let f of files){ const url = await uploadToCloudinary(f); if(url) imagesArray.push(url); } renderDynamicInputs(); };
-            inp.click();
-        });
-    }
-
-    async function deleteBeritaWithImages(id, newsData) {
-        const allImgUrls = [newsData.image, ...(newsData.images || [])].filter(Boolean);
-        await deleteMultipleImages(allImgUrls);
-        await db.ref(`news/${id}`).remove();
-        showToast("Berita & gambar Cloudinary dihapus");
-    }
-
-    // ========== DAFTAR BERITA ==========
-    function renderListContent(container) {
-        let filteredNews = allNews;
-        if (searchTerm) {
-            filteredNews = allNews.filter(n => n.title.toLowerCase().includes(searchTerm.toLowerCase()));
-        }
-        if (filteredNews.length === 0) {
-            container.innerHTML = `<div class="card"><div class="card-title">📋 Daftar Berita</div><div class="search-box"><input type="text" id="searchInput" placeholder="Cari judul berita..." class="search-input"><button id="searchBtn" class="add-btn"><i class="fas fa-search"></i> Cari</button><button id="clearSearchBtn" class="add-btn" style="background:#6b7280">Clear</button></div><p style="margin-top:20px;">Tidak ada berita yang ditemukan.</p></div>`;
-            attachSearchEvents(container);
-            return;
-        }
-        let cardsHtml = '';
-        for (let news of filteredNews) {
-            let plainPreview = (news.content || '').replace(/<[^>]*>/g, '').substring(0, 80) + '...';
-            cardsHtml += `
-                <div class="news-card-horizontal" data-id="${news.id}">
-                    <img class="news-img-small" src="${news.image || 'https://placehold.co/100x80?text=No+Img'}" onerror="this.src='https://placehold.co/100x80?text=Error'">
-                    <div class="news-content">
-                        <div class="news-title-small">${escapeHtml(news.title)}</div>
-                        <div class="news-preview-small">${escapeHtml(plainPreview)}</div>
-                        <div class="news-meta-small">
-                            <span><i class="fas fa-tag"></i> ${news.category?.toUpperCase() || 'Umum'}</span>
-                            <span><i class="fas fa-eye"></i> ${formatNumber(news.views)}</span>
-                            <span><i class="fas fa-calendar"></i> ${news.date ? new Date(news.date).toLocaleDateString('id') : '-'}</span>
-                        </div>
-                        <div class="news-actions-small">
-                            <button class="edit-sm" data-id="${news.id}"><i class="fas fa-edit"></i> Edit</button>
-                            <button class="delete-sm" data-id="${news.id}"><i class="fas fa-trash"></i> Hapus</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-        container.innerHTML = `
-            <div class="card">
-                <div class="card-title">📋 Semua Berita</div>
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Cari judul berita..." class="search-input" value="${escapeHtml(searchTerm)}">
-                    <button id="searchBtn" class="add-btn"><i class="fas fa-search"></i> Cari</button>
-                    <button id="clearSearchBtn" class="add-btn" style="background:#6b7280">Clear</button>
-                </div>
-                <div class="news-list">${cardsHtml}</div>
-            </div>
-        `;
-        attachSearchEvents(container);
-        document.querySelectorAll('.edit-sm').forEach(btn => {
-            btn.addEventListener('click', () => { currentEditId = btn.dataset.id; navigateTo('add'); });
-        });
-        document.querySelectorAll('.delete-sm').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const id = btn.dataset.id;
-                const news = allNews.find(n => n.id === id);
-                if (confirm('Hapus berita ini dan semua gambarnya di Cloudinary?')) {
-                    await deleteBeritaWithImages(id, news);
-                    await loadNews();
-                    renderListContent(document.getElementById('dynamicContent'));
-                }
-            });
-        });
-    }
-
-    function attachSearchEvents(container) {
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const clearBtn = document.getElementById('clearSearchBtn');
-        if (searchBtn) searchBtn.onclick = () => { searchTerm = searchInput.value; renderListContent(document.getElementById('dynamicContent')); };
-        if (clearBtn) clearBtn.onclick = () => { searchTerm = ''; renderListContent(document.getElementById('dynamicContent')); };
-        if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { searchTerm = searchInput.value; renderListContent(document.getElementById('dynamicContent')); } });
-    }
-
-    function formatNumber(n) { if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'K'; return n?.toString()||'0'; }
-    function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-
-    function attachDashboardEvents() {
-        document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
-        document.getElementById('sidebar')?.addEventListener('click', (e) => { if(e.target === document.getElementById('sidebar') && window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); });
-        document.querySelectorAll('.nav-item').forEach(item => { item.addEventListener('click', () => { navigateTo(item.dataset.nav); if(window.innerWidth <= 900) document.getElementById('sidebar')?.classList.remove('open'); }); });
-        document.getElementById('logoutBtn')?.addEventListener('click', () => auth.signOut());
-        document.getElementById('homeBtn')?.addEventListener('click', () => { navigateTo('home'); if(window.innerWidth <= 900) document.getElementById('sidebar')?.classList.remove('open'); });
-    }
-
-    async function doLogin() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const pass = document.getElementById('loginPassword').value;
-        const errorDiv = document.getElementById('loginError');
-        const successDiv = document.getElementById('loginSuccess');
-        errorDiv.innerText = '';
-        successDiv.innerText = '';
-        try {
-            await auth.signInWithEmailAndPassword(email, pass);
-        } catch(err) {
-            let msg = err.message;
-            if (err.code === 'auth/invalid-credential') msg = 'Email atau password salah. Coba lagi atau klik "Lupa password?"';
-            errorDiv.innerText = msg;
-        }
-    }
-
-    async function resetPassword() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const errorDiv = document.getElementById('loginError');
-        const successDiv = document.getElementById('loginSuccess');
-        errorDiv.innerText = '';
-        successDiv.innerText = '';
-        if (!email) {
-            errorDiv.innerText = 'Masukkan email Anda terlebih dahulu.';
-            return;
-        }
-        try {
-            await auth.sendPasswordResetEmail(email);
-            successDiv.innerText = 'Email reset password telah dikirim. Cek inbox/spam.';
-        } catch(err) {
-            errorDiv.innerText = err.message;
-        }
-    }
-
-    auth.onAuthStateChanged(user => { currentUser = user; render(); });
+// Konfigurasi
+const firebaseConfig = { apiKey:"AIzaSyDC8hsDbX3qb9XLY7H2ChdXK6AxRPXD2q0", authDomain:"dataku-40827.firebaseapp.com", databaseURL:"https://dataku-40827-default-rtdb.asia-southeast1.firebasedatabase.app", projectId:"dataku-40827", storageBucket:"dataku-40827.firebasestorage.app" };
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(), db=firebase.database();
+const CLOUD_NAME="dg8fcmrss", UPLOAD_PRESET="Insigh";
+const CLOUD_API_KEY="238935634886758", CLOUD_API_SECRET="GyQHlM1gvN85zQEMzzZLas0oZ8o";
+async function uploadToCloudinary(file){ let fd=new FormData(); fd.append('file',file); fd.append('upload_preset',UPLOAD_PRESET); let res=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:'POST',body:fd}); let data=await res.json(); return data.secure_url||null; }
+async function deleteFromCloudinary(publicId){ let url=`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image/upload/${publicId}`; let authStr=btoa(`${CLOUD_API_KEY}:${CLOUD_API_SECRET}`); let res=await fetch(url,{method:'DELETE',headers:{'Authorization':`Basic ${authStr}`}}); return res.ok; }
+function extractPublicId(url){ if(!url||!url.includes('cloudinary.com')) return null; let m=url.match(/\/upload\/(?:v\d+\/)?(.+?)\.(jpg|jpeg|png|gif|webp)/i); if(!m) m=url.match(/\/upload\/(?:v\d+\/)?(.+?)(\?|$)/); return m?m[1]:null; }
+async function deleteImagesFromUrls(urls){ for(let u of urls){ let pid=extractPublicId(u); if(pid) await deleteFromCloudinary(pid); } }
+function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+function convertToHtml(text){ if(!text) return ''; let blocks=text.split(/\r?\n\r?\n/); let result=''; for(let b of blocks){ b=b.trim(); if(!b) continue; let lines=b.split(/\r?\n/); result+='<p>'+lines.join('<br>')+'</p>'; } return result; }
+let currentUser=null, allNews=[], editId=null, imagesArr=[], videosArr=[];
+let idleTimer; const IDLE_TIMEOUT=30*60*1000;
+function resetIdle(){ if(idleTimer) clearTimeout(idleTimer); idleTimer=setTimeout(()=>{ if(currentUser){ alert('Auto logout karena tidak aktif 30 menit'); auth.signOut(); } },IDLE_TIMEOUT); }
+function attachActivity(){ ['mousedown','keydown','scroll','touchstart'].forEach(ev=>window.addEventListener(ev,resetIdle)); resetIdle(); }
+function render(){ document.getElementById('app').innerHTML=currentUser?renderDashboard():renderLogin(); if(currentUser){ attachActivity(); loadNews(); attachEvents(); } else document.getElementById('loginBtn')?.addEventListener('click',doLogin); }
+function renderLogin(){ return `<div class="login-container"><div class="login-card"><h2><i class="fas fa-crown"></i> Insight CMS</h2><div class="input-group"><input type="email" id="loginEmail" placeholder="Email"></div><div class="input-group"><input type="password" id="loginPassword" placeholder="Password"><i class="fas fa-eye toggle-pwd" id="togglePwd" onclick="let p=document.getElementById('loginPassword');p.type=p.type==='password'?'text':'password';this.classList.toggle('fa-eye-slash');"></i></div><button class="login-btn" id="loginBtn">Login</button><div id="loginError" class="error-msg"></div></div></div>`; }
+function renderDashboard(){ return `<div class="dashboard"><div class="top-bar"><h2><i class="fas fa-newspaper"></i> Insight CMS</h2><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div><div class="card"><div class="card-title" id="formTitle">➕ Tambah Berita Baru</div><form id="newsForm"><div class="form-group"><label>Judul *</label><input type="text" id="title" required></div><div class="form-group"><label>Kategori</label><select id="category"><option value="breaking">Breaking</option><option value="trending">Trending</option><option value="hot">Hot</option><option value="politik">Politik</option><option value="daerah">Daerah</option><option value="ekonomi">Ekonomi</option></select></div><div class="form-group"><label>Gambar Utama</label><div class="file-upload-group"><input type="text" id="imageUrl" placeholder="URL atau upload" style="flex:1"><button type="button" id="uploadThumbBtn" class="btn-cloud"><i class="fas fa-cloud-upload-alt"></i> Upload</button></div><img id="imagePreview" class="preview-img"></div><div class="form-group"><label>Video YouTube URL</label><input type="text" id="videoUrl" placeholder="https://youtu.be/..."></div><div class="form-group"><label>Short Text</label><input type="text" id="shortText"></div><div class="form-group"><label><input type="checkbox" id="isShort"> Short News</label></div><div class="form-group"><label>Konten (HTML) *</label><textarea id="content" rows="8" placeholder="Tulis berita di sini... Tekan Enter dua kali untuk paragraf baru."></textarea></div><div class="form-group"><label>Views</label><input type="number" id="views" value="0"></div><div class="form-group"><label>📸 Galeri Gambar</label><button type="button" id="uploadGalleryBtn" class="add-btn"><i class="fas fa-cloud-upload-alt"></i> Upload + Tambah ke Galeri</button><div id="imagesContainer" class="media-list"></div><button type="button" id="addImageBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah URL Galeri</button></div><div class="form-group"><label>🎥 Galeri Video</label><div id="videosContainer" class="media-list"></div><button type="button" id="addVideoBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah Video</button></div><div><button type="submit" class="btn-primary">Simpan</button><button type="button" id="cancelBtn" class="btn-secondary">Batal</button></div></form></div><div class="card"><div class="card-title">📋 Daftar Berita</div><div id="newsList" class="news-list"><div class="spinner">Memuat...</div></div></div></div>`; }
+async function loadNews(){ let snap=await db.ref('news').once('value'); let data=snap.val(); allNews=data?Object.entries(data).map(([id,val])=>({id,...val})).sort((a,b)=>new Date(b.date)-new Date(a.date)):[]; renderNewsList(); }
+function renderNewsList(){ if(!allNews.length){ document.getElementById('newsList').innerHTML='<div class="spinner">Belum ada berita</div>'; return; }
+let html=''; for(let n of allNews){ html+=`<div class="news-item"><img src="${n.image||(n.images&&n.images[0])||'https://placehold.co/80x60'}" onerror="this.src='https://placehold.co/80x60'"><div class="news-info"><strong>${escapeHtml(n.title)}</strong><div class="news-meta">${n.category} | ${new Date(n.date).toLocaleDateString('id-ID')} | ${n.views||0} views</div></div><div class="news-actions"><button class="edit-news" data-id="${n.id}" style="background:#3b82f6;border:none;padding:6px 12px;border-radius:30px;color:white;cursor:pointer;">Edit</button><button class="delete-news" data-id="${n.id}" style="background:#dc2626;border:none;padding:6px 12px;border-radius:30px;color:white;cursor:pointer;">Hapus</button></div></div>`; }
+document.getElementById('newsList').innerHTML=html;
+document.querySelectorAll('.edit-news').forEach(btn=>btn.addEventListener('click',()=>editNews(btn.dataset.id)));
+document.querySelectorAll('.delete-news').forEach(btn=>btn.addEventListener('click',async()=>{ if(confirm('Hapus berita & semua gambar di Cloudinary?')){ let news=allNews.find(n=>n.id===btn.dataset.id); let allImgs=[news.image,...(news.images||[])].filter(Boolean); await deleteImagesFromUrls(allImgs); await db.ref(`news/${btn.dataset.id}`).remove(); await loadNews(); if(editId===btn.dataset.id) resetForm(); } })); }
+function resetForm(){ document.getElementById('title').value=''; document.getElementById('category').value='breaking'; document.getElementById('imageUrl').value=''; document.getElementById('videoUrl').value=''; document.getElementById('shortText').value=''; document.getElementById('isShort').checked=false; document.getElementById('content').value=''; document.getElementById('views').value='0'; imagesArr=[]; videosArr=[]; renderMediaInputs(); document.getElementById('formTitle').innerHTML='➕ Tambah Berita Baru'; document.getElementById('imagePreview').style.display='none'; editId=null; }
+function renderMediaInputs(){ let imgDiv=document.getElementById('imagesContainer'); if(imgDiv){ imgDiv.innerHTML=''; imagesArr.forEach((url,i)=>{ let d=document.createElement('div'); d.className='media-item'; d.innerHTML=`<input type="text" value="${escapeHtml(url)}" class="imgField" data-idx="${i}" style="flex:1"><button class="remove-btn" data-idx="${i}" data-type="img">Hapus</button>`; imgDiv.appendChild(d); }); document.querySelectorAll('.imgField').forEach(inp=>inp.addEventListener('change',(e)=>{ let idx=parseInt(e.target.dataset.idx); imagesArr[idx]=e.target.value; renderMediaInputs(); })); document.querySelectorAll('.remove-btn[data-type="img"]').forEach(btn=>btn.addEventListener('click',(e)=>{ let idx=parseInt(btn.dataset.idx); imagesArr.splice(idx,1); renderMediaInputs(); })); }
+let vidDiv=document.getElementById('videosContainer'); if(vidDiv){ vidDiv.innerHTML=''; videosArr.forEach((url,i)=>{ let d=document.createElement('div'); d.className='media-item'; d.innerHTML=`<input type="text" value="${escapeHtml(url)}" class="vidField" data-idx="${i}" style="flex:1"><button class="remove-btn" data-idx="${i}" data-type="vid">Hapus</button>`; vidDiv.appendChild(d); }); document.querySelectorAll('.vidField').forEach(inp=>inp.addEventListener('change',(e)=>{ let idx=parseInt(e.target.dataset.idx); videosArr[idx]=e.target.value; renderMediaInputs(); })); document.querySelectorAll('.remove-btn[data-type="vid"]').forEach(btn=>btn.addEventListener('click',(e)=>{ let idx=parseInt(btn.dataset.idx); videosArr.splice(idx,1); renderMediaInputs(); })); } }
+async function editNews(id){ let snap=await db.ref(`news/${id}`).once('value'); let n=snap.val(); if(n){ document.getElementById('title').value=n.title; document.getElementById('category').value=n.category||'breaking'; document.getElementById('imageUrl').value=n.image||''; document.getElementById('videoUrl').value=n.videoUrl||''; document.getElementById('shortText').value=n.shortText||''; document.getElementById('isShort').checked=n.isShort||false; document.getElementById('content').value=n.content||''; document.getElementById('views').value=n.views||0; imagesArr=n.images?[...n.images]:[]; videosArr=n.videos?[...n.videos]:[]; renderMediaInputs(); let preview=document.getElementById('imagePreview'); if(n.image){ preview.src=n.image; preview.style.display='block'; }else preview.style.display='none'; document.getElementById('formTitle').innerHTML='✏️ Edit Berita'; editId=id; window.scrollTo({top:0,behavior:'smooth'}); } }
+async function handleSave(e){ e.preventDefault(); let id=editId; let title=document.getElementById('title').value.trim(); if(!title){ alert('Judul wajib diisi'); return; }
+let contentRaw=document.getElementById('content').value; let contentHtml=convertToHtml(contentRaw);
+let newsData={ title, category:document.getElementById('category').value, image:document.getElementById('imageUrl').value, videoUrl:document.getElementById('videoUrl').value, shortText:document.getElementById('shortText').value, isShort:document.getElementById('isShort').checked, content:contentHtml, views:parseInt(document.getElementById('views').value)||0, date:new Date().toISOString(), images:imagesArr, videos:videosArr };
+if(id) await db.ref(`news/${id}`).update(newsData); else await db.ref('news').push().set(newsData); await loadNews(); resetForm(); alert('Berita tersimpan!'); }
+function attachEvents(){ document.getElementById('newsForm').addEventListener('submit',handleSave); document.getElementById('cancelBtn').onclick=resetForm; document.getElementById('addImageBtn').onclick=()=>{ imagesArr.push(''); renderMediaInputs(); }; document.getElementById('addVideoBtn').onclick=()=>{ videosArr.push(''); renderMediaInputs(); }; document.getElementById('uploadThumbBtn').onclick=()=>{ let inp=document.createElement('input'); inp.type='file'; inp.accept='image/*'; inp.onchange=async(e)=>{ let f=e.target.files[0]; if(f){ let url=await uploadToCloudinary(f); if(url){ document.getElementById('imageUrl').value=url; let prev=document.getElementById('imagePreview'); prev.src=url; prev.style.display='block'; } } }; inp.click(); }; document.getElementById('uploadGalleryBtn').onclick=()=>{ let inp=document.createElement('input'); inp.type='file'; inp.accept='image/*'; inp.multiple=true; inp.onchange=async(e)=>{ let files=Array.from(e.target.files); for(let f of files){ let url=await uploadToCloudinary(f); if(url) imagesArr.push(url); } renderMediaInputs(); }; inp.click(); }; document.getElementById('logoutBtn').onclick=()=>auth.signOut(); let imgUrlInput=document.getElementById('imageUrl'); imgUrlInput.addEventListener('input',()=>{ let url=imgUrlInput.value; let prev=document.getElementById('imagePreview'); if(url){ prev.src=url; prev.style.display='block'; }else prev.style.display='none'; }); }
+async function doLogin(){ let email=document.getElementById('loginEmail').value, pass=document.getElementById('loginPassword').value; try{ await auth.signInWithEmailAndPassword(email,pass); }catch(err){ document.getElementById('loginError').innerText=err.message; } }
+auth.onAuthStateChanged(user=>{ currentUser=user; render(); });
 </script>
 </body>
 </html>

@@ -1,155 +1,116 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Detail Berita - Insight News Indonesia</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #1e293b; overflow-x: hidden; }
-    body.dark { background: #0f172a; color: #e2e8f0; }
-
-    /* Top Header */
-    .top-header { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; padding: 16px 0; border-bottom: 3px solid #e74c3c; }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-    .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .logo-text h1 a { color: white; text-decoration: none; font-size: 1.6rem; font-weight: 800; }
-    .logo-text p { font-size: 0.7rem; color: #94a3b8; margin-top: 4px; }
-    .datetime { font-size: 0.8rem; color: #cbd5e1; }
-    .dark-mode-toggle { background: #334155; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; color: white; transition: 0.2s; }
-    .dark-mode-toggle:hover { background: #475569; }
-
-    /* Main Nav */
-    .main-nav { background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
-    body.dark .main-nav { background: #1e293b; }
-    .nav-wrapper { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .nav-menu { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; padding: 12px 0; }
-    .nav-menu li a { text-decoration: none; color: #334155; font-weight: 600; transition: 0.2s; }
-    body.dark .nav-menu li a { color: #cbd5e1; }
-    .nav-menu li a:hover { color: #e74c3c; }
-    .search-box { display: flex; align-items: center; background: #f1f5f9; border-radius: 40px; padding: 6px 16px; gap: 8px; }
-    body.dark .search-box { background: #334155; }
-    .search-box i { color: #94a3b8; }
-    .search-box input { border: none; background: none; padding: 8px; outline: none; width: 200px; font-size: 0.85rem; }
-
-    /* Detail Container - GAMBAR BESAR RESPONSIF */
-    .detail-container { max-width: 900px; margin: 40px auto; background: white; border-radius: 24px; padding: 40px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-    body.dark .detail-container { background: #1e293b; }
-    .detail-title { font-size: 2rem; font-weight: 800; margin-bottom: 16px; line-height: 1.3; }
-    .detail-meta { display: flex; gap: 20px; color: #64748b; font-size: 0.85rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
-    body.dark .detail-meta { border-bottom-color: #334155; }
-
-    /* GALLERY - GAMBAR BESAR & RESPONSIF */
-    .detail-gallery { margin: 24px 0; }
-    .main-image { width: 100%; border-radius: 20px; overflow: hidden; cursor: pointer; background: #f1f5f5; }
-    .main-image img { width: 100%; height: auto; max-height: 500px; object-fit: contain; transition: 0.3s; display: block; }
-    .thumbnail-list { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
-    .thumbnail { width: 100px; height: 70px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 2px solid transparent; transition: 0.2s; opacity: 0.7; }
-    .thumbnail:hover, .thumbnail.active { opacity: 1; border-color: #e74c3c; transform: translateY(-2px); }
-    
-    /* Video Container */
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 25px 0; background: #000; border-radius: 16px; overflow: hidden; }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-    
-    /* Share Buttons */
-    .share-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
-    .share-btn { padding: 10px 20px; border-radius: 40px; color: white; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; transition: 0.2s; }
-    .share-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
-    .share-wa { background: #25D366; }
-    .share-fb { background: #1877f2; }
-    .share-twitter { background: #1da1f2; }
-    .share-copy { background: #64748b; }
-
-    /* Detail Content */
-    .detail-content { font-size: 1.05rem; line-height: 1.8; color: #334155; margin-top: 24px; }
-    body.dark .detail-content { color: #cbd5e1; }
-    .detail-content p { margin-bottom: 1.2em; }
-    .detail-content img { max-width: 100%; border-radius: 16px; margin: 1.5em 0; }
-    .detail-content h2, .detail-content h3 { margin: 1.5em 0 0.5em; }
-
-    /* Lightbox */
-    .lightbox { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:2000; align-items:center; justify-content:center; cursor:pointer; }
-    .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; }
-    .lightbox-close { position:absolute; top:20px; right:40px; font-size:2.5rem; color:white; cursor:pointer; font-weight:bold; }
-    .lightbox-prev, .lightbox-next { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.6); color:white; border:none; font-size:2rem; padding:12px 18px; cursor:pointer; border-radius:50%; transition:0.2s; }
-    .lightbox-prev { left:20px; }
-    .lightbox-next { right:20px; }
-    .lightbox-prev:hover, .lightbox-next:hover { background:#e74c3c; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .detail-container { padding: 20px; margin: 20px; }
-        .detail-title { font-size: 1.5rem; }
-        .thumbnail { width: 70px; height: 50px; }
-        .main-image img { max-height: 350px; }
-        .nav-wrapper { flex-direction: column; }
-        .search-box input { width: 160px; }
-    }
-    @media (max-width: 480px) {
-        .thumbnail { width: 60px; height: 45px; }
-        .share-buttons { gap: 8px; }
-        .share-btn { padding: 6px 12px; font-size: 0.7rem; }
-    }
-
-    /* Spinner & Error */
-    .spinner { text-align: center; padding: 40px; color: #64748b; }
-    .error-message { text-align: center; padding: 40px; color: #e74c3c; }
-</style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Insight CMS | Professional dengan Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset & gaya sama seperti sebelumnya, ditambah gaya editor */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0a0c10; color: #eef2ff; overflow-x: hidden; }
+        .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f172a 0%, #1e1e2f 100%); padding: 20px; }
+        .login-card { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(14px); border-radius: 32px; padding: 40px; width: 100%; max-width: 420px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 50px -12px black; }
+        .login-card h2 { text-align: center; margin-bottom: 28px; font-weight: 800; background: linear-gradient(135deg, #f97316, #e74c3c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #cbd5e1; }
+        .input-group input { width: 100%; padding: 14px 45px 14px 18px; background: #0f172a; border: 1px solid #334155; border-radius: 30px; color: white; font-size: 0.9rem; transition: 0.2s; }
+        .input-group input:focus { outline: none; border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.2); }
+        .toggle-pwd { position: absolute; right: 18px; bottom: 14px; cursor: pointer; color: #9ca3af; font-size: 1.1rem; }
+        .login-btn { width: 100%; background: linear-gradient(95deg, #e74c3c, #f97316); border: none; padding: 14px; border-radius: 40px; font-weight: 700; color: white; cursor: pointer; transition: 0.2s; font-size: 1rem; margin-top: 10px; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(231,76,60,0.4); }
+        .forgot-btn { background: none; border: none; color: #f97316; cursor: pointer; margin-top: 12px; font-size: 0.85rem; text-align: center; width: 100%; }
+        .error-msg { color: #f87171; text-align: center; margin-top: 16px; font-size: 0.85rem; }
+        .success-msg { color: #10b981; text-align: center; margin-top: 16px; font-size: 0.85rem; }
+        .dashboard-wrapper { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: #111827; border-right: 1px solid #1f2937; position: fixed; top: 0; bottom: 0; left: 0; z-index: 40; transition: transform 0.3s ease; display: flex; flex-direction: column; }
+        .sidebar-header { padding: 28px 24px; border-bottom: 1px solid #1f2937; }
+        .sidebar-header h2 { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #e74c3c, #f97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .sidebar-header p { font-size: 0.7rem; color: #6b7280; margin-top: 6px; }
+        .nav-menu { flex: 1; padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; }
+        .nav-item { display: flex; align-items: center; gap: 14px; padding: 12px 20px; border-radius: 16px; cursor: pointer; transition: all 0.2s; color: #9ca3af; font-weight: 500; }
+        .nav-item i { width: 24px; font-size: 1.2rem; }
+        .nav-item:hover { background: #1f2937; color: white; }
+        .nav-item.active { background: linear-gradient(95deg, #e74c3c, #f97316); color: white; box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
+        .sidebar-footer { padding: 20px; border-top: 1px solid #1f2937; font-size: 0.7rem; text-align: center; color: #4b5563; }
+        .main-content { flex: 1; margin-left: 280px; padding: 28px 32px; background: #0f172a; min-height: 100vh; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .page-title { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #f97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .btn-group { display: flex; gap: 12px; }
+        .home-btn, .logout-btn { background: #1f2937; border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .home-btn:hover, .logout-btn:hover { background: #374151; }
+        .card { background: #1e293b; border-radius: 28px; padding: 28px; margin-bottom: 32px; border: 1px solid #334155; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 24px; border-left: 4px solid #f97316; padding-left: 16px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 32px; }
+        .stat-card { background: #1e293b; border-radius: 28px; padding: 24px; text-align: center; border: 1px solid #2d3a4e; transition: 0.2s; }
+        .stat-card:hover { border-color: #f97316; transform: translateY(-3px); }
+        .stat-card i { font-size: 2rem; margin-bottom: 12px; }
+        .stat-card h3 { font-size: 2rem; font-weight: 800; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #cbd5e1; }
+        input, select { width: 100%; padding: 12px 16px; background: #0f172a; border: 1px solid #334155; border-radius: 20px; color: white; font-family: inherit; }
+        .file-upload-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+        .btn-cloud { background: #2c3e66; border: none; padding: 8px 18px; border-radius: 40px; color: white; cursor: pointer; font-size: 0.8rem; }
+        .checkbox-group { display: flex; align-items: center; gap: 12px; }
+        .media-list { margin-top: 12px; }
+        .media-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; flex-wrap: wrap; }
+        .remove-btn { background: #dc2626; border: none; color: white; padding: 6px 14px; border-radius: 30px; cursor: pointer; }
+        .add-btn { background: #3b82f6; border: none; padding: 8px 18px; border-radius: 30px; color: white; cursor: pointer; margin-top: 8px; }
+        .btn-primary { background: linear-gradient(95deg, #e74c3c, #f97316); border: none; padding: 10px 28px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-right: 12px; color: white; }
+        .btn-secondary { background: #4b5563; border: none; padding: 10px 28px; border-radius: 40px; color: white; cursor: pointer; }
+        .preview-img { max-width: 100px; max-height: 60px; margin-top: 8px; border-radius: 12px; display: none; }
+        .preview-video iframe { max-width: 100%; max-height: 150px; border-radius: 16px; margin-top: 8px; }
+        .search-box { margin-bottom: 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .search-box input { flex: 1; min-width: 200px; background: #0f172a; border: 1px solid #334155; border-radius: 20px; padding: 10px; color: white; }
+        .news-list { display: flex; flex-direction: column; gap: 16px; }
+        .news-card-horizontal { background: #1e293b; border-radius: 20px; border: 1px solid #334155; overflow: hidden; transition: 0.2s; display: flex; flex-direction: row; align-items: center; gap: 16px; padding: 16px; }
+        .news-card-horizontal:hover { border-color: #f97316; transform: translateX(4px); }
+        .news-img-small { width: 100px; height: 80px; object-fit: cover; border-radius: 14px; background: #0f172a; flex-shrink: 0; }
+        .news-content { flex: 1; min-width: 0; }
+        .news-title-small { font-weight: 700; font-size: 1rem; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .news-preview-small { color: #94a3b8; font-size: 0.75rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-meta-small { display: flex; gap: 12px; margin-top: 8px; font-size: 0.7rem; color: #6b7280; flex-wrap: wrap; }
+        .news-actions-small { display: flex; gap: 8px; }
+        .edit-sm, .delete-sm { padding: 4px 12px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; font-size: 0.7rem; }
+        .edit-sm { background: #3b82f6; color: white; }
+        .delete-sm { background: #dc2626; color: white; }
+        @media (max-width: 700px) {
+            .news-card-horizontal { flex-direction: column; align-items: flex-start; }
+            .news-img-small { width: 100%; height: 160px; }
+            .news-title-small { white-space: normal; }
+        }
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); position: fixed; z-index: 50; }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 20px; }
+            .menu-toggle { display: block; }
+        }
+        @media (max-width: 550px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .card { padding: 20px; }
+        }
+        .toast { position: fixed; bottom: 20px; right: 20px; background: #10b981; color: white; padding: 12px 24px; border-radius: 40px; z-index: 100; opacity: 0; transition: 0.3s; }
+        /* Quill editor custom */
+        .ql-container { min-height: 250px; font-size: 14px; background: #0f172a; color: #e2e8f0; }
+        .ql-toolbar { background: #1e293b; border-color: #334155; }
+        .ql-editor { min-height: 250px; }
+        .ql-editor p { margin-bottom: 1em; }
+        .ql-editor.ql-blank::before { color: #64748b; }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
 <body>
-
-<div class="top-header">
-    <div class="container">
-        <div class="header-content">
-            <div class="logo-text">
-                <h1><a href="index.html">Insight News Indonesia</a></h1>
-                <p>Jurnalisme Berkualitas • Dengan Integritas</p>
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div class="datetime" id="datetime"></div>
-                <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="main-nav">
-    <div class="nav-wrapper">
-        <ul class="nav-menu">
-            <li><a href="index.html">Beranda</a></li>
-            <li><a href="breaking.html">Breaking</a></li>
-            <li><a href="trending.html">Trending</a></li>
-            <li><a href="hot.html">Hot News</a></li>
-            <li><a href="politik.html">Politik</a></li>
-            <li><a href="daerah.html">Daerah</a></li>
-            <li><a href="ekonomi.html">Ekonomi</a></li>
-        </ul>
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Cari berita...">
-        </div>
-    </div>
-</div>
-
-<main>
-    <div class="detail-container" id="detailContainer">
-        <div class="spinner"><i class="fas fa-spinner fa-pulse"></i> Memuat berita...</div>
-    </div>
-</main>
-
-<footer style="background: #0f172a; color: #94a3b8; padding: 30px 0; text-align: center; margin-top: 40px;">
-    <p>&copy; 2025 Insight News Indonesia | Jurnalisme Berkualitas Dengan Integritas</p>
-</footer>
+<div id="app"></div>
+<div id="toast" class="toast"></div>
 
 <script>
-    // ========== FIREBASE ==========
+    // ======================= FIREBASE CONFIG =======================
     const firebaseConfig = {
         apiKey: "AIzaSyDC8hsDbX3qb9XLY7H2ChdXK6AxRPXD2q0",
         authDomain: "dataku-40827.firebaseapp.com",
@@ -158,255 +119,492 @@
         storageBucket: "dataku-40827.firebasestorage.app"
     };
     firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    const auth = firebase.auth();
+    const db = firebase.database();
 
-    let galleryImages = []; // untuk lightbox navigasi
+    // ======================= CLOUDINARY =======================
+    const CLOUD_NAME = "dg8fcmrss";
+    const UPLOAD_PRESET = "Insigh";
+    const CLOUDINARY_API_KEY = "238935634886758";
+    const CLOUDINARY_API_SECRET = "GyQHlM1gvN85zQEMzzZLas0oZ8o";
 
-    function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-    function formatNumber(n) { if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'K'; return n?.toString()||'0'; }
-
-    function getNewsIdFromUrl() {
-        const hash = window.location.hash.substring(1);
-        if (hash) return hash;
-        const params = new URLSearchParams(window.location.search);
-        return params.get('id');
+    async function uploadToCloudinary(file) {
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('upload_preset', UPLOAD_PRESET);
+        try {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: fd });
+            const data = await res.json();
+            return data.secure_url || null;
+        } catch (err) { showToast("Upload gagal: " + err.message, true); return null; }
     }
 
-    // ========== RENDER GALLERY DENGAN GAMBAR BESAR ==========
-    function renderGallery(images) {
-        if (!images || images.length === 0) return '';
-        
-        galleryImages = images; // simpan untuk lightbox
-        
-        let mainImage = images[0];
-        let thumbnails = '';
-        let galleryHtml = `
-            <div class="detail-gallery">
-                <div class="main-image" onclick="openLightbox(0)">
-                    <img src="${mainImage}" alt="Gambar utama" id="mainGalleryImage">
-                </div>
-        `;
-        
-        if (images.length > 1) {
-            galleryHtml += `<div class="thumbnail-list">`;
-            images.forEach((img, idx) => {
-                galleryHtml += `<img src="${img}" class="thumbnail ${idx === 0 ? 'active' : ''}" onclick="changeMainImage(${idx})" loading="lazy">`;
-            });
-            galleryHtml += `</div>`;
-        }
-        galleryHtml += `</div>`;
-        
-        return galleryHtml;
+    async function deleteFromCloudinary(publicId) {
+        const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image/upload/${publicId}`;
+        const authStr = btoa(`${CLOUDINARY_API_KEY}:${CLOUDINARY_API_SECRET}`);
+        try {
+            const res = await fetch(url, { method: 'DELETE', headers: { 'Authorization': `Basic ${authStr}` } });
+            return res.ok;
+        } catch(e) { return false; }
     }
 
-    // Ganti gambar utama saat thumbnail diklik
-    window.changeMainImage = (idx) => {
-        const mainImg = document.getElementById('mainGalleryImage');
-        if (mainImg && galleryImages[idx]) {
-            mainImg.src = galleryImages[idx];
-            // Update active class pada thumbnail
-            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-                if (i === idx) thumb.classList.add('active');
-                else thumb.classList.remove('active');
-            });
-        }
-    };
+    function extractPublicId(url) {
+        if (!url || !url.includes('cloudinary.com')) return null;
+        let m = url.match(/\/upload\/(?:v\d+\/)?(.+?)\.(jpg|jpeg|png|gif|webp)/i);
+        if (!m) m = url.match(/\/upload\/(?:v\d+\/)?(.+?)(\?|$)/);
+        return m ? m[1] : null;
+    }
 
-    // Lightbox dengan navigasi gallery
-    window.openLightbox = (startIdx = 0) => {
-        if (!galleryImages.length) return;
-        
-        let currentIdx = startIdx;
-        
-        let lb = document.getElementById('lightbox');
-        if (!lb) {
-            lb = document.createElement('div');
-            lb.id = 'lightbox';
-            lb.className = 'lightbox';
-            lb.innerHTML = `
-                <span class="lightbox-close">&times;</span>
-                <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
-                <img id="lightboxImg" src="">
-                <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
-            `;
-            document.body.appendChild(lb);
-            
-            lb.querySelector('.lightbox-close').onclick = () => lb.style.display = 'none';
-            lb.querySelector('.lightbox-prev').onclick = () => {
-                currentIdx = (currentIdx - 1 + galleryImages.length) % galleryImages.length;
-                document.getElementById('lightboxImg').src = galleryImages[currentIdx];
-            };
-            lb.querySelector('.lightbox-next').onclick = () => {
-                currentIdx = (currentIdx + 1) % galleryImages.length;
-                document.getElementById('lightboxImg').src = galleryImages[currentIdx];
-            };
-            lb.onclick = (e) => { if (e.target === lb) lb.style.display = 'none'; };
+    async function deleteMultipleImages(urls) {
+        for (let url of urls) {
+            const pid = extractPublicId(url);
+            if (pid) await deleteFromCloudinary(pid);
         }
-        
-        document.getElementById('lightboxImg').src = galleryImages[currentIdx];
-        lb.style.display = 'flex';
-        
-        // Update navigasi
-        const prevBtn = lb.querySelector('.lightbox-prev');
-        const nextBtn = lb.querySelector('.lightbox-next');
-        if (galleryImages.length <= 1) {
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'none';
+    }
+
+    function showToast(msg, isErr = false) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.style.backgroundColor = isErr ? '#dc2626' : '#10b981';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+    }
+
+    // ======================= CONVERTERS =======================
+    function convertGitHubToRaw(url) {
+        if (!url) return url;
+        let u = url.trim();
+        if (u.includes('raw.githubusercontent.com')) return u;
+        const match = u.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
+        if (match) {
+            const [, user, repo, branch, path] = match;
+            let decoded = path;
+            try { decoded = decodeURIComponent(path); } catch(e) {}
+            return `https://raw.githubusercontent.com/${user}/${repo}/${branch}/${decoded}`;
+        }
+        return u;
+    }
+
+    function convertYouTubeToEmbed(url) {
+        if (!url) return url;
+        let u = url.trim();
+        if (u.includes('/embed/')) return u;
+        let vid = null;
+        let m = u.match(/(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+        if (m) vid = m[1];
+        if (!vid) m = u.match(/(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/);
+        if (m) vid = m[1];
+        if (!vid) m = u.match(/(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/);
+        if (m) vid = m[1];
+        return vid ? `https://www.youtube.com/embed/${vid}` : u;
+    }
+
+    // ======================= STATE & TIMEOUT =======================
+    let currentUser = null;
+    let allNews = [];
+    let currentEditId = null;
+    let imagesArray = [];
+    let videosArray = [];
+    let currentNav = 'home';
+    let searchTerm = '';
+    let quillEditor = null;
+    let idleTimer = null;
+    const IDLE_TIMEOUT = 30 * 60 * 1000;
+
+    function resetIdleTimer() {
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => { if (currentUser) { showToast("Auto logout karena 30 menit tidak aktif"); auth.signOut(); } }, IDLE_TIMEOUT);
+    }
+    function attachActivity() {
+        ['mousedown','keydown','scroll','touchstart'].forEach(ev => window.addEventListener(ev, resetIdleTimer));
+        resetIdleTimer();
+    }
+
+    // ======================= RENDER =======================
+    function render() {
+        const root = document.getElementById('app');
+        if (currentUser) {
+            root.innerHTML = renderDashboard();
+            attachDashboardEvents();
+            loadNewsAndView();
+            attachActivity();
         } else {
-            prevBtn.style.display = 'flex';
-            nextBtn.style.display = 'flex';
+            root.innerHTML = renderLogin();
+            document.getElementById('loginBtn')?.addEventListener('click', doLogin);
+            document.getElementById('forgotBtn')?.addEventListener('click', resetPassword);
+            const toggleIcon = document.getElementById('togglePassword');
+            if (toggleIcon) {
+                toggleIcon.addEventListener('click', () => {
+                    const pwdField = document.getElementById('loginPassword');
+                    const type = pwdField.type === 'password' ? 'text' : 'password';
+                    pwdField.type = type;
+                    toggleIcon.classList.toggle('fa-eye');
+                    toggleIcon.classList.toggle('fa-eye-slash');
+                });
+            }
         }
-    };
+    }
 
-    // ========== LOAD DETAIL BERITA ==========
-    async function loadDetail() {
-        const newsId = getNewsIdFromUrl();
-        if (!newsId) {
-            document.getElementById('detailContainer').innerHTML = '<div class="error-message">❌ Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
+    function renderLogin() {
+        return `
+        <div class="login-container">
+            <div class="login-card">
+                <h2><i class="fas fa-crown"></i> Insight CMS</h2>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="portalinsight335@gmail.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                    <i class="fas fa-eye toggle-pwd" id="togglePassword"></i>
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <button class="forgot-btn" id="forgotBtn"><i class="fas fa-key"></i> Lupa password?</button>
+                <div id="loginError" class="error-msg"></div>
+                <div id="loginSuccess" class="success-msg"></div>
+            </div>
+        </div>`;
+    }
+
+    function renderDashboard() {
+        return `
+        <div class="dashboard-wrapper">
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h2>Insight CMS</h2>
+                    <p>Auto-logout 30 menit</p>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-item" data-nav="home"><i class="fas fa-home"></i> Home</div>
+                    <div class="nav-item" data-nav="add"><i class="fas fa-plus-circle"></i> Tambah Berita</div>
+                    <div class="nav-item" data-nav="list"><i class="fas fa-list"></i> Daftar Berita</div>
+                </div>
+                <div class="sidebar-footer">
+                    <i class="fas fa-cloud-upload-alt"></i> Cloudinary + Quill Editor
+                </div>
+            </aside>
+            <main class="main-content">
+                <div class="top-bar">
+                    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                    <h1 class="page-title" id="pageTitle">Home</h1>
+                    <div class="btn-group">
+                        <button class="home-btn" id="homeBtn"><i class="fas fa-home"></i> Beranda</button>
+                        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </div>
+                </div>
+                <div id="dynamicContent"></div>
+            </main>
+        </div>`;
+    }
+
+    async function loadNewsAndView() { await loadNews(); navigateTo(currentNav); }
+    async function loadNews() {
+        const snap = await db.ref('news').once('value');
+        const data = snap.val();
+        allNews = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
+        allNews.sort((a,b) => new Date(b.date) - new Date(a.date));
+    }
+
+    function navigateTo(page) {
+        currentNav = page;
+        const contentDiv = document.getElementById('dynamicContent');
+        const title = document.getElementById('pageTitle');
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('data-nav') === page) item.classList.add('active');
+        });
+        if (page === 'home') { title.innerText = 'Dashboard'; renderDashboardContent(contentDiv); }
+        else if (page === 'add') { title.innerText = currentEditId ? 'Edit Berita' : 'Tambah Berita'; renderFormContent(contentDiv); }
+        else if (page === 'list') { title.innerText = 'Daftar Berita'; renderListContent(contentDiv); }
+    }
+
+    function renderDashboardContent(container) {
+        const total = allNews.length;
+        const breaking = allNews.filter(n => n.category === 'breaking').length;
+        const trending = allNews.filter(n => n.category === 'trending').length;
+        const hot = allNews.filter(n => n.category === 'hot').length;
+        container.innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-newspaper"></i><h3>${total}</h3><p>Total Berita</p></div>
+                <div class="stat-card"><i class="fas fa-bolt"></i><h3>${breaking}</h3><p>Breaking</p></div>
+                <div class="stat-card"><i class="fas fa-chart-line"></i><h3>${trending}</h3><p>Trending</p></div>
+                <div class="stat-card"><i class="fas fa-fire"></i><h3>${hot}</h3><p>Hot</p></div>
+            </div>
+            <div class="card"><div class="card-title">Fitur Pro</div><ul><li>📝 Rich Text Editor (paragraf, bold, list)</li><li>☁️ Upload/hapus Cloudinary</li><li>🔍 Pencarian berita</li><li>📱 Tampilan card horizontal</li></ul></div>
+        `;
+    }
+
+    // ========== FORM DENGAN QUILL EDITOR ==========
+    function renderFormContent(container) {
+        const isEdit = !!currentEditId;
+        const news = isEdit ? allNews.find(n => n.id === currentEditId) : null;
+        if (isEdit && news) {
+            imagesArray = news.images ? [...news.images] : [];
+            videosArray = news.videos ? [...news.videos] : [];
+        } else {
+            imagesArray = [];
+            videosArray = [];
+        }
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">${isEdit ? 'Edit Berita' : 'Buat Berita Baru'}</div>
+                <form id="cmsForm">
+                    <input type="hidden" id="editId" value="${currentEditId || ''}">
+                    <div class="form-group"><label>Judul *</label><input type="text" id="title" value="${escapeHtml(news?.title || '')}" required></div>
+                    <div class="form-group"><label>Kategori</label><select id="category">${['breaking','trending','hot','politik','daerah','ekonomi'].map(c => `<option value="${c}" ${news?.category === c ? 'selected' : ''}>${c.toUpperCase()}</option>`).join('')}</select></div>
+                    <div class="form-group"><label>Gambar Utama</label><div class="file-upload-group"><input type="text" id="image" value="${escapeHtml(news?.image || '')}" style="flex:1"><button type="button" id="uploadThumbBtn" class="btn-cloud"><i class="fas fa-cloud-upload-alt"></i> Upload</button></div><img id="imagePreview" class="preview-img"></div>
+                    <div class="form-group"><label>Video YouTube</label><input type="text" id="videoUrl" value="${escapeHtml(news?.videoUrl || '')}"><div id="videoPreview" class="preview-video"></div></div>
+                    <div class="form-group"><label>Short Text</label><input type="text" id="shortText" value="${escapeHtml(news?.shortText || '')}"></div>
+                    <div class="checkbox-group"><input type="checkbox" id="isShort" ${news?.isShort ? 'checked' : ''}> <label>Short News</label></div>
+                    <div class="form-group"><label>Konten (Rich Text) *</label><div id="editor" style="height: 300px;"></div></div>
+                    <div class="form-group"><label>Views</label><input type="number" id="views" value="${news?.views || 0}"></div>
+                    <div class="form-group"><label>📸 Galeri Gambar</label><button type="button" id="uploadGalleryBtn" class="add-btn" style="background:#2c3e66"><i class="fas fa-cloud-upload-alt"></i> Upload + Tambah Galeri</button><div id="imagesContainer" class="media-list"></div><button type="button" id="addImageBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah URL Galeri</button></div>
+                    <div class="form-group"><label>🎥 Galeri Video</label><div id="videosContainer" class="media-list"></div><button type="button" id="addVideoBtn" class="add-btn"><i class="fas fa-plus"></i> Tambah Video</button></div>
+                    <div><button type="submit" class="btn-primary">Simpan</button><button type="button" id="cancelForm" class="btn-secondary">Batal</button></div>
+                </form>
+            </div>
+        `;
+        // Inisialisasi Quill setelah div editor ada
+        if (quillEditor) quillEditor = null;
+        quillEditor = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Tulis konten berita di sini... Tekan Enter untuk paragraf baru.',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['link', 'clean']
+                ]
+            }
+        });
+        if (news && news.content) {
+            quillEditor.root.innerHTML = news.content;
+        } else {
+            quillEditor.root.innerHTML = '';
+        }
+        renderDynamicInputs();
+        attachFormEvents();
+        attachPreview();
+        attachCloudinaryHandlers();
+    }
+
+    function renderDynamicInputs() {
+        const imgContainer = document.getElementById('imagesContainer');
+        const vidContainer = document.getElementById('videosContainer');
+        if(imgContainer){
+            imgContainer.innerHTML = '';
+            imagesArray.forEach((url, idx) => {
+                const div = document.createElement('div'); div.className = 'media-item';
+                div.innerHTML = `<input type="text" value="${escapeHtml(url)}" data-idx="${idx}" class="imgUrlField" style="flex:1"><button class="remove-btn" data-idx="${idx}" data-type="img">Hapus</button>`;
+                imgContainer.appendChild(div);
+            });
+            document.querySelectorAll('.imgUrlField').forEach(inp => inp.addEventListener('change', (e) => { let i = parseInt(e.target.dataset.idx); imagesArray[i] = e.target.value; renderDynamicInputs(); applyPreview(); }));
+            document.querySelectorAll('.remove-btn[data-type="img"]').forEach(btn => btn.addEventListener('click', (e) => { let i = parseInt(btn.dataset.idx); imagesArray.splice(i,1); renderDynamicInputs(); }));
+        }
+        if(vidContainer){
+            vidContainer.innerHTML = '';
+            videosArray.forEach((url, idx) => {
+                const div = document.createElement('div'); div.className = 'media-item';
+                div.innerHTML = `<input type="text" value="${escapeHtml(url)}" data-idx="${idx}" class="vidUrlField" style="flex:1"><button class="remove-btn" data-idx="${idx}" data-type="vid">Hapus</button>`;
+                vidContainer.appendChild(div);
+            });
+            document.querySelectorAll('.vidUrlField').forEach(inp => inp.addEventListener('change', (e) => { let i = parseInt(e.target.dataset.idx); videosArray[i] = e.target.value; renderDynamicInputs(); }));
+            document.querySelectorAll('.remove-btn[data-type="vid"]').forEach(btn => btn.addEventListener('click', (e) => { let i = parseInt(btn.dataset.idx); videosArray.splice(i,1); renderDynamicInputs(); }));
+        }
+    }
+
+    function applyPreview() {
+        const imgField = document.getElementById('image');
+        if(imgField) imgField.value = convertGitHubToRaw(imgField.value);
+        const vidField = document.getElementById('videoUrl');
+        if(vidField) vidField.value = convertYouTubeToEmbed(vidField.value);
+        const imgPrev = document.getElementById('imagePreview');
+        if(imgField && imgField.value) { imgPrev.src = imgField.value; imgPrev.style.display = 'block'; } else if(imgPrev) imgPrev.style.display = 'none';
+        const vidDiv = document.getElementById('videoPreview');
+        if(vidField && vidField.value.includes('youtube.com/embed/')) vidDiv.innerHTML = `<iframe src="${vidField.value}" frameborder="0" allowfullscreen></iframe>`;
+        else if(vidDiv) vidDiv.innerHTML = '';
+    }
+    function attachPreview() {
+        const img = document.getElementById('image'); if(img) img.addEventListener('input', applyPreview);
+        const vid = document.getElementById('videoUrl'); if(vid) vid.addEventListener('input', applyPreview);
+        applyPreview();
+    }
+
+    async function handleSave(e) {
+        e.preventDefault();
+        const id = document.getElementById('editId').value;
+        const contentHTML = quillEditor ? quillEditor.root.innerHTML : '';
+        if (!contentHTML || contentHTML === '<p><br></p>') {
+            alert('Konten berita tidak boleh kosong!');
             return;
         }
-        
+        const newsData = {
+            title: document.getElementById('title').value.trim(),
+            category: document.getElementById('category').value,
+            image: convertGitHubToRaw(document.getElementById('image').value),
+            videoUrl: convertYouTubeToEmbed(document.getElementById('videoUrl').value),
+            shortText: document.getElementById('shortText').value,
+            isShort: document.getElementById('isShort').checked,
+            content: contentHTML,
+            views: parseInt(document.getElementById('views').value) || 0,
+            date: new Date().toISOString(),
+            images: imagesArray.map(convertGitHubToRaw),
+            videos: videosArray.map(convertYouTubeToEmbed)
+        };
+        if(!newsData.title) { alert('Judul wajib diisi!'); return; }
+        if(id) await db.ref(`news/${id}`).update(newsData);
+        else await db.ref('news').push().set(newsData);
+        await loadNews();
+        currentEditId = null;
+        navigateTo('list');
+        showToast("Berita tersimpan dengan format HTML!");
+    }
+
+    function attachFormEvents() {
+        document.getElementById('cmsForm')?.addEventListener('submit', handleSave);
+        document.getElementById('cancelForm')?.addEventListener('click', () => { currentEditId = null; navigateTo('list'); });
+        document.getElementById('addImageBtn')?.addEventListener('click', () => { imagesArray.push(''); renderDynamicInputs(); });
+        document.getElementById('addVideoBtn')?.addEventListener('click', () => { videosArray.push(''); renderDynamicInputs(); });
+    }
+
+    function attachCloudinaryHandlers() {
+        document.getElementById('uploadThumbBtn')?.addEventListener('click', () => {
+            const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+            inp.onchange = async (e) => { const file = e.target.files[0]; if(file){ const url = await uploadToCloudinary(file); if(url){ document.getElementById('image').value = url; applyPreview(); } } };
+            inp.click();
+        });
+        document.getElementById('uploadGalleryBtn')?.addEventListener('click', () => {
+            const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = true;
+            inp.onchange = async (e) => { const files = Array.from(e.target.files); for(let f of files){ const url = await uploadToCloudinary(f); if(url) imagesArray.push(url); } renderDynamicInputs(); };
+            inp.click();
+        });
+    }
+
+    async function deleteBeritaWithImages(id, newsData) {
+        const allImgUrls = [newsData.image, ...(newsData.images || [])].filter(Boolean);
+        await deleteMultipleImages(allImgUrls);
+        await db.ref(`news/${id}`).remove();
+        showToast("Berita & gambar Cloudinary dihapus");
+    }
+
+    // ========== DAFTAR BERITA ==========
+    function renderListContent(container) {
+        let filteredNews = allNews;
+        if (searchTerm) {
+            filteredNews = allNews.filter(n => n.title.toLowerCase().includes(searchTerm.toLowerCase()));
+        }
+        if (filteredNews.length === 0) {
+            container.innerHTML = `<div class="card"><div class="card-title">📋 Daftar Berita</div><div class="search-box"><input type="text" id="searchInput" placeholder="Cari judul berita..." class="search-input"><button id="searchBtn" class="add-btn"><i class="fas fa-search"></i> Cari</button><button id="clearSearchBtn" class="add-btn" style="background:#6b7280">Clear</button></div><p style="margin-top:20px;">Tidak ada berita yang ditemukan.</p></div>`;
+            attachSearchEvents(container);
+            return;
+        }
+        let cardsHtml = '';
+        for (let news of filteredNews) {
+            let plainPreview = (news.content || '').replace(/<[^>]*>/g, '').substring(0, 80) + '...';
+            cardsHtml += `
+                <div class="news-card-horizontal" data-id="${news.id}">
+                    <img class="news-img-small" src="${news.image || 'https://placehold.co/100x80?text=No+Img'}" onerror="this.src='https://placehold.co/100x80?text=Error'">
+                    <div class="news-content">
+                        <div class="news-title-small">${escapeHtml(news.title)}</div>
+                        <div class="news-preview-small">${escapeHtml(plainPreview)}</div>
+                        <div class="news-meta-small">
+                            <span><i class="fas fa-tag"></i> ${news.category?.toUpperCase() || 'Umum'}</span>
+                            <span><i class="fas fa-eye"></i> ${formatNumber(news.views)}</span>
+                            <span><i class="fas fa-calendar"></i> ${news.date ? new Date(news.date).toLocaleDateString('id') : '-'}</span>
+                        </div>
+                        <div class="news-actions-small">
+                            <button class="edit-sm" data-id="${news.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="delete-sm" data-id="${news.id}"><i class="fas fa-trash"></i> Hapus</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">📋 Semua Berita</div>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cari judul berita..." class="search-input" value="${escapeHtml(searchTerm)}">
+                    <button id="searchBtn" class="add-btn"><i class="fas fa-search"></i> Cari</button>
+                    <button id="clearSearchBtn" class="add-btn" style="background:#6b7280">Clear</button>
+                </div>
+                <div class="news-list">${cardsHtml}</div>
+            </div>
+        `;
+        attachSearchEvents(container);
+        document.querySelectorAll('.edit-sm').forEach(btn => {
+            btn.addEventListener('click', () => { currentEditId = btn.dataset.id; navigateTo('add'); });
+        });
+        document.querySelectorAll('.delete-sm').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                const news = allNews.find(n => n.id === id);
+                if (confirm('Hapus berita ini dan semua gambarnya di Cloudinary?')) {
+                    await deleteBeritaWithImages(id, news);
+                    await loadNews();
+                    renderListContent(document.getElementById('dynamicContent'));
+                }
+            });
+        });
+    }
+
+    function attachSearchEvents(container) {
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const clearBtn = document.getElementById('clearSearchBtn');
+        if (searchBtn) searchBtn.onclick = () => { searchTerm = searchInput.value; renderListContent(document.getElementById('dynamicContent')); };
+        if (clearBtn) clearBtn.onclick = () => { searchTerm = ''; renderListContent(document.getElementById('dynamicContent')); };
+        if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { searchTerm = searchInput.value; renderListContent(document.getElementById('dynamicContent')); } });
+    }
+
+    function formatNumber(n) { if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'K'; return n?.toString()||'0'; }
+    function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+
+    function attachDashboardEvents() {
+        document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+        document.getElementById('sidebar')?.addEventListener('click', (e) => { if(e.target === document.getElementById('sidebar') && window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); });
+        document.querySelectorAll('.nav-item').forEach(item => { item.addEventListener('click', () => { navigateTo(item.dataset.nav); if(window.innerWidth <= 900) document.getElementById('sidebar')?.classList.remove('open'); }); });
+        document.getElementById('logoutBtn')?.addEventListener('click', () => auth.signOut());
+        document.getElementById('homeBtn')?.addEventListener('click', () => { navigateTo('home'); if(window.innerWidth <= 900) document.getElementById('sidebar')?.classList.remove('open'); });
+    }
+
+    async function doLogin() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const pass = document.getElementById('loginPassword').value;
+        const errorDiv = document.getElementById('loginError');
+        const successDiv = document.getElementById('loginSuccess');
+        errorDiv.innerText = '';
+        successDiv.innerText = '';
         try {
-            const snapshot = await database.ref(`news/${newsId}`).once('value');
-            const news = snapshot.val();
-            
-            if (!news) {
-                document.getElementById('detailContainer').innerHTML = '<div class="error-message">❌ Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
-                return;
-            }
-            
-            // Update title
-            document.title = news.title + " - Insight News Indonesia";
-            
-            // Kumpulkan semua gambar (thumbnail + galeri) untuk gallery
-            let allImages = [];
-            if (news.images && news.images.length) {
-                allImages = [...news.images];
-            } else if (news.image) {
-                allImages = [news.image];
-            }
-            
-            // Video
-            let videos = '';
-            if (news.videos && news.videos.length) {
-                videos = news.videos.map(v => `<div class="video-container"><iframe src="${v}" frameborder="0" allowfullscreen></iframe></div>`).join('');
-            } else if (news.videoUrl) {
-                videos = `<div class="video-container"><iframe src="${news.videoUrl}" frameborder="0" allowfullscreen></iframe></div>`;
-            }
-            
-            // Share URL
-            const shareUrl = `${window.location.origin}${window.location.pathname}#${newsId}`;
-            const shareText = encodeURIComponent(`📰 ${news.title}\n\n`);
-            
-            const shareButtons = `
-                <div class="share-buttons">
-                    <a href="https://wa.me/?text=${shareText}${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
-                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(news.title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                    <button class="share-btn share-copy" onclick="copyToClipboard('${shareUrl.replace(/'/g, "\\'")}')"><i class="fas fa-link"></i> Salin Link</button>
-                </div>
-            `;
-            
-            // Update meta tags untuk sosial media
-            updateMetaTags(news, shareUrl, allImages[0]);
-            
-            const html = `
-                <h1 class="detail-title">${escapeHtml(news.title)}</h1>
-                <div class="detail-meta">
-                    <span><i class="far fa-calendar"></i> ${new Date(news.date).toLocaleDateString('id-ID', {year:'numeric', month:'long', day:'numeric'})}</span>
-                    <span><i class="far fa-eye"></i> ${formatNumber(news.views)} views</span>
-                    <span><i class="fas fa-tag"></i> ${(news.category || 'Umum').toUpperCase()}</span>
-                </div>
-                ${shareButtons}
-                ${renderGallery(allImages)}
-                ${videos}
-                <div class="detail-content">${news.content || '<p>Konten tidak tersedia</p>'}</div>
-            `;
-            
-            document.getElementById('detailContainer').innerHTML = html;
-            
-            // Update views di background
-            database.ref(`news/${newsId}/views`).set((news.views || 0) + 1).catch(err => console.log('Update views error:', err));
-            
-        } catch (error) {
-            console.error('Error loading detail:', error);
-            document.getElementById('detailContainer').innerHTML = '<div class="error-message">⚠️ Gagal memuat berita. Silakan coba lagi.</div>';
+            await auth.signInWithEmailAndPassword(email, pass);
+        } catch(err) {
+            let msg = err.message;
+            if (err.code === 'auth/invalid-credential') msg = 'Email atau password salah. Coba lagi atau klik "Lupa password?"';
+            errorDiv.innerText = msg;
         }
     }
-    
-    function updateMetaTags(news, shareUrl, imageUrl) {
-        // Update meta tags dinamis
-        let ogTitle = document.querySelector('meta[property="og:title"]');
-        let ogDesc = document.querySelector('meta[property="og:description"]');
-        let ogImage = document.querySelector('meta[property="og:image"]');
-        
-        if (!ogTitle) {
-            ogTitle = document.createElement('meta');
-            ogTitle.setAttribute('property', 'og:title');
-            document.head.appendChild(ogTitle);
+
+    async function resetPassword() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const errorDiv = document.getElementById('loginError');
+        const successDiv = document.getElementById('loginSuccess');
+        errorDiv.innerText = '';
+        successDiv.innerText = '';
+        if (!email) {
+            errorDiv.innerText = 'Masukkan email Anda terlebih dahulu.';
+            return;
         }
-        if (!ogDesc) {
-            ogDesc = document.createElement('meta');
-            ogDesc.setAttribute('property', 'og:description');
-            document.head.appendChild(ogDesc);
-        }
-        if (!ogImage) {
-            ogImage = document.createElement('meta');
-            ogImage.setAttribute('property', 'og:image');
-            document.head.appendChild(ogImage);
-        }
-        
-        ogTitle.setAttribute('content', news.title);
-        ogDesc.setAttribute('content', news.shortText || news.content?.substring(0, 160) || "Baca berita lengkap di Insight News Indonesia");
-        ogImage.setAttribute('content', imageUrl || 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg');
-    }
-    
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => alert('✅ Tautan berita disalin!')).catch(() => alert('Gagal menyalin.'));
-    }
-    
-    // ========== DARK MODE ==========
-    function initDarkMode() {
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark');
-            const icon = document.querySelector('#darkModeToggle i');
-            if (icon) icon.className = 'fas fa-sun';
+        try {
+            await auth.sendPasswordResetEmail(email);
+            successDiv.innerText = 'Email reset password telah dikirim. Cek inbox/spam.';
+        } catch(err) {
+            errorDiv.innerText = err.message;
         }
     }
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark');
-        const isDark = document.body.classList.contains('dark');
-        const icon = document.querySelector('#darkModeToggle i');
-        if (isDark) {
-            icon.className = 'fas fa-sun';
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            icon.className = 'fas fa-moon';
-            localStorage.setItem('darkMode', 'disabled');
-        }
-    }
-    function updateDateTime() {
-        const el = document.getElementById('datetime');
-        if (el) el.innerHTML = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' });
-    }
-    
-    // Search
-    document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const query = e.target.value.trim();
-            if (query) window.location.href = `index.html?search=${encodeURIComponent(query)}`;
-        }
-    });
-    
-    document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
-    initDarkMode();
-    updateDateTime();
-    setInterval(updateDateTime, 60000);
-    
-    // Load detail
-    window.addEventListener('DOMContentLoaded', () => {
-        loadDetail();
-    });
+
+    auth.onAuthStateChanged(user => { currentUser = user; render(); });
 </script>
 </body>
 </html>

@@ -1,36 +1,212 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta name="google-site-verification" content="EuH9rpLccwZzApfGlW67GCGemXToWE68fcXtF8ZGSvk" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Open Graph - Dinamis -->
+<meta property="og:title" content="Insight News Indonesia" id="ogTitle">
+<meta property="og:description" content="Baca berita lengkap dan terpercaya hanya di Insight News Indonesia" id="ogDesc">
+<meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/Images/default.jpg" id="ogImage">
+<meta property="og:url" content="" id="ogUrl">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Insight News Indonesia">
+<meta property="og:locale" content="id_ID">
+
+<meta name="twitter:title" content="Insight News Indonesia" id="twitterTitle">
+<meta name="twitter:description" content="Baca berita lengkap dan terpercaya di Insight News Indonesia" id="twitterDesc">
+<meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/Images/default.jpg" id="twitterImage">
+<!-- Meta Social - PASTIKAN URL GAMBAR LENGKAP -->
+<meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/gambar.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/gambar.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Google Site Verification -->
+<meta name="google-site-verification" content="EuH9rpLccwZzApfGlW67GCGemXToWE68fcXtF8ZGSvk" />
 <meta name="google-site-verification" content="HR6mGg2UvjlKZGlGR0CVZSfAJbqv2lOtuYkb8W0bQFQ" />
+
+<!-- PWA -->
 <link rel="manifest" href="/NewsIndonesia/manifest.json">
-<meta name="theme-color" content="#1e3c72">
-<!-- Primary Meta Tags -->
+<meta name="theme-color" content="#e74c3c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="InsightNews">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Open Graph -->
+<meta property="og:title" content="Insight News Indonesia" id="ogTitle">
+<meta property="og:description" content="Baca berita lengkap dan terpercaya hanya di Insight News Indonesia" id="ogDesc">
+<meta property="og:image" content="https://portalinsight.github.io/NewsIndonesia/gambar.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://portalinsight.github.io/NewsIndonesia/" id="ogUrl">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Insight News Indonesia">
+<meta property="og:locale" content="id_ID">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Insight News Indonesia" id="twitterTitle">
+<meta name="twitter:description" content="Baca berita lengkap dan terpercaya di Insight News Indonesia" id="twitterDesc">
+<meta name="twitter:image" content="https://portalinsight.github.io/NewsIndonesia/gambar.jpg">
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#e74c3c">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="InsightNews">
+<title>Detail Berita - Insight News Indonesia</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+    
     <style>
         .lightbox { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center; }
-        .lightbox img { max-width:90%; max-height:90%; }
-        .lightbox-close { position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer; }
+        .lightbox img { max-width:90%; max-height:90%; border-radius:8px; }
+        .lightbox-close { position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer; font-weight:bold; }
+        .share-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+        .share-btn { padding: 8px 16px; border-radius: 40px; color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; cursor: pointer; border: none; }
+        .share-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+        .share-wa { background: #25D366; }
+        .share-fb { background: #1877f2; }
+        .share-twitter { background: #1da1f2; }
+        .share-copy { background: #64748b; }
+        
+        
+        
+        /* === PERBAIKAN GAMBAR BESAR & GALLERY === */
+.main-image-container {
+    margin: 25px 0;
+}
+.main-image {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f8fafc;
+    text-align: center;
+}
+.main-image img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    display: block;
+    transition: 0.2s;
+}
+.thumbnail-list {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.thumbnail {
+    width: 90px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    opacity: 0.7;
+}
+.thumbnail:hover, .thumbnail.active {
+    opacity: 1;
+    border-color: #e74c3c;
+    transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+    .main-image img { max-height: 350px; }
+    .thumbnail { width: 70px; height: 50px; }
+}
+        
+        
+        
+        
+        .detail-container { max-width: 800px; margin: 40px auto; background: white; border-radius: 24px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .detail-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 16px; line-height: 1.3; }
+        .detail-meta { display: flex; gap: 20px; color: #64748b; font-size: 0.85rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
+        .detail-content { font-size: 1rem; line-height: 1.8; color: #334155; }
+        .detail-content p { margin-bottom: 1.2em; }
+        .detail-content img { max-width: 100%; border-radius: 12px; margin: 1.5em 0; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 25px 0; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+        .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 12px; cursor: pointer; transition: transform 0.2s; }
+        .gallery img:hover { transform: scale(1.02); }
+        @media (max-width: 768px) { .detail-container { padding: 20px; margin: 20px; } .detail-title { font-size: 1.4rem; } }
+        body.dark .detail-container { background: #1e293b; }
+        body.dark .detail-content { color: #cbd5e1; }
+        
+        .main-layout { max-width: 1280px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-left: 4px solid #e74c3c; padding-left: 16px; }
+        .section-header h2 { font-size: 1.4rem; font-weight: 700; margin: 0; }
+        .section-header a { color: #e74c3c; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px; }
+        .news-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s; cursor: pointer; }
+        .news-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .news-card img { width: 100%; height: 180px; object-fit: cover; }
+        .news-card-content { padding: 16px; }
+        .news-card-title { font-size: 1rem; font-weight: 700; margin: 0 0 8px 0; line-height: 1.4; color: #1e293b; }
+        .news-card-date { font-size: 0.7rem; color: #94a3b8; }
+        body.dark .news-card { background: #1e293b; }
+        body.dark .news-card-title { color: #f1f5f9; }
+        .sidebar-widget { background: white; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        body.dark .sidebar-widget { background: #1e293b; }
+        .widget-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #e74c3c; display: inline-block; }
+        .trending-list, .hot-list { list-style: none; padding: 0; margin: 0; }
+        .trending-list li, .hot-list li { padding: 12px 0; border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: color 0.2s; }
+        .trending-list li:hover, .hot-list li:hover { color: #e74c3c; }
+        .trending-list li:last-child, .hot-list li:last-child { border-bottom: none; }
+        .news-counter { font-size: 0.8rem; color: #64748b; margin: 16px 0; }
+        .pagination { display: flex; gap: 8px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+        .pagination button { padding: 8px 16px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .pagination button.active { background: #e74c3c; color: white; border-color: #e74c3c; }
+        .pagination button:hover:not(.active) { background: #f1f5f9; }
+        body.dark .pagination button { background: #334155; border-color: #475569; color: white; }
+        @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
+        
+        .spinner { text-align: center; padding: 40px; color: #64748b; }
+        .error-message { text-align: center; padding: 40px; color: #e74c3c; }
+        
+        /* MODAL INSTALL */
+        .install-modal-overlay {
+            display: none; 
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6); z-index:2000; 
+            align-items:center; justify-content:center;
+        }
+        .install-modal {
+            background: white; 
+            border-radius: 20px; padding: 30px; 
+            max-width: 380px; width: 90%;
+            text-align: center; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop { 
+            from { transform: scale(0.8); opacity:0; } 
+            to { transform: scale(1); opacity:1; } 
+        }
+        .install-modal h3 { margin:0 0 12px; font-size:1.4rem; color:#1e293b; }
+        .install-modal p { color:#64748b; margin-bottom:20px; line-height:1.5; }
+        .btn-install, .btn-later {
+            padding:12px 24px; border-radius:40px; border:none; 
+            font-weight:700; cursor:pointer; margin:5px;
+            transition: all 0.2s;
+        }
+        .btn-install { background: #e74c3c; color:white; }
+        .btn-install:hover { background:#c0392b; transform:translateY(-2px); }
+        .btn-later { background: #e2e8f0; color:#475569; }
+        .btn-later:hover { background:#cbd5e1; }
+        body.dark .install-modal { background:#1e293b; }
+        body.dark .install-modal h3 { color:#f1f5f9; }
+        body.dark .install-modal p { color:#94a3b8; }
+        body.dark .btn-later { background:#334155; color:#cbd5e1; }
     </style>
 </head>
 <body>
+
 <div class="top-header">
     <div class="container">
         <div class="header-content">
             <div class="logo">
-
                 <div class="logo-text">
                     <h1><a href="index.html">Insight News Indonesia</a></h1>
                     <p>Jurnalisme Berkualitas • Dengan Integritas</p>
@@ -63,25 +239,67 @@
 </div>
 
 <main>
-    <div class="detail-container" id="detailContainer">Memuat...</div>
+    <div class="detail-container" id="detailContainer">
+        <div class="spinner"><i class="fas fa-spinner fa-pulse"></i> Memuat berita...</div>
+    </div>
 </main>
 
+<!-- Section Berita Terbaru dan Sidebar -->
+<div class="main-layout">
+    <div>
+        <div class="section-header">
+            <h2>Berita Terbaru</h2>
+            <a href="index.html">Lihat Semua →</a>
+        </div>
+        <div class="news-grid" id="newsGrid">
+            <div class="spinner"><i class="fas fa-spinner fa-pulse"></i> Memuat berita terbaru...</div>
+        </div>
+        <div id="newsCounter" class="news-counter"></div>
+        <div id="pagination" class="pagination"></div>
+    </div>
+    <aside>
+        <div class="sidebar-widget">
+            <h3 class="widget-title"><i class="fas fa-chart-line"></i> Trending</h3>
+            <ul class="trending-list" id="trendingList">
+                <li><i class="fas fa-spinner fa-pulse"></i> Memuat...</li>
+            </ul>
+        </div>
+        <div class="sidebar-widget">
+            <h3 class="widget-title"><i class="fas fa-fire"></i> Hot News</h3>
+            <ul class="hot-list" id="hotList">
+                <li><i class="fas fa-spinner fa-pulse"></i> Memuat...</li>
+            </ul>
+        </div>
+        <div class="sidebar-widget">
+            <h3 class="widget-title"><i class="fas fa-clock"></i> Flash News</h3>
+            <ul class="trending-list" id="shortNewsList">
+                <li><i class="fas fa-spinner fa-pulse"></i> Memuat...</li>
+            </ul>
+        </div>
+    </aside>
+</div>
 
+<!-- Tombol Install di Footer -->
+<div style="text-align: center; margin: 30px 0 20px;">
+    <button id="installAppBtn" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 14px 32px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 12px; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(59,130,246,0.4);">
+        <i class="fas fa-download"></i> Install Aplikasi
+    </button>
+</div>
 
-<!-- ========== FOOTER PROFESIONAL DENGAN PETA ========== -->
+<!-- MODAL INSTALL -->
+<div class="install-modal-overlay" id="installModalOverlay">
+    <div class="install-modal">
+        <h3>📲 Install Aplikasi Insight News</h3>
+        <p>Dapatkan berita terkini lebih cepat & praktis, tanpa buka browser lagi.</p>
+        <button class="btn-install" id="btnInstallNow">Install Sekarang</button>
+        <button class="btn-later" id="btnInstallLater">Nanti Saja</button>
+    </div>
+</div>
 
-
-
-
-
-<!-- ========== FOOTER PROFESIONAL - TOMBOL TIM REDAKSI MERAH ========== -->
+<!-- Footer -->
 <footer style="background: #0a0a2a; color: #94a3b8; padding: 50px 0 20px; margin-top: 50px; border-top: 1px solid #1e293b; font-family: 'Plus Jakarta Sans', sans-serif;">
     <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 20px;">
-        
-        <!-- GRID 4 KOLOM -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-bottom: 40px;">
-            
-            <!-- Kolom 1: Tentang -->
             <div>
                 <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Tentang Kami</h3>
                 <p style="line-height: 1.6;">Insight News Indonesia – portal berita terpercaya, menyajikan informasi terkini, akurat, dan berimbang. Jurnalisme berkualitas dengan integritas.</p>
@@ -93,8 +311,6 @@
                     <a href="#" style="background: #1e293b; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s;"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
-
-            <!-- Kolom 2: Menu Cepat -->
             <div>
                 <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Menu Cepat</h3>
                 <ul style="list-style: none; padding: 0;">
@@ -107,8 +323,6 @@
                     <li style="margin-bottom: 12px;"><a href="ekonomi.html" style="color: #94a3b8; text-decoration: none;">Ekonomi</a></li>
                 </ul>
             </div>
-
-            <!-- Kolom 3: Kontak -->
             <div>
                 <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Kontak Kami</h3>
                 <ul style="list-style: none; padding: 0;">
@@ -118,33 +332,70 @@
                     <li style="display: flex; gap: 12px; margin-bottom: 15px;"><i class="fas fa-clock" style="color: #3b82f6;"></i> <span>Senin - Sabtu, 08:00 - 20:00 WIB</span></li>
                 </ul>
             </div>
-
-            <!-- Kolom 4: Peta Lokasi -->
             <div>
                 <h3 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Lokasi Redaksi</h3>
                 <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.832304822122!2d105.269425!3d-2.587447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6b2b2b2b2b2b2b%3A0x2b2b2b2b2b2b2b2b!2sBandar%20Jaya%2C%20Lampung%20Tengah!5e0!3m2!1sid!2sid!4v1700000000000" 
-                        width="100%" 
-                        height="180" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy">
-                    </iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.832304822122!2d105.269425!3d-2.587447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6b2b2b2b2b2b2b%3A0x2b2b2b2b2b2b2b2b!2sBandar%20Jaya%2C%20Lampung%20Tengah!5e0!3m2!1sid!2sid!4v1700000000000" width="100%" height="180" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
                 <p style="font-size: 0.7rem; margin-top: 8px; text-align: center;"><i class="fas fa-location-dot"></i> Kantor Redaksi Bandar Jaya</p>
             </div>
         </div>
-
-        <!-- TOMBOL TIM REDAKSI DI TENGAH - WARNA MERAH, TEKS PUTIH -->
         <div style="text-align: center; margin: 30px 0 20px;">
-            <a href="https://fastidious-lamington-49042a.netlify.app/" target="_blank" class="btn-redaksi-tengah">
+          
+          
+          
+          
+            <a href="redaksi.html" target="_blank" class="btn-redaksi-tengah">
                 <i class="fas fa-users"></i> Tim Redaksi Insight News
                 <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
             </a>
         </div>
+        <!-- Tombol Login Admin ke CMS -->
+<div style="text-align: center; margin: 20px 0 15px;">
+    <a href="cms.html" class="btn-login-admin">
+        <i class="fas fa-lock"></i> Login Admin
+    </a>
+</div>
 
-        <!-- BARIS TAUTAN HUKUM & COPYRIGHT -->
+<style>
+    .btn-login-admin {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #fbbf24; /* kuning */
+        color: white; /* teks putih */
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.3);
+        cursor: pointer;
+    }
+
+    .btn-login-admin:hover {
+        background: #eab308; /* kuning lebih gelap saat hover */
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(251,191,36,0.3);
+        color: white;
+    }
+
+    .btn-login-admin i {
+        font-size: 1rem;
+    }
+
+    /* Responsif untuk HP */
+    @media (max-width: 768px) {
+        .btn-login-admin {
+            padding: 10px 22px;
+            font-size: 0.85rem;
+            gap: 8px;
+        }
+    }
+</style>
         <div style="border-top: 1px solid #1e293b; padding-top: 25px; text-align: center;">
             <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 15px;">
                 <a href="#" style="color: #64748b; text-decoration: none; font-size: 0.8rem;">Kebijakan Privasi</a>
@@ -159,21 +410,9 @@
 </footer>
 
 <style>
-    /* Gaya footer */
-    footer a {
-        color: #94a3b8 !important;
-        text-decoration: none !important;
-        transition: all 0.2s ease;
-    }
-    footer a:hover {
-        color: white !important;
-        transform: translateX(3px);
-    }
-    .social-icons a:hover {
-        background: #e74c3c !important;
-        transform: translateY(-3px);
-    }
-    /* Tombol Tim Redaksi - MERAH dengan teks PUTIH */
+    footer a { color: #94a3b8 !important; text-decoration: none !important; transition: all 0.2s ease; }
+    footer a:hover { color: white !important; transform: translateX(3px); }
+    .social-icons a:hover { background: #e74c3c !important; transform: translateY(-3px); }
     .btn-redaksi-tengah {
         display: inline-flex;
         align-items: center;
@@ -197,26 +436,19 @@
         background: linear-gradient(135deg, #c0392b, #a93226);
         color: white !important;
     }
-    /* Responsif */
     @media (max-width: 768px) {
-        footer .container {
-            padding: 0 15px;
-        }
-        .btn-redaksi-tengah {
-            padding: 10px 20px;
-            font-size: 0.85rem;
-            gap: 8px;
-        }
+        footer .container { padding: 0 15px; }
+        .btn-redaksi-tengah { padding: 10px 20px; font-size: 0.85rem; gap: 8px; }
+        #installAppBtn { padding: 10px 24px !important; font-size: 0.85rem !important; gap: 8px !important; }
     }
-    /* Dark mode support */
-    body.dark .btn-redaksi-tengah {
-        box-shadow: 0 4px 12px rgba(231,76,60,0.5);
-    }
+    body.dark .btn-redaksi-tengah { box-shadow: 0 4px 12px rgba(231,76,60,0.5); }
 </style>
 
+<!-- SCRIPTS -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script>
+    // ==================== KONFIGURASI FIREBASE ====================
     const firebaseConfig = {
         apiKey: "AIzaSyDC8hsDbX3qb9XLY7H2ChdXK6AxRPXD2q0",
         authDomain: "dataku-40827.firebaseapp.com",
@@ -227,46 +459,151 @@
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
+    // Helper functions
     function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
     function formatNumber(n) { if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'K'; return n?.toString()||'0'; }
-
-    async function loadDetail() {
-        const id = new URLSearchParams(location.search).get('id');
-        if (!id) { document.getElementById('detailContainer').innerHTML = '<div style="text-align:center;padding:60px">Berita tidak ditemukan</div>'; return; }
-        const snap = await database.ref(`news/${id}`).once('value');
-        const news = snap.val();
-        if (!news) { document.getElementById('detailContainer').innerHTML = '<div style="text-align:center;padding:60px">Berita tidak ditemukan</div>'; return; }
-
-        let gallery = '';
-        if (news.images && news.images.length) {
-            gallery = `<div class="gallery">${news.images.map(img => `<img src="${img}" onclick="openLightbox('${img}')">`).join('')}</div>`;
-        } else if (news.image) {
-            gallery = `<div class="gallery"><img src="${news.image}" onclick="openLightbox('${news.image}')"></div>`;
-        }
-
-        let videos = '';
-        if (news.videos && news.videos.length) {
-            videos = `<div class="video-list">${news.videos.map(v => `<div class="video-container"><iframe src="${v}" frameborder="0" allowfullscreen></iframe></div>`).join('')}</div>`;
-        } else if (news.videoUrl) {
-            videos = `<div class="video-container"><iframe src="${news.videoUrl}" frameborder="0" allowfullscreen></iframe></div>`;
-        }
-
-        const shareUrl = `${location.origin}/detail.html?id=${id}`;
-        const shareText = encodeURIComponent(`📰 ${news.title}\n\n`);
-        const shareBtns = `<div class="share-buttons"><a href="https://wa.me/?text=${shareText}${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a><a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook-f"></i> Facebook</a><a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(news.title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-twitter"><i class="fab fa-twitter"></i> Twitter</a><button class="share-btn share-copy" onclick="navigator.clipboard.writeText('${shareUrl}'); alert('Tautan disalin!')"><i class="fas fa-link"></i> Salin Link</button></div>`;
-
-        const html = `
-            <h1 class="detail-title">${escapeHtml(news.title)}</h1>
-            <div class="detail-meta"><span><i class="far fa-calendar"></i> ${new Date(news.date).toLocaleDateString('id-ID')}</span><span><i class="far fa-eye"></i> ${formatNumber(news.views)} views</span><span><i class="fas fa-tag"></i> ${news.category.toUpperCase()}</span></div>
-            ${shareBtns}
-            ${gallery}
-            ${videos}
-            <div class="detail-content">${news.content || '<p>Konten tidak tersedia</p>'}</div>
-        `;
-        document.getElementById('detailContainer').innerHTML = html;
-        await database.ref(`news/${id}/views`).set((news.views || 0) + 1);
+    
+    function extractTextFromHtml(html) {
+        if (!html) return '';
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        return temp.textContent || temp.innerText || '';
     }
 
+    // ==================== UPDATE META TAGS ====================
+    function updateMetaTags(news, shareUrl) {
+        document.title = news.title + " - Insight News Indonesia";
+        
+        let imageUrl = 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg';
+        if (news.images && news.images.length > 0 && news.images[0]) {
+            imageUrl = news.images[0];
+        } else if (news.image && news.image.trim() !== '') {
+            imageUrl = news.image;
+        }
+        
+        if (imageUrl.startsWith('/')) {
+            imageUrl = window.location.origin + imageUrl;
+        }
+        
+        const description = news.shortText || extractTextFromHtml(news.content).substring(0, 160) || "Baca berita lengkap di Insight News Indonesia";
+        
+        // Update meta tags
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        
+        if (ogTitle) ogTitle.setAttribute('content', news.title);
+        if (ogDesc) ogDesc.setAttribute('content', description);
+        if (ogImage) ogImage.setAttribute('content', imageUrl);
+        if (ogUrl) ogUrl.setAttribute('content', shareUrl);
+        
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        const twitterImage = document.querySelector('meta[name="twitter:image"]');
+        
+        if (twitterTitle) twitterTitle.setAttribute('content', news.title);
+        if (twitterDesc) twitterDesc.setAttribute('content', description);
+        if (twitterImage) twitterImage.setAttribute('content', imageUrl);
+    }
+
+    function getNewsIdFromUrl() {
+        const hash = window.location.hash.substring(1);
+        if (hash) return hash;
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (id) return id;
+        return null;
+    }
+
+    // ==================== LOAD DETAIL BERITA ====================
+    async function loadDetail() {
+        const newsId = getNewsIdFromUrl();
+        
+        if (!newsId) {
+            document.getElementById('detailContainer').innerHTML = '<div class="error-message">❌ Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
+            return;
+        }
+        
+        try {
+            console.log('📰 Loading news ID:', newsId);
+            const snapshot = await database.ref(`news/${newsId}`).once('value');
+            const news = snapshot.val();
+            
+            if (!news) {
+                document.getElementById('detailContainer').innerHTML = '<div class="error-message">❌ Berita tidak ditemukan. <a href="index.html">Kembali ke Beranda</a></div>';
+                return;
+            }
+            
+            console.log('✅ News loaded:', news.title);
+            
+            const shareUrl = `${window.location.origin}${window.location.pathname}#${newsId}`;
+            updateMetaTags(news, shareUrl);
+            
+            // Galeri gambar
+            let gallery = '';
+            if (news.images && news.images.length) {
+                gallery = `<div class="gallery">${news.images.map(img => `<img src="${img}" onclick="openLightbox('${img}')" loading="lazy">`).join('')}</div>`;
+            } else if (news.image) {
+                gallery = `<div class="gallery"><img src="${news.image}" onclick="openLightbox('${news.image}')" loading="lazy"></div>`;
+            }
+            
+            // Video
+            let videos = '';
+            if (news.videos && news.videos.length) {
+                videos = `<div class="video-list">${news.videos.map(v => `<div class="video-container"><iframe src="${v}" frameborder="0" allowfullscreen></iframe></div>`).join('')}</div>`;
+            } else if (news.videoUrl) {
+                videos = `<div class="video-container"><iframe src="${news.videoUrl}" frameborder="0" allowfullscreen></iframe></div>`;
+            }
+            
+            // Tombol share
+            const shareText = encodeURIComponent(`📰 ${news.title}\n\n`);
+            const shareButtons = `
+                <div class="share-buttons">
+                    <a href="https://wa.me/?text=${shareText}${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(news.title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-btn share-twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <button class="share-btn share-copy" onclick="copyToClipboard('${shareUrl.replace(/'/g, "\\'")}')"><i class="fas fa-link"></i> Salin Link</button>
+                </div>
+            `;
+            
+            const html = `
+                <h1 class="detail-title">${escapeHtml(news.title)}</h1>
+                <div class="detail-meta">
+                    <span><i class="far fa-calendar"></i> ${new Date(news.date).toLocaleDateString('id-ID', {year:'numeric', month:'long', day:'numeric'})}</span>
+                    <span><i class="far fa-eye"></i> ${formatNumber(news.views)} views</span>
+                    <span><i class="fas fa-tag"></i> ${(news.category || 'Umum').toUpperCase()}</span>
+                </div>
+                ${shareButtons}
+                ${gallery}
+                ${videos}
+                <div class="detail-content">${news.content || '<p>Konten tidak tersedia</p>'}</div>
+            `;
+            
+            document.getElementById('detailContainer').innerHTML = html;
+            
+            // Tampilkan modal install setelah 2 detik
+            setTimeout(() => {
+                showInstallModalIfEligible();
+            }, 2000);
+            
+            // Update views di background
+            database.ref(`news/${newsId}/views`).set((news.views || 0) + 1).catch(err => console.log('Update views error:', err));
+            
+        } catch (error) {
+            console.error('❌ Error loading detail:', error);
+            document.getElementById('detailContainer').innerHTML = '<div class="error-message">⚠️ Gagal memuat berita. Silakan coba lagi.</div>';
+        }
+    }
+    
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('✅ Tautan berita disalin!');
+        }).catch(() => {
+            alert('Gagal menyalin. Silakan coba manual.');
+        });
+    }
+    
     window.openLightbox = (src) => {
         let lb = document.getElementById('lightbox');
         if (!lb) {
@@ -281,116 +618,384 @@
         lb.querySelector('img').src = src;
         lb.style.display = 'flex';
     };
+    
+    // ==================== LOAD BERITA TERBARU ====================
+    let currentPage = 1;
+    const itemsPerPage = 6;
+    let allNews = [];
+    
+    async function loadLatestNews() {
+        try {
+            console.log('📋 Loading latest news...');
+            const snapshot = await database.ref('news').orderByChild('date').once('value');
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI: newsData bukan newData
+            
+            if (!newsData) {
+                document.getElementById('newsGrid').innerHTML = '<div class="error-message">Belum ada berita</div>';
+                return;
+            }
+            
+            allNews = Object.entries(newsData).map(([id, data]) => ({ id, ...data })); // ✅ DIPERBAIKI
+            allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            console.log(`✅ Loaded ${allNews.length} news items`);
+            
+            renderNewsGrid();
+            renderPagination();
+            
+            // Load sidebar
+            loadTrendingNews();
+            loadHotNews();
+            loadShortNews();
+            
+        } catch (error) {
+            console.error('❌ Error loading latest news:', error);
+            document.getElementById('newsGrid').innerHTML = '<div class="error-message">⚠️ Gagal memuat berita terbaru</div>';
+        }
+    }
+    
+    function renderNewsGrid() {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageNews = allNews.slice(start, end);
+        
+        if (pageNews.length === 0) {
+            document.getElementById('newsGrid').innerHTML = '<div class="error-message">Tidak ada berita</div>';
+            return;
+        }
+        
+        const gridHtml = pageNews.map(news => `
+            <div class="news-card" onclick="location.href='detail.html#${news.id}'">
+                <img src="${news.image || (news.images && news.images[0]) || 'https://portalinsight.github.io/NewsIndonesia/Images/default.jpg'}" 
+                     alt="${escapeHtml(news.title)}" 
+                     onerror="this.src='https://portalinsight.github.io/NewsIndonesia/Images/default.jpg'" 
+                     loading="lazy">
+                <div class="news-card-content">
+                    <h3 class="news-card-title">${escapeHtml(news.title)}</h3>
+                    <div class="news-card-date">${new Date(news.date).toLocaleDateString('id-ID')}</div>
+                </div>
+            </div>
+        `).join('');
+        
+        document.getElementById('newsGrid').innerHTML = gridHtml;
+        document.getElementById('newsCounter').innerHTML = `Menampilkan ${start+1}-${Math.min(end, allNews.length)} dari ${allNews.length} berita`;
+    }
+    
+    function renderPagination() {
+        const totalPages = Math.ceil(allNews.length / itemsPerPage);
+        if (totalPages <= 1) {
+            document.getElementById('pagination').innerHTML = '';
+            return;
+        }
+        
+        let paginationHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+            paginationHtml += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+        }
+        document.getElementById('pagination').innerHTML = paginationHtml;
+    }
+    
+    window.goToPage = (page) => {
+        currentPage = page;
+        renderNewsGrid();
+        renderPagination();
+        window.scrollTo({ top: 600, behavior: 'smooth' });
+    };
+    
+    // Sidebar functions
+    async function loadTrendingNews() {
+        try {
+            const snapshot = await database.ref('news').orderByChild('views').limitToLast(5).once('value');
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI
+            
+            if (newsData) {
+                const trending = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0)); // ✅ DIPERBAIKI
+                const html = trending.map(item => `<li onclick="location.href='detail.html#${item.id}'">🔥 ${escapeHtml(item.title.substring(0, 60))}${item.title.length>60?'...':''}</li>`).join('');
+                document.getElementById('trendingList').innerHTML = html || '<li>Belum ada data trending</li>';
+            }
+        } catch(e) { console.error('Trending error:', e); }
+    }
+    
+    async function loadHotNews() {
+        try {
+            const snapshot = await database.ref('news').orderByChild('views').limitToLast(5).once('value');
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI
+            
+            if (newsData) {
+                const hot = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => (b.views||0) - (a.views||0)); // ✅ DIPERBAIKI
+                const html = hot.map(item => `<li onclick="location.href='detail.html#${item.id}'"><i class="fas fa-fire" style="color:#e74c3c"></i> ${escapeHtml(item.title.substring(0, 60))}${item.title.length>60?'...':''}</li>`).join('');
+                document.getElementById('hotList').innerHTML = html || '<li>Belum ada hot news</li>';
+            }
+        } catch(e) { console.error('Hot news error:', e); }
+    }
+    
+    async function loadShortNews() {
+        try {
+            const snapshot = await database.ref('news').orderByChild('date').limitToLast(5).once('value');
+            const newsData = snapshot.val(); // ✅ DIPERBAIKI
+            
+            if (newsData) {
+                const short = Object.entries(newsData).map(([id, data]) => ({ id, ...data })).sort((a,b) => new Date(b.date) - new Date(a.date)); // ✅ DIPERBAIKI
+                const html = short.map(item => `<li onclick="location.href='detail.html#${item.id}'">📌 ${escapeHtml(item.title.substring(0, 50))}${item.title.length>50?'...':''}</li>`).join('');
+                document.getElementById('shortNewsList').innerHTML = html || '<li>Belum ada flash news</li>';
+            }
+        } catch(e) { console.error('Short news error:', e); }
+    }
+    
+    // ==================== INSTALL HANDLER (HANYA 1X) ====================
+    let deferredPrompt;
+    let installModalShown = false;
 
+    // Tangkap event beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        console.log('✅ beforeinstallprompt captured');
+    });
+
+    function showInstallModalIfEligible() {
+        if (deferredPrompt && !installModalShown && !sessionStorage.getItem('installModalShown')) {
+            const modal = document.getElementById('installModalOverlay');
+            if (modal) {
+                modal.style.display = 'flex';
+                installModalShown = true;
+                sessionStorage.setItem('installModalShown', 'true');
+                console.log('📲 Install modal shown');
+            }
+        }
+    }
+
+    // Tombol Install di Modal
+    document.getElementById('btnInstallNow')?.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('Install outcome:', outcome);
+            deferredPrompt = null;
+        } else {
+            alert('Untuk menginstall:\n📱 Android: Menu browser → "Install app"\n🍎 iPhone: Share → "Tambahkan ke layar utama"');
+        }
+        document.getElementById('installModalOverlay').style.display = 'none';
+    });
+
+    document.getElementById('btnInstallLater')?.addEventListener('click', () => {
+        document.getElementById('installModalOverlay').style.display = 'none';
+    });
+
+    // Tombol Install di Footer
+    document.getElementById('installAppBtn')?.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('Install outcome:', outcome);
+            deferredPrompt = null;
+        } else {
+            alert('Untuk menginstall:\n📱 Android: Menu browser → "Install app"\n🍎 iPhone: Share → "Tambahkan ke layar utama"');
+        }
+    });
+
+    // Cek sessionStorage
+    if (sessionStorage.getItem('installModalShown') === 'true') {
+        installModalShown = true;
+    }
+    
+    // ==================== DARK MODE ====================
+    function initDarkMode() {
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark');
+            const icon = document.querySelector('#darkModeToggle i');
+            if (icon) icon.className = 'fas fa-sun';
+        }
+    }
+    
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        const icon = document.querySelector('#darkModeToggle i');
+        if (isDark) {
+            icon.className = 'fas fa-sun';
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            icon.className = 'fas fa-moon';
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    }
+    
     function updateDateTime() {
         const el = document.getElementById('datetime');
         if (el) el.innerHTML = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' });
     }
-    function initDarkMode() { if (localStorage.getItem('darkMode') === 'enabled') { document.body.classList.add('dark'); document.querySelector('#darkModeToggle i').className = 'fas fa-sun'; } }
-    function toggleDarkMode() { document.body.classList.toggle('dark'); const isDark = document.body.classList.contains('dark'); const icon = document.querySelector('#darkModeToggle i'); if (isDark) { icon.className='fas fa-sun'; localStorage.setItem('darkMode','enabled'); } else { icon.className='fas fa-moon'; localStorage.setItem('darkMode','disabled'); } }
+    
+    // Search
+    document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const query = e.target.value.trim();
+            if (query) window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+        }
+    });
+    
+    // ==================== INITIALIZE ====================
     document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
     initDarkMode();
-    loadDetail();
     updateDateTime();
     setInterval(updateDateTime, 60000);
+    
+    // Load data (gunakan try-catch global)
+    window.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Starting app...');
+        loadDetail().catch(err => console.error('Detail load failed:', err));
+        loadLatestNews().catch(err => console.error('Latest news load failed:', err));
+    });
+    
+    // Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered', reg))
-            .catch(err => console.log('Service Worker failed', err));
-    }
-</script>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('✅ SW registered', reg))
-      .catch(err => console.log('❌ SW failed', err));
-  }
-</script>
-<script>
-    // ========== LOGIC PWA INSTALL PROMPT ==========
-    let deferredPrompt;
-    const installBanner = document.getElementById('installBanner');
-    
-    // Tangkap event beforeinstallprompt (hanya muncul jika PWA memenuhi syarat)
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        // Tampilkan banner jika belum pernah ditutup
-        if (!localStorage.getItem('installBannerClosed')) {
-            installBanner.style.display = 'flex';
-        }
-    });
-    
-    // Fallback: jika tidak ada event dalam 3 detik (misal sudah terinstall atau browser不支持), tetap tampilkan banner untuk panduan manual
-    setTimeout(() => {
-        if (!deferredPrompt && !localStorage.getItem('installBannerClosed')) {
-            installBanner.style.display = 'flex';
-        }
-    }, 3000);
-    
-    // Tombol tutup banner
-    document.getElementById('closeBannerBtn').addEventListener('click', function() {
-        installBanner.style.display = 'none';
-        localStorage.setItem('installBannerClosed', 'true');
-    });
-    
-    // Tombol install - memicu prompt native jika tersedia
-    document.getElementById('installBtn').addEventListener('click', async function() {
-        if (deferredPrompt) {
-            // Munculkan dialog install native
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`Hasil install: ${outcome}`);
-            deferredPrompt = null;
-            // Sembunyikan banner setelah user memilih
-            installBanner.style.display = 'none';
-            localStorage.setItem('installBannerClosed', 'true');
-        } else {
-            // Fallback manual untuk iOS atau browser tanpa dukungan
-            alert('Untuk menginstall aplikasi:\n• Android: Buka menu browser → "Install app" / "Add to Home Screen"\n• iPhone: Buka Share → "Add to Home Screen"');
-            installBanner.style.display = 'none';
-            localStorage.setItem('installBannerClosed', 'true');
-        }
-    });
-    
-    // ========== REGISTRASI SERVICE WORKER ==========
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/NewsIndonesia/sw.js')
-            .then(reg => console.log('Service Worker berhasil didaftarkan', reg))
-            .catch(err => console.error('Service Worker gagal:', err));
+            .then(reg => console.log('✅ Service Worker registered'))
+            .catch(err => console.log('⚠️ Service Worker failed:', err));
     }
     
-    // ========== TOMBOL INSTALL APLIKASI | PWA ==========
-let deferredPrompt;
+    
+    
+    
+    // Galeri gambar dengan tampilan besar + thumbnail
+let galleryHtml = '';
+let allImages = [];
 
-// Tangkap event beforeinstallprompt
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    // Sembunyikan banner otomatis jika tidak ingin muncul (opsional)
-    // Tapi tetap biarkan tombol install manual aktif
-});
-
-// Fungsi untuk memicu install
-async function triggerInstall() {
-    if (deferredPrompt) {
-        // Tampilkan dialog install native
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response: ${outcome}`);
-        deferredPrompt = null;
-    } else {
-        // Fallback untuk browser yang tidak support atau PWA sudah terinstall
-        alert('Untuk menginstall aplikasi:\n\n• Android: Buka menu browser → "Install app" / "Tambahkan ke layar utama"\n• iPhone: Buka Share → "Tambahkan ke layar utama"');
-    }
+if (news.images && news.images.length) {
+    allImages = [...news.images];
+} else if (news.image && news.image.trim() !== '') {
+    allImages = [news.image];
 }
 
-// Pasang event listener ke tombol install
-const installBtn = document.getElementById('installAppBtn');
-if (installBtn) {
-    installBtn.addEventListener('click', triggerInstall);
+if (allImages.length > 0) {
+    let mainImageSrc = allImages[0];
+    let thumbnailsHtml = '';
+    if (allImages.length > 1) {
+        thumbnailsHtml = `<div class="thumbnail-list">` + 
+            allImages.map((img, idx) => `<img src="${img}" class="thumbnail ${idx === 0 ? 'active' : ''}" onclick="changeMainImage(${idx})" loading="lazy">`).join('') +
+            `</div>`;
+    }
+    galleryHtml = `
+        <div class="main-image-container">
+            <div class="main-image" onclick="openLightbox(0)">
+                <img id="mainGalleryImage" src="${mainImageSrc}" alt="Gambar utama">
+            </div>
+            ${thumbnailsHtml}
+        </div>
+    `;
 }
-</script>
+// Simpan daftar gambar untuk lightbox
+window.currentGalleryImages = allImages;
+    
+    
+    
+    
+    
+    
+    
+    // Fungsi untuk mengganti gambar utama saat thumbnail diklik
+window.changeMainImage = (index) => {
+    const mainImg = document.getElementById('mainGalleryImage');
+    if (mainImg && window.currentGalleryImages && window.currentGalleryImages[index]) {
+        mainImg.src = window.currentGalleryImages[index];
+        // Update active class pada thumbnail
+        document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+            if (i === index) thumb.classList.add('active');
+            else thumb.classList.remove('active');
+        });
+    }
+};
 
+// Ganti fungsi openLightbox agar mendukung navigasi gallery
+window.openLightbox = (startIndex = 0) => {
+    let images = window.currentGalleryImages;
+    if (!images || !images.length) return;
+    let currentIndex = startIndex;
+    let lb = document.getElementById('lightbox');
+    if (!lb) {
+        lb = document.createElement('div');
+        lb.id = 'lightbox';
+        lb.className = 'lightbox';
+        lb.innerHTML = `
+            <span class="lightbox-close">&times;</span>
+            <img id="lightboxImg" src="">
+        `;
+        document.body.appendChild(lb);
+        lb.querySelector('.lightbox-close').onclick = () => lb.style.display = 'none';
+        lb.onclick = (e) => { if (e.target === lb) lb.style.display = 'none'; };
+        // Tambahkan tombol prev/next jika ada lebih dari 1 gambar
+        if (images.length > 1) {
+            let prevBtn = document.createElement('button');
+            prevBtn.innerHTML = '❮';
+            prevBtn.style.position = 'absolute';
+            prevBtn.style.left = '20px';
+            prevBtn.style.top = '50%';
+            prevBtn.style.transform = 'translateY(-50%)';
+            prevBtn.style.background = 'rgba(0,0,0,0.6)';
+            prevBtn.style.color = 'white';
+            prevBtn.style.border = 'none';
+            prevBtn.style.fontSize = '2rem';
+            prevBtn.style.padding = '10px 18px';
+            prevBtn.style.cursor = 'pointer';
+            prevBtn.style.borderRadius = '50%';
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                document.getElementById('lightboxImg').src = images[currentIndex];
+            };
+            lb.appendChild(prevBtn);
+            
+            let nextBtn = document.createElement('button');
+            nextBtn.innerHTML = '❯';
+            nextBtn.style.position = 'absolute';
+            nextBtn.style.right = '20px';
+            nextBtn.style.top = '50%';
+            nextBtn.style.transform = 'translateY(-50%)';
+            nextBtn.style.background = 'rgba(0,0,0,0.6)';
+            nextBtn.style.color = 'white';
+            nextBtn.style.border = 'none';
+            nextBtn.style.fontSize = '2rem';
+            nextBtn.style.padding = '10px 18px';
+            nextBtn.style.cursor = 'pointer';
+            nextBtn.style.borderRadius = '50%';
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex + 1) % images.length;
+                document.getElementById('lightboxImg').src = images[currentIndex];
+            };
+            lb.appendChild(nextBtn);
+        }
+    }
+    document.getElementById('lightboxImg').src = images[currentIndex];
+    lb.style.display = 'flex';
+};
+    
+    
+    
+    
+    
+    
+    
+    
+</script>
+<script>
+// Ambil parameter dari URL atau data berita
+const urlParams = new URLSearchParams(window.location.search);
+const judulBerita = urlParams.get('judul') || "Judul Berita Default";
+const deskripsiBerita = urlParams.get('desc') || "Deskripsi berita lengkap disini...";
+const gambarBerita = urlParams.get('gambar') || "https://portalinsight.github.io/NewsIndonesia/Images/default.jpg";
+
+// Update meta tags
+document.getElementById('ogTitle').setAttribute('content', judulBerita);
+document.getElementById('ogDesc').setAttribute('content', deskripsiBerita);
+document.getElementById('ogImage').setAttribute('content', gambarBerita);
+document.getElementById('twitterTitle').setAttribute('content', judulBerita);
+document.getElementById('twitterDesc').setAttribute('content', deskripsiBerita);
+document.getElementById('twitterImage').setAttribute('content', gambarBerita);
+document.getElementById('ogUrl').setAttribute('content', window.location.href);
+
+// Update title browser
+document.title = judulBerita + " - Insight News Indonesia";
+</script>
 </body>
 </html>
